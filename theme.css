@@ -77,6 +77,46 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   min-height: 100vh;
+  position: relative;
+}
+
+/* Stemma del Comune di Martina Franca — watermark a rilievo */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: url('stemma-martina-franca.svg');
+  background-repeat: no-repeat;
+  background-position: center 35%;
+  background-size: min(70vh, 90vw) auto;
+  opacity: 0.020;
+  pointer-events: none;
+  z-index: -1;
+  mix-blend-mode: screen;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: url('stemma-martina-franca.svg');
+  background-repeat: no-repeat;
+  background-position: calc(50% + 1px) calc(35% + 1px);
+  background-size: min(70vh, 90vw) auto;
+  opacity: 0.012;
+  pointer-events: none;
+  z-index: -1;
+  mix-blend-mode: overlay;
+}
+
+/* Exclude password gate and very small screens from watermark distraction */
+@media (max-width: 640px) {
+  body::before, body::after {
+    opacity: 0.008;
+    background-size: 50vh auto;
+  }
 }
 
 /* ---------- GLOBAL NAVIGATION BAR ---------- */
@@ -530,6 +570,11 @@ li {
 @media print {
   /* --- HIDE screen-only elements --- */
   .global-nav, .global-footer, .no-print, .pdf-bar, .pdf-overlay {
+    display: none !important;
+  }
+
+  /* --- Hide watermark --- */
+  body::before, body::after {
     display: none !important;
   }
 
