@@ -44,6 +44,7 @@ body {
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+  transform-origin: top left;
 }
 
 /* ========== COMMON ELEMENTS ========== */
@@ -169,6 +170,26 @@ body {
   flex-direction: column;
   height: 100%;
   padding: 0 50px;
+}
+
+/* ========== RESPONSIVE SCALING ========== */
+.post-wrapper {
+  width: 100%;
+  max-width: 1080px;
+  overflow: visible;
+}
+
+@media (max-width: 1140px) {
+  body { padding: 20px 10px; }
+  .slide-container { margin-bottom: 40px; }
+  .slide-number { font-size: 10px; margin-bottom: 8px; }
+}
+
+/* Mobile adjustments for text elements outside the post */
+@media (max-width: 600px) {
+  body { padding: 12px 8px; }
+  .slide-container { margin-bottom: 30px; }
+  .slide-number { font-size: 9px; margin-bottom: 6px; }
 }
 
 /* ================================================================
@@ -1000,6 +1021,7 @@ body {
 <!-- ============================================================ -->
 <div class="slide-container">
   <div class="slide-number">01 / 05 · Lancio</div>
+  <div class="post-wrapper">
   <div class="post">
     <div class="bg-deep"></div>
     <div class="pattern-grid"></div>
@@ -1071,19 +1093,19 @@ body {
         <span class="bottom-text">Un progetto pilota per Martina Franca</span>
       </div>
       <div class="bottom-right">
-        <span class="bottom-right-item">MARTINA APERTA</span>
+        <span class="bottom-right-item">ANDREA MAGGI</span>
         <span class="bottom-right-item">·</span>
         <span class="bottom-right-item">2026</span>
       </div>
     </div>
   </div>
 </div>
+</div>
 
-<!-- ============================================================ -->
-<!-- SLIDE 2 — CRITICITÀ -->
-<!-- ============================================================ -->
+
 <div class="slide-container">
   <div class="slide-number">02 / 05 · Criticità</div>
+  <div class="post-wrapper">
   <div class="post">
     <div class="bg-deep"></div>
     <div class="pattern-grid"></div>
@@ -1220,19 +1242,21 @@ body {
         <span class="bottom-text">Analisi tecnica · Giugno 2026</span>
       </div>
       <div class="bottom-right">
-        <span class="bottom-right-item">MARTINA APERTA</span>
+        <span class="bottom-right-item">ANDREA MAGGI</span>
         <span class="bottom-right-item">·</span>
         <span class="bottom-right-item">PL9</span>
       </div>
     </div>
   </div>
 </div>
+  </div>
 
 <!-- ============================================================ -->
 <!-- SLIDE 3 — SOLUZIONE -->
 <!-- ============================================================ -->
 <div class="slide-container">
   <div class="slide-number">03 / 05 · Soluzione</div>
+  <div class="post-wrapper">
   <div class="post">
     <div class="bg-deep"></div>
     <div class="pattern-grid"></div>
@@ -1319,19 +1343,21 @@ body {
         <span class="bottom-text">Progetto pilota · Giugno 2026</span>
       </div>
       <div class="bottom-right">
-        <span class="bottom-right-item">MARTINA APERTA</span>
+        <span class="bottom-right-item">ANDREA MAGGI</span>
         <span class="bottom-right-item">·</span>
         <span class="bottom-right-item">PL9</span>
       </div>
     </div>
   </div>
 </div>
+  </div>
 
 <!-- ============================================================ -->
 <!-- SLIDE 4 — CONFRONTO -->
 <!-- ============================================================ -->
 <div class="slide-container">
   <div class="slide-number">04 / 05 · Confronto</div>
+  <div class="post-wrapper">
   <div class="post">
     <div class="bg-deep"></div>
     <div class="pattern-grid"></div>
@@ -1443,19 +1469,21 @@ body {
         <span class="bottom-text">Analisi multicriteria · Giugno 2026</span>
       </div>
       <div class="bottom-right">
-        <span class="bottom-right-item">MARTINA APERTA</span>
+        <span class="bottom-right-item">ANDREA MAGGI</span>
         <span class="bottom-right-item">·</span>
         <span class="bottom-right-item">PL9</span>
       </div>
     </div>
   </div>
 </div>
+  </div>
 
 <!-- ============================================================ -->
 <!-- SLIDE 5 — PIANO -->
 <!-- ============================================================ -->
 <div class="slide-container">
   <div class="slide-number">05 / 05 · Piano</div>
+  <div class="post-wrapper">
   <div class="post">
     <div class="bg-deep"></div>
     <div class="pattern-grid"></div>
@@ -1593,13 +1621,29 @@ body {
         <span class="bottom-text">Piano economico · Giugno 2026</span>
       </div>
       <div class="bottom-right">
-        <span class="bottom-right-item">MARTINA APERTA</span>
+        <span class="bottom-right-item">ANDREA MAGGI</span>
         <span class="bottom-right-item">·</span>
         <span class="bottom-right-item">PL9</span>
       </div>
     </div>
   </div>
 </div>
+  </div>
+
+<script>
+// Scale Instagram posts to fit viewport width
+function scalePosts() {
+  document.querySelectorAll('.post-wrapper').forEach(function(wrapper) {
+    var post = wrapper.querySelector('.post');
+    if (!post) return;
+    var scale = Math.min(1, wrapper.offsetWidth / 1080);
+    post.style.transform = 'scale(' + scale + ')';
+    wrapper.style.height = (1350 * scale) + 'px';
+  });
+}
+window.addEventListener('DOMContentLoaded', scalePosts);
+window.addEventListener('resize', scalePosts);
+</script>
 
 </body>
 </html>
