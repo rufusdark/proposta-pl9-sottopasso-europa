@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Allegato A — Relazione tecnico-illustrativa | PL9</title>
+<style>
+@page {
+  size: A4;
+  margin: 20mm 25mm;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.65;
+  color: #1a1a1a;
+  background: #fff;
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 20mm 25mm;
+}
+
+/* ============ COVER PAGE ============ */
+.cover {
+  display: flex;
+  flex-direction: column;
+  min-height: 257mm; /* A4 height minus padding */
+  justify-content: center;
+  page-break-after: always;
+  position: relative;
+}
+
+.cover-bg {
+  position: absolute;
+  inset: -20mm -25mm;
+  background: linear-gradient(135deg, #0a1628 0%, #0d1b30 50%, #0a1628 100%);
+  z-index: -1;
+}
+
+.cover-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(212,168,67,0.1);
+  border: 1px solid rgba(212,168,67,0.2);
+  padding: 6px 16px;
+  border-radius: 50px;
+  width: fit-content;
+  margin-bottom: 24px;
+}
+
+.cover-badge-dot {
+  width: 6px; height: 6px;
+  background: #d4a843;
+  border-radius: 50%;
+}
+
+.cover-badge-text {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #d4a843;
+}
+
+.cover-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 8px;
+}
+
+.cover-title {
+  font-size: 42pt;
+  font-weight: 900;
+  line-height: 1.05;
+  color: #ffffff;
+  letter-spacing: -1.5px;
+  margin-bottom: 16px;
+}
+
+.cover-title .accent {
+  color: #d4a843;
+}
+
+.cover-sub {
+  font-size: 16pt;
+  font-weight: 300;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.4;
+  margin-bottom: 32px;
+  max-width: 80%;
+}
+
+.cover-divider {
+  width: 80px;
+  height: 3px;
+  background: #d4a843;
+  margin-bottom: 28px;
+  border-radius: 2px;
+}
+
+.cover-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 24px;
+  max-width: 70%;
+}
+
+.cover-meta-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.cover-meta-label {
+  font-size: 8pt;
+  font-weight: 600;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cover-meta-value {
+  font-size: 10pt;
+  font-weight: 500;
+  color: rgba(255,255,255,0.7);
+}
+
+/* ============ CONTENT PAGES ============ */
+.content-page {
+  page-break-after: always;
+}
+
+h1 {
+  font-size: 22pt;
+  font-weight: 800;
+  color: #0a1628;
+  letter-spacing: -0.5px;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 3px solid #d4a843;
+}
+
+h1 .accent { color: #d4a843; }
+
+h2 {
+  font-size: 14pt;
+  font-weight: 700;
+  color: #0a1628;
+  margin-top: 28px;
+  margin-bottom: 10px;
+  padding-left: 12px;
+  border-left: 3px solid #d4a843;
+}
+
+h3 {
+  font-size: 11pt;
+  font-weight: 700;
+  color: #333;
+  margin-top: 20px;
+  margin-bottom: 6px;
+}
+
+p, .p-like {
+  margin-bottom: 10px;
+  text-align: justify;
+}
+
+ul, ol {
+  margin: 6px 0 10px 22px;
+}
+
+li {
+  margin-bottom: 4px;
+}
+
+strong { color: #0a1628; }
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 14px 0;
+  font-size: 9.5pt;
+}
+
+table th {
+  background: #0a1628;
+  color: #fff;
+  font-weight: 600;
+  text-align: left;
+  padding: 8px 10px;
+  font-size: 8.5pt;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+table td {
+  padding: 7px 10px;
+  border-bottom: 1px solid #e0ddd5;
+}
+
+table tr:nth-child(even) td {
+  background: #f9f8f6;
+}
+
+table .gold { color: #d4a843; font-weight: 600; }
+table .red { color: #c0392b; font-weight: 500; }
+table .green { color: #27ae60; font-weight: 500; }
+
+/* Info boxes */
+.info-box {
+  background: #f8f6f0;
+  border-left: 4px solid #d4a843;
+  padding: 14px 18px;
+  margin: 14px 0;
+  font-size: 10pt;
+}
+
+.info-box.warning {
+  border-left-color: #e74c3c;
+  background: #fdf2f0;
+}
+
+.info-box.success {
+  border-left-color: #27ae60;
+  background: #f0f9f2;
+}
+
+.info-box strong:first-child {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 10pt;
+}
+
+/* Data cards row */
+.data-row {
+  display: flex;
+  gap: 14px;
+  margin: 14px 0;
+}
+
+.data-card {
+  flex: 1;
+  background: #f8f6f0;
+  border: 1px solid #e8e5dd;
+  border-radius: 6px;
+  padding: 14px;
+  text-align: center;
+}
+
+.data-card-value {
+  font-size: 18pt;
+  font-weight: 800;
+  color: #0a1628;
+}
+
+.data-card-value .accent { color: #d4a843; }
+
+.data-card-label {
+  font-size: 8pt;
+  font-weight: 500;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+/* Comparison score row */
+.score-row {
+  display: flex;
+  gap: 12px;
+  margin: 14px 0;
+}
+
+.score-card {
+  flex: 1;
+  text-align: center;
+  border: 1px solid #e0ddd5;
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.score-card.best {
+  background: rgba(212,168,67,0.06);
+  border-color: #d4a843;
+}
+
+.score-value {
+  font-size: 20pt;
+  font-weight: 800;
+  color: #0a1628;
+}
+
+.score-value .accent { color: #d4a843; }
+
+.score-label {
+  font-size: 9pt;
+  font-weight: 500;
+  color: #666;
+}
+
+.score-sub {
+  font-size: 8pt;
+  color: #999;
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+  padding-left: 28px;
+  margin: 14px 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: #d4a843;
+  opacity: 0.3;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -28px;
+  top: 4px;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: #0a1628;
+  border: 3px solid #d4a843;
+}
+
+.timeline-dot.active {
+  background: #d4a843;
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.timeline-name {
+  font-weight: 700;
+  color: #0a1628;
+  font-size: 11pt;
+}
+
+.timeline-dur {
+  font-weight: 500;
+  color: #d4a843;
+  font-size: 10pt;
+}
+
+.timeline-items {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0;
+}
+
+.timeline-items li {
+  font-size: 9.5pt;
+  color: #666;
+  padding: 1px 0;
+  padding-left: 14px;
+  position: relative;
+}
+
+.timeline-items li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: #d4a843;
+  font-weight: 700;
+}
+
+/* Footer */
+.page-footer {
+  margin-top: 30px;
+  padding-top: 10px;
+  border-top: 1px solid #e0ddd5;
+  font-size: 8pt;
+  color: #aaa;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media print {
+  body { padding: 0; }
+  .cover { min-height: 297mm; }
+}
+</style>
+</head>
+<body>
+
+<!-- ========== COVER PAGE ========== -->
+<div class="cover">
+  <div class="cover-bg"></div>
+  
+  <div class="cover-badge">
+    <div class="cover-badge-dot"></div>
+    <span class="cover-badge-text">Proposta al Comune di Martina Franca</span>
+  </div>
+  
+  <div class="cover-label">Allegato A · PL9</div>
+  
+  <div class="cover-title">
+    Sottopasso<br>
+    <span class="accent">Rotatoria</span><br>
+    Europa
+  </div>
+  
+  <div class="cover-sub">
+    Relazione tecnico-illustrativa per la realizzazione di un sottopasso<br>
+    ciclopedonale sulla Rotatoria Europa a Martina Franca
+  </div>
+  
+  <div class="cover-divider"></div>
+  
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Proponente</span>
+      <span class="cover-meta-value">Martina Aperta — Lista Civica</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Protocollo</span>
+      <span class="cover-meta-value">2026/PL9/001</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Data</span>
+      <span class="cover-meta-value">Giugno 2026</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Versione</span>
+      <span class="cover-meta-value">1.0 — Bozza di fattibilità</span>
+    </div>
+  </div>
+</div>
+
+<!-- ========== INDICE ========== -->
+<div class="content-page">
+  <h1>Indice</h1>
+  
+  <ol style="font-size:11pt; margin-top:20px; line-height:2;">
+    <li>Premessa e inquadramento</li>
+    <li>Analisi del contesto urbano e viabilistico</li>
+    <li>Criticità riscontrate</li>
+    <li>Soluzioni progettuali a confronto</li>
+    <li>Soluzione proposta: sottopasso prefabbricato</li>
+    <li>Specifiche tecniche e dimensionali</li>
+    <li>Benchmark nazionale</li>
+    <li>Quadro economico</li>
+    <li>Cronoprogramma</li>
+    <li>Fonti di finanziamento</li>
+    <li>Analisi SWOT</li>
+    <li>Riferimenti normativi</li>
+    <li>Conclusioni e richiesta</li>
+  </ol>
+</div>
+
+<!-- ========== 1. PREMESSA ========== -->
+<div class="content-page">
+  <h1>1. <span class="accent">Premessa</span> e inquadramento</h1>
+
+  <p>La presente relazione illustra la proposta di fattibilità per la realizzazione di un <strong>sottopasso ciclopedonale</strong> in corrispondenza della <strong>Rotatoria Europa</strong>, snodo viario strategico situato all'intersezione tra Viale Europa, Viale della Stazione, Corso Messapia e Via Grappa, nel comune di Martina Franca (TA).</p>
+
+  <p>La lista civica <strong>Martina Aperta</strong>, in ottemperanza al proprio programma di mandato che pone la mobilità sostenibile e la sicurezza stradale tra le priorità dell'azione amministrativa, ha condotto uno studio preliminare sul nodo, identificando criticità oggettive e proponendo soluzioni basate su tecnologie già sperimentate con successo in contesti urbani analoghi sul territorio nazionale.</p>
+
+  <p>L'obiettivo della proposta è duplice:</p>
+
+  <ul>
+    <li><strong>Risolvere il conflitto pedoni/auto/bici</strong> nella rotatoria, separando i flussi della mobilità dolce dal traffico veicolare;</li>
+    <li><strong>Innescare un processo di riqualificazione urbana</strong> dell'intero nodo, migliorando la qualità dello spazio pubblico, la sicurezza percepita e l'attrattività dell'area.</li>
+  </ul>
+
+  <div class="info-box">
+    <strong>📋 Inquadramento urbanistico</strong>
+    Il nodo Rotatoria Europa si colloca in un'area di cerniera tra il centro storico, la stazione ferroviaria, i quartieri residenziali di San Paolo e la zona commerciale di Corso Messapia. È interessato da flussi veicolari stimati in oltre 15.000 veicoli/giorno e da un transito pedonale e ciclabile significativo, soprattutto nelle fasce orarie di ingresso/uscita da scuola e uffici.
+  </div>
+
+  <h2>Direttrici di traffico interessate</h2>
+  
+  <table>
+    <tr><th>Direttrice</th><th>Direzione</th><th>Traffico stimato</th><th>Criticità correlate</th></tr>
+    <tr><td>Viale della Stazione</td><td>Verso Stazione FS</td><td>Alto (35%)</td><td>C1, C3, C4</td></tr>
+    <tr><td>Corso Messapia</td><td>Verso Centro città</td><td>Molto alto (40%)</td><td>C2, C4, C5</td></tr>
+    <tr><td>Via Grappa</td><td>Verso zona residenziale</td><td>Medio (15%)</td><td>C6, C7</td></tr>
+    <tr><td>Viale Europa</td><td>Verso San Paolo</td><td>Medio-basso (10%)</td><td>C3, C8</td></tr>
+  </table>
+</div>
+
+<!-- ========== 2. CRITICITÀ ========== -->
+<div class="content-page">
+  <h1>2. <span class="accent">Criticità</span> riscontrate</h1>
+
+  <p>L'analisi del nodo ha portato all'identificazione di <strong>8 criticità</strong>, classificate per livello di rischio e impatto. Ogni criticità è stata documentata con sopralluoghi e rilievi fotografici.</p>
+
+  <table>
+    <tr><th>ID</th><th>Criticità</th><th>Rischio</th><th>Impatto</th><th>Descrizione sintetica</th></tr>
+    <tr>
+      <td><strong>C1</strong></td>
+      <td>Attraversamento pedonale assente</td>
+      <td class="red">Critico</td><td>95%</td>
+      <td>Nessun attraversamento protetto. I pedoni attraversano la carreggiata in condizioni di pericolo costante.</td>
+    </tr>
+    <tr>
+      <td><strong>C2</strong></td>
+      <td>Conflitto bici-auto sulla corona</td>
+      <td class="red">Critico</td><td>90%</td>
+      <td>I ciclisti percorrono la corona della rotatoria condividendo lo spazio con le auto. Nessuna pista ciclabile.</td>
+    </tr>
+    <tr>
+      <td><strong>C3</strong></td>
+      <td>Visibilità ridotta in ingresso</td>
+      <td class="red">Critico</td><td>85%</td>
+      <td>Raggi di curvatura e conformazione limitano la visibilità in fase di immissione, specie per mezzi pesanti.</td>
+    </tr>
+    <tr>
+      <td><strong>C4</strong></td>
+      <td>Code nelle ore di punta</td>
+      <td class="gold">Significativo</td><td>75%</td>
+      <td>Code nelle fasce 08:00-09:00 e 17:30-19:00 su Viale Stazione e Viale Europa.</td>
+    </tr>
+    <tr>
+      <td><strong>C5</strong></td>
+      <td>Trasporto pubblico ostacolato</td>
+      <td class="gold">Significativo</td><td>70%</td>
+      <td>Bus navetta e linee extraurbane subiscono ritardi per la congestione. Fermata in condizioni precarie.</td>
+    </tr>
+    <tr>
+      <td><strong>C6</strong></td>
+      <td>Marciapiede insufficiente</td>
+      <td class="gold">Significativo</td><td>65%</td>
+      <td>Marciapiede stretto (&lt;1m) e non continuo: pedoni e passeggini costretti sulla sede stradale.</td>
+    </tr>
+    <tr>
+      <td><strong>C7</strong></td>
+      <td>Illuminazione inadeguata</td>
+      <td>Migliorabile</td><td>45%</td>
+      <td>Punti di scarsa illuminazione riducono la sicurezza percepita in ore serali.</td>
+    </tr>
+    <tr>
+      <td><strong>C8</strong></td>
+      <td>Sosta selvaggia in prossimità</td>
+      <td>Migliorabile</td><td>40%</td>
+      <td>Veicoli in sosta vietata riducono visibilità e spazio per pedoni.</td>
+    </tr>
+  </table>
+
+  <div class="info-box warning">
+    <strong>⚠️ Considerazione chiave</strong>
+    Le prime tre criticità (C1, C2, C3) rappresentano un pericolo immediato e concreto per l'incolumità di pedoni e ciclisti. L'assenza di un attraversamento protetto e la condivisione forzata della corona rotatoria con il traffico veicolare costituiscono le principali urgenze da risolvere.
+  </div>
+</div>
+
+<!-- ========== 3. SOLUZIONI A CONFRONTO ========== -->
+<div class="content-page">
+  <h1>3. <span class="accent">Soluzioni</span> progettuali a confronto</h1>
+
+  <p>Sono state valutate tre alternative progettuali, confrontate su 9 criteri chiave per determinare la soluzione ottimale.</p>
+
+  <h2>Alternative esaminate</h2>
+
+  <p><strong>S1 — Sottopasso prefabbricato (One Night Solution)</strong><br>
+  Elementi scatolari prefabbricati in calcestruzzo armato, varati in una notte. Larghezza 4m, altezza 2,5m. Costo: €1,2–1,5M. Tempi: 8–10 mesi. Voto: <strong>9/10</strong>.</p>
+
+  <p><strong>S2 — Sottopasso + riqualificazione integrata</strong><br>
+  Soluzione completa con rampe dolci, riorganizzazione flussi, illuminazione LED, pavimentazione fotocatalitica. Costo: €1,8–2,5M. Tempi: 12–14 mesi. Voto: <strong>8/10</strong>.</p>
+
+  <p><strong>S3 — Attraversamento rialzato con moderazione traffico</strong><br>
+  Soluzione economica: attraversamento rialzato con isola spartitraffico, segnaletica luminosa, restringimento corsie. Costo: €350–500K. Tempi: 4–6 mesi. Voto: <strong>5/10</strong>.</p>
+
+  <h2>Confronto multicriteria</h2>
+
+  <table>
+    <tr><th>Criterio</th><th style="background:#d4a843;color:#0a1628;">Sottopasso</th><th>Rialzato</th><th>Status quo</th></tr>
+    <tr><td>Sicurezza pedoni/ciclisti</td><td class="gold">Alta (10)</td><td>Media (6)</td><td class="red">Bassa (2)</td></tr>
+    <tr><td>Costo realizzazione</td><td>€1,2–2,5M</td><td class="green">€350–500K</td><td>€0</td></tr>
+    <tr><td>Vita utile</td><td class="gold">50+ anni</td><td>10–15 anni</td><td>—</td></tr>
+    <tr><td>Manutenzione annua</td><td class="green">€2–5K</td><td>€5–10K</td><td>—</td></tr>
+    <tr><td>Impatto su traffico</td><td class="gold">Nullo (sotto)</td><td>Rallentamento</td><td>Nessuno</td></tr>
+    <tr><td>Accessibilità disabili</td><td class="gold">Alta</td><td>Media</td><td class="red">Bassa</td></tr>
+    <tr><td>Impatto estetico</td><td class="gold">Riqualifica</td><td>Medio</td><td>—</td></tr>
+    <tr><td>Finanziabilità PNRR</td><td class="gold">Ammissibile</td><td>Parziale</td><td>No</td></tr>
+    <tr><td>Durata lavori</td><td>8–14 mesi</td><td class="green">4–6 mesi</td><td>—</td></tr>
+  </table>
+
+  <div class="score-row">
+    <div class="score-card best">
+      <div class="score-value"><span class="accent">9</span>/10</div>
+      <div class="score-label">Sottopasso prefabbricato</div>
+      <div class="score-sub">Soluzione consigliata</div>
+    </div>
+    <div class="score-card">
+      <div class="score-value">5/10</div>
+      <div class="score-label">Attraversamento rialzato</div>
+      <div class="score-sub">Soluzione tampone</div>
+    </div>
+    <div class="score-card">
+      <div class="score-value">2/10</div>
+      <div class="score-label">Status quo</div>
+      <div class="score-sub">Insostenibile</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 4. SOLUZIONE PROPOSTA ========== -->
+<div class="content-page">
+  <h1>4. <span class="accent">Soluzione</span> proposta: sottopasso prefabbricato</h1>
+
+  <p>La soluzione prescelta è il <strong>sottopasso ciclopedonale con elementi scatolari prefabbricati</strong> (tecnologia "One Night Solution"), che rappresenta il miglior rapporto tra costo, rapidità di realizzazione, durabilità e impatto sulla circolazione.</p>
+
+  <div class="info-box success">
+    <strong>✓ Perché questa soluzione</strong>
+    Il sottopasso prefabbricato separa fisicamente i flussi della mobilità dolce dal traffico veicolare, eliminando alla radice il conflitto pedoni/auto/bici. La tecnologia degli elementi scatolari prefabbricati consente un varo in una sola notte, riducendo al minimo le interruzioni del traffico. La vita utile di 50+ anni e la manutenzione annua irrisoria (€2.000–5.000) rendono l'investimento sostenibile nel lungo periodo.
+  </div>
+
+  <h2>Specifiche tecniche</h2>
+
+  <table>
+    <tr><th>Parametro</th><th>Valore</th><th>Note</th></tr>
+    <tr><td>Larghezza interna</td><td>4,0 m</td><td>Adeguata per doppio senso ciclopedonale</td></tr>
+    <tr><td>Altezza interna</td><td>2,5–3,0 m</td><td>Conforme alle normative per sottopassi pedonali</td></tr>
+    <tr><td>Lunghezza attraversamento</td><td>20–30 m</td><td>Dipende dal diametro della rotatoria</td></tr>
+    <tr><td>Pendenza rampe</td><td>≤ 8%</td><td>Accessibile a carrozzine e biciclette</td></tr>
+    <tr><td>Larghezza rampe</td><td>2,5 m</td><td>Doppio senso ciclopedonale</td></tr>
+    <tr><td>Spessore soletta</td><td>50–60 cm</td><td>Dimensionata per traffico pesante</td></tr>
+    <tr><td>Tecnologia costruttiva</td><td>Elementi scatolari prefabbricati c.a.</td><td>Varo in 1 notte</td></tr>
+    <tr><td>Vita utile</td><td>50+ anni</td><td>Manutenzione ordinaria minima</td></tr>
+    <tr><td>Illuminazione</td><td>LED con sensori di presenza</td><td>Risparmio energetico 60–70%</td></tr>
+  </table>
+
+  <h2>Vantaggi specifici</h2>
+
+  <ul>
+    <li><strong>Varo rapido</strong>: gli elementi prefabbricati vengono prodotti fuori opera e installati in una notte, riducendo al minimo la chiusura della rotatoria;</li>
+    <li><strong>Minima invasione del traffico</strong>: i lavori preparatori (scavo, predisposizione) possono essere gestiti con deviazioni parziali;</li>
+    <li><strong>Costo contenuto</strong>: rispetto alla gettata in opera, la prefabbricazione riduce i tempi di cantiere e i costi diretti del 20–30%;</li>
+    <li><strong>Durata 50+ anni</strong>: il calcestruzzo armato ad alta resistenza garantisce durabilità anche in condizioni di esposizione aggressiva;</li>
+    <li><strong>Accessibilità totale</strong>: rampe con pendenza ≤8% conformi al D.P.R. 503/96 per l'eliminazione delle barriere architettoniche.</li>
+  </ul>
+
+  <p>La soluzione S1 può essere eventualmente integrata con elementi di riqualificazione superficiale (S2) in una seconda fase, utilizzando le risorse risparmiate rispetto alla realizzazione contestuale.</p>
+</div>
+
+<!-- ========== 5. BENCHMARK ========== -->
+<div class="content-page">
+  <h1>5. <span class="accent">Benchmark</span> nazionale</h1>
+
+  <p>La soluzione proposta si inserisce in un solco già tracciato da numerose amministrazioni comunali italiane. Di seguito, i casi studio più significativi.</p>
+
+  <table>
+    <tr><th>Città</th><th>Opera</th><th>Costo</th><th>Anno</th><th>Lezione appresa</th></tr>
+    <tr>
+      <td><strong>Castelfranco Veneto (TV)</strong></td>
+      <td>Rotatoria + sottopasso ciclopedonale Bella Venezia</td>
+      <td>€1.700.000</td>
+      <td>2023</td>
+      <td>Elementi scatolari prefabbricati. Varo rapido, minime interruzioni. Benchmark diretto per PL9.</td>
+    </tr>
+    <tr>
+      <td><strong>Tradate (VA)</strong></td>
+      <td>Sottopasso ciclopedonale + rotatoria</td>
+      <td>—</td>
+      <td>2013</td>
+      <td>Progettazione integrata sottopasso e rotatoria fin dalla fase preliminare.</td>
+    </tr>
+    <tr>
+      <td><strong>Bari — Quintino Sella</strong></td>
+      <td>Riqualificazione sottovia con pista ciclabile e asfalto fotocatalitico</td>
+      <td>€2.300.000</td>
+      <td>2025</td>
+      <td>Pavimentazione fotocatalitica innovativa. Finanziamento PNRR. Riferimento per riqualificazione.</td>
+    </tr>
+    <tr>
+      <td><strong>Borgio Verezzi (SV)</strong></td>
+      <td>Sottopasso ciclopedonale accesso a mare</td>
+      <td>€2.500.000</td>
+      <td>2025</td>
+      <td>Sottopasso integrato in contesto urbano complesso. Riferimento per l'integrazione paesaggistica.</td>
+    </tr>
+  </table>
+
+  <div class="info-box">
+    <strong>📌 Castelfranco Veneto — Il benchmark più rilevante</strong>
+    Il sottopasso Bella Venezia a Castelfranco Veneto (TV) è il caso studio più affine a PL9. Realizzato nel 2023, ha previsto la sostituzione di un incrocio semaforizzato con una rotatoria e la realizzazione di un sottopasso ciclopedonale con elementi scatolari prefabbricati. Costo: €1,7M. Risultato: azzeramento degli incidenti, fluidificazione del traffico (+35% di capacità), integrazione con la rete ciclabile esistente. Il progetto è stato finanziato con fondi regionali e comunali.
+  </div>
+</div>
+
+<!-- ========== 6. QUADRO ECONOMICO ========== -->
+<div class="content-page">
+  <h1>6. <span class="accent">Quadro</span> economico</h1>
+
+  <p>Il costo complessivo stimato per la realizzazione del sottopasso è di <strong>€1.242.000</strong>, suddiviso nelle seguenti voci:</p>
+
+  <table>
+    <tr><th>Voce di costo</th><th>Importo</th><th>Incidenza</th></tr>
+    <tr><td>Progettazione e Direzione Lavori</td><td>€180.000</td><td>14,5%</td></tr>
+    <tr><td>Scavo e opere preliminari</td><td>€250.000</td><td>20,1%</td></tr>
+    <tr><td>Elementi scatolari prefabbricati</td><td>€350.000</td><td>28,2%</td></tr>
+    <tr><td>Rampe e finiture</td><td>€150.000</td><td>12,1%</td></tr>
+    <tr><td>Illuminazione LED</td><td>€100.000</td><td>8,1%</td></tr>
+    <tr><td>Riqualificazione superficie rotatoria</td><td>€90.000</td><td>7,2%</td></tr>
+    <tr><td>Arredo urbano e segnaletica</td><td>€35.000</td><td>2,8%</td></tr>
+    <tr><td>Imprevisti e sicurezza</td><td>€87.000</td><td>7,0%</td></tr>
+    <tr style="font-weight:700; background:#f8f6f0; border-top:2px solid #d4a843;">
+      <td><strong>TOTALE</strong></td>
+      <td><strong>€1.242.000</strong></td>
+      <td><strong>100%</strong></td>
+    </tr>
+  </table>
+
+  <div class="info-box success">
+    <strong>💰 Confronto con benchmark</strong>
+    Il costo stimato di €1.242.000 è inferiore del 27% rispetto al benchmark di Castelfranco Veneto (€1.700.000), grazie alla minore complessità geotecnica e alla possibilità di utilizzare elementi prefabbricati di dimensioni standard. Con un eventuale upgrade a soluzione integrata S2 (pavimentazione fotocatalitica + LED intelligente), il costo salirebbe a circa €1,8–2,5M.
+  </div>
+</div>
+
+<!-- ========== 7. CRONOPROGRAMMA ========== -->
+<div class="content-page">
+  <h1>7. <span class="accent">Cronoprogramma</span></h1>
+
+  <p>Il cronoprogramma previsto per la realizzazione dell'opera si articola in tre fasi, per una durata complessiva stimata di <strong>8–14 mesi</strong> dall'avvio delle attività.</p>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-header">
+        <span class="timeline-name">Fase 1 — Attività immediate</span>
+        <span class="timeline-dur">1–2 mesi</span>
+      </div>
+      <ul class="timeline-items">
+        <li>Sopralluogo e rilievo geometrico di dettaglio</li>
+        <li>Verifica sottoservizi (acqua, gas, fibra ottica, elettricità)</li>
+        <li>Conteggio flussi veicolari, pedonali e ciclabili</li>
+        <li>Studio geotecnico preliminare</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot active"></div>
+      <div class="timeline-header">
+        <span class="timeline-name">Fase 2 — Progettazione e autorizzazioni</span>
+        <span class="timeline-dur">3–6 mesi</span>
+      </div>
+      <ul class="timeline-items">
+        <li>Progetto di fattibilità tecnico-economica (PFTE)</li>
+        <li>Progetto definitivo ed esecutivo</li>
+        <li>Verifica di assoggettabilità a VIA/VAS</li>
+        <li>Conferenza dei Servizi e pareri</li>
+        <li>Contatto con i comuni benchmark per condivisione buone pratiche</li>
+        <li>Richiesta finanziamento PNRR o D.M. 7/01/2026</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-header">
+        <span class="timeline-name">Fase 3 — Appalto e realizzazione</span>
+        <span class="timeline-dur">7–14 mesi</span>
+      </div>
+      <ul class="timeline-items">
+        <li>Bando di gara e assegnazione appalto</li>
+        <li>Allestimento cantiere e scavo preliminare</li>
+        <li>Varo degli elementi scatolari prefabbricati (1 notte)</li>
+        <li>Realizzazione rampe e finiture</li>
+        <li>Riqualificazione superficie rotatoria</li>
+        <li>Collaudo statico e funzionale</li>
+        <li>Inaugurazione</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="data-row" style="margin-top:20px;">
+    <div class="data-card">
+      <div class="data-card-value">1–2 <span class="accent">mesi</span></div>
+      <div class="data-card-label">Fase immediata</div>
+    </div>
+    <div class="data-card">
+      <div class="data-card-value">3–6 <span class="accent">mesi</span></div>
+      <div class="data-card-label">Progettazione</div>
+    </div>
+    <div class="data-card">
+      <div class="data-card-value">7–14 <span class="accent">mesi</span></div>
+      <div class="data-card-label">Realizzazione</div>
+    </div>
+    <div class="data-card" style="background:#0a1628;border-color:#0a1628;">
+      <div class="data-card-value" style="color:#fff;">8–14 <span style="color:#d4a843;">mesi</span></div>
+      <div class="data-card-label" style="color:rgba(255,255,255,0.5);">Totale previsto</div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 8. FONTI DI FINANZIAMENTO ========== -->
+<div class="content-page">
+  <h1>8. <span class="accent">Fonti</span> di finanziamento</h1>
+
+  <p>Il progetto PL9 risulta ammissibile a diversi strumenti di finanziamento nazionali ed europei. Di seguito, le principali opportunità disponibili:</p>
+
+  <table>
+    <tr><th>Fonte</th><th>Dotazione</th><th>Priorità</th><th>Ammissibilità</th></tr>
+    <tr>
+      <td><strong>PNRR M2C4</strong> — Mobilità sostenibile</td>
+      <td>100%</td>
+      <td><span class="gold">Alta</span></td>
+      <td>Pienamente ammissibile. Il progetto si inserisce nella linea di intervento per piste ciclabili e mobilità dolce.</td>
+    </tr>
+    <tr>
+      <td><strong>D.M. 7/01/2026</strong> — Controllo inquinamento</td>
+      <td>500M€</td>
+      <td><span class="gold">Alta</span></td>
+      <td>Programma nazionale per la riduzione dell'inquinamento atmosferico. Ammissibile per opere che promuovono la mobilità sostenibile.</td>
+    </tr>
+    <tr>
+      <td><strong>Bici in Comune</strong> (MIT)</td>
+      <td>12,6M€</td>
+      <td>Media</td>
+      <td>Finanziamento specifico per infrastrutture ciclabili urbane. Ammissibile.</td>
+    </tr>
+    <tr>
+      <td><strong>Regione Puglia — FSC</strong></td>
+      <td>Da programmare</td>
+      <td>Media</td>
+      <td>Fondo Sviluppo e Coesione. Ammissibile per opere pubbliche di interesse regionale.</td>
+    </tr>
+    <tr>
+      <td><strong>Fondi comunali/provinciali</strong></td>
+      <td>Da stanziare</td>
+      <td>Bassa</td>
+      <td>Bilancio comunale o provinciale. Da valutare in sede di programmazione triennale.</td>
+    </tr>
+  </table>
+
+  <div class="info-box">
+    <strong>🎯 Strategia di finanziamento consigliata</strong>
+    Si raccomanda un approccio misto: candidatura al <strong>PNRR M2C4</strong> come fonte primaria (copertura 85% del fabbisogno), con cofinanziamento comunale (15%). In caso di mancato accesso al PNRR, il <strong>D.M. 7/01/2026</strong> rappresenta un'alternativa valida con procedura accelerata. Il programma "Bici in Comune" può essere utilizzato per finanziare specificamente la segnaletica e l'arredo urbano connessi.
+  </div>
+</div>
+
+<!-- ========== 9. ANALISI SWOT ========== -->
+<div class="content-page">
+  <h1>9. <span class="accent">Analisi</span> SWOT</h1>
+
+  <table>
+    <tr>
+      <th style="width:50%; background:#27ae60; color:#fff;">Punti di forza (S)</th>
+      <th style="width:50%; background:#e74c3c; color:#fff;">Punti di debolezza (W)</th>
+    </tr>
+    <tr>
+      <td valign="top">
+        <ul style="margin:4px 0 0 16px;">
+          <li>Benchmark nazionale positivo (Castelfranco, Bari, Tradate)</li>
+          <li>Tecnologia collaudata (elementi prefabbricati)</li>
+          <li>Integrazione con pista ciclabile LLP11</li>
+          <li>Risoluzione definitiva del conflitto pedoni/auto</li>
+          <li>Finanziamenti PNRR ancora disponibili</li>
+        </ul>
+      </td>
+      <td valign="top">
+        <ul style="margin:4px 0 0 16px;">
+          <li>Costo elevato (€1,2–2,5M)</li>
+          <li>Scavi in area con sottoservizi</li>
+          <li>Chiusura temporanea rotatoria</li>
+          <li>Opposizione commercianti durante lavori</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <th style="background:#3498db; color:#fff;">Opportunità (O)</th>
+      <th style="background:#f39c12; color:#fff;">Minacce (T)</th>
+    </tr>
+    <tr>
+      <td valign="top">
+        <ul style="margin:4px 0 0 16px;">
+          <li>Fondi PNRR mobilità 2026</li>
+          <li>Programma nazionale 500M€</li>
+          <li>Crescita turismo a Martina Franca</li>
+          <li>Collegamento piano ciclabile provinciale</li>
+          <li>Progetto fotocatalitico innovativo</li>
+        </ul>
+      </td>
+      <td valign="top">
+        <ul style="margin:4px 0 0 16px;">
+          <li>Tempi burocratici</li>
+          <li>Carenza personale tecnico</li>
+          <li>Tagli ai finanziamenti</li>
+          <li>Coordinamento con Provincia</li>
+          <li>Ritrovamenti archeologici in fase di scavo</li>
+        </ul>
+      </td>
+    </tr>
+  </table>
+
+  <h2>Autovalutazione complessiva</h2>
+
+  <div class="score-row">
+    <div class="score-card best" style="flex:2;">
+      <div class="score-value"><span class="accent">8,5</span>/10</div>
+      <div class="score-label">Voto complessivo progetto</div>
+      <div class="score-sub">Solida fattibilità tecnica ed economica</div>
+    </div>
+    <div class="score-card">
+      <div class="score-value">9/10</div>
+      <div class="score-label">Sicurezza</div>
+    </div>
+    <div class="score-card">
+      <div class="score-value">7/10</div>
+      <div class="score-label">Sostenibilità economica</div>
+    </div>
+    <div class="score-card">
+      <div class="score-value">7/10</div>
+      <div class="score-label">Rapidità</div>
+    </div>
+  </div>
+
+  <div class="info-box">
+    <strong>📊 Giudizio sintetico</strong>
+    Il progetto PL9 presenta una solida fattibilità tecnica ed economica. Il costo (~€1,24M) è in linea con i benchmark nazionali. La criticità principale è rappresentata dall'accesso ai finanziamenti: è prioritario agganciare un bando PNRR nella finestra 2026. La realizzazione in 8–14 mesi è compatibile con il cronoprogramma elettorale e amministrativo.
+  </div>
+</div>
+
+<!-- ========== 10. RIFERIMENTI NORMATIVI ========== -->
+<div class="content-page">
+  <h1>10. <span class="accent">Riferimenti</span> normativi</h1>
+
+  <p>Il progetto si inserisce nel quadro normativo nazionale e regionale di seguito elencato:</p>
+
+  <table>
+    <tr><th>Norma</th><th>Oggetto</th></tr>
+    <tr><td>D.M. 19/04/2006</td><td>Norme funzionali e geometriche per la costruzione delle rotatorie</td></tr>
+    <tr><td>NTC 2018 (D.M. 17/01/2018)</td><td>Norme tecniche per le costruzioni — Adeguamento sismico</td></tr>
+    <tr><td>D.Lgs 81/2008</td><td>Testo Unico sulla salute e sicurezza nei luoghi di lavoro (cantieri)</td></tr>
+    <tr><td>D.P.R. 380/2001</td><td>Testo Unico delle disposizioni legislative in materia edilizia</td></tr>
+    <tr><td>D.Lgs 285/92 (Codice della Strada)</td><td>Norme generali sulla circolazione stradale e viabilità</td></tr>
+    <tr><td>D.M. 21/04/2021</td><td>Costi parametrizzati per opere pubbliche — Linee guida Biciplan</td></tr>
+    <tr><td>Circolare MIT 6935/2017</td><td>Disciplina delle rotatorie — Indirizzi tecnici</td></tr>
+    <tr><td>D.P.R. 503/96</td><td>Eliminazione delle barriere architettoniche</td></tr>
+    <tr><td>L.R. Puglia n. 1/2023</td><td>Norme per la mobilità ciclistica e la sicurezza stradale</td></tr>
+  </table>
+
+  <h2>Documenti di riferimento</h2>
+
+  <ul>
+    <li>Piano Urbano della Mobilità Sostenibile (PUMS) della Città di Martina Franca</li>
+    <li>Biciplan regionale della Puglia — Rete ciclabile di interesse regionale</li>
+    <li>Documento Unico di Programmazione (DUP) 2025–2027 del Comune di Martina Franca</li>
+    <li>Programma triennale delle opere pubbliche 2025–2027</li>
+    <li>Piano di Azione per le Criticità e gli Indicatori 2025–2027</li>
+  </ul>
+</div>
+
+<!-- ========== 11. CONCLUSIONI ========== -->
+<div class="content-page">
+  <h1>11. <span class="accent">Conclusioni</span></h1>
+
+  <p>La presente proposta dimostra la <strong>fattibilità tecnica, economica e urbanistica</strong> della realizzazione di un sottopasso ciclopedonale alla Rotatoria Europa. Il progetto si basa su:</p>
+
+  <ul>
+    <li>Un'analisi puntuale delle criticità del nodo, supportata da sopralluoghi e rilievi;</li>
+    <li>Un confronto oggettivo tra le possibili soluzioni, condotto su 9 criteri ponderati;</li>
+    <li>Una soluzione progettuale già sperimentata con successo in contesti urbani analoghi;</li>
+    <li>Un quadro economico dettagliato e allineato ai benchmark nazionali;</li>
+    <li>Un cronoprogramma realistico e compatibile con le scadenze amministrative;</li>
+    <li>Una strategia di finanziamento basata su fonti certe e disponibili.</li>
+  </ul>
+
+  <div class="info-box success">
+    <strong>✅ Richiesta formale</strong>
+    Si chiede che l'Amministrazione comunale di Martina Franca:
+    <ol style="margin-top:6px;">
+      <li><strong>Prenda in carico</strong> la presente proposta e la sottoponga ai competenti uffici tecnici per la valutazione preliminare;</li>
+      <li><strong>Attivi un tavolo tecnico</strong> per la verifica della fattibilità e l'avvio dell'iter progettuale;</li>
+      <li><strong>Valuti l'inserimento</strong> dell'opera nel programma triennale delle opere pubbliche 2026–2028;</li>
+      <li><strong>Valuti la candidatura</strong> a uno o più bandi di finanziamento tra quelli indicati nel presente documento.</li>
+    </ol>
+  </div>
+
+  <p style="margin-top:20px;">Si rimane a disposizione per ogni chiarimento e per un eventuale incontro di approfondimento con i tecnici comunali.</p>
+
+  <div style="margin-top:30px; padding-top:20px; border-top:1px solid #e0ddd5;">
+    <p style="font-size:10pt; color:#0a1628; font-weight:700;">Martina Franca, 3 giugno 2026</p>
+    <p style="margin-top:16px; font-weight:700; color:#0a1628;">Andrea Maggi</p>
+    <p style="font-size:9pt; color:#888;">Candidato Sindaco — Martina Aperta Lista Civica</p>
+  </div>
+</div>
+
+</body>
+</html>

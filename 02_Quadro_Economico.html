@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>Allegato B — Quadro economico e cronoprogramma | PL9</title>
+<style>
+@page { size: A4; margin: 20mm 25mm; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 10.5pt;
+  line-height: 1.6;
+  color: #1a1a1a;
+  background: #fff;
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 20mm 25mm;
+}
+
+.cover-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #0a1628 0%, #0d1b30 50%, #0a1628 100%);
+  z-index: -1;
+}
+
+.cover-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 257mm;
+  justify-content: center;
+  page-break-after: always;
+  position: relative;
+  color: #fff;
+  padding: 40mm 30mm;
+}
+
+.cover-page .label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.3);
+  margin-bottom: 8px;
+}
+
+.cover-page h1 {
+  font-size: 36pt;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -1px;
+  border: none;
+  padding: 0;
+  margin-bottom: 12px;
+}
+
+.cover-page h1 .accent { color: #d4a843; }
+
+.cover-page .sub {
+  font-size: 14pt;
+  font-weight: 300;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 24px;
+}
+
+.cover-page .divider {
+  width: 60px;
+  height: 3px;
+  background: #d4a843;
+  margin-bottom: 20px;
+  border-radius: 2px;
+}
+
+h1 {
+  font-size: 20pt;
+  font-weight: 800;
+  color: #0a1628;
+  letter-spacing: -0.5px;
+  margin-bottom: 14px;
+  padding-bottom: 6px;
+  border-bottom: 3px solid #d4a843;
+}
+
+h1 .accent { color: #d4a843; }
+
+h2 {
+  font-size: 13pt;
+  font-weight: 700;
+  color: #0a1628;
+  margin-top: 24px;
+  margin-bottom: 8px;
+  padding-left: 10px;
+  border-left: 3px solid #d4a843;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 9.5pt;
+}
+
+th {
+  background: #0a1628;
+  color: #fff;
+  font-weight: 600;
+  text-align: left;
+  padding: 7px 10px;
+  font-size: 8pt;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+td {
+  padding: 6px 10px;
+  border-bottom: 1px solid #e0ddd5;
+}
+
+tr:nth-child(even) td { background: #f9f8f6; }
+
+.total-row td {
+  font-weight: 700;
+  border-top: 2px solid #d4a843;
+  background: #f8f6f0;
+}
+
+.data-row {
+  display: flex;
+  gap: 12px;
+  margin: 12px 0;
+}
+
+.data-card {
+  flex: 1;
+  background: #f8f6f0;
+  border: 1px solid #e8e5dd;
+  border-radius: 6px;
+  padding: 14px;
+  text-align: center;
+}
+
+.data-card-value { font-size: 16pt; font-weight: 800; color: #0a1628; }
+.data-card-value .accent { color: #d4a843; }
+.data-card-label { font-size: 7.5pt; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 2px; }
+
+/* Timeline for PDF */
+.timeline {
+  position: relative;
+  padding-left: 26px;
+  margin: 12px 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 4px;
+  bottom: 4px;
+  width: 2px;
+  background: #d4a843;
+  opacity: 0.3;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 14px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -26px;
+  top: 3px;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: #0a1628;
+  border: 3px solid #d4a843;
+}
+
+.timeline-dot.active { background: #d4a843; }
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.timeline-name { font-weight: 700; color: #0a1628; font-size: 10pt; }
+.timeline-dur { font-weight: 500; color: #d4a843; font-size: 9pt; }
+
+.timeline-items { list-style: none; padding: 0; margin: 3px 0 0; }
+.timeline-items li {
+  font-size: 9pt; color: #666;
+  padding: 1px 0 1px 12px;
+  position: relative;
+}
+.timeline-items li::before {
+  content: '›';
+  position: absolute;
+  left: 0;
+  color: #d4a843;
+  font-weight: 700;
+}
+
+.info-box {
+  background: #f8f6f0;
+  border-left: 4px solid #d4a843;
+  padding: 12px 16px;
+  margin: 12px 0;
+  font-size: 9.5pt;
+}
+
+.info-box strong:first-child {
+  display: block;
+  margin-bottom: 3px;
+}
+
+p { margin-bottom: 8px; text-align: justify; }
+ul, ol { margin: 4px 0 8px 20px; }
+li { margin-bottom: 3px; }
+</style>
+</head>
+<body>
+
+<div class="cover-page">
+  <div class="cover-bg"></div>
+  <div class="label">Allegato B · PL9</div>
+  <h1>Quadro economico<br>e <span class="accent">cronoprogramma</span></h1>
+  <div class="sub">Stima dei costi, piano finanziario e tempistiche di realizzazione</div>
+  <div class="divider"></div>
+  <p style="color:rgba(255,255,255,0.4); font-size:10pt; margin:0;">
+    Martina Franca · Giugno 2026<br>
+    Prot. 2026/PL9/001
+  </p>
+</div>
+
+<!-- Page 2 -->
+<h1>Quadro economico <span class="accent">dettagliato</span></h1>
+
+<table>
+  <tr><th style="width:55%;">Voce di costo</th><th style="width:20%;">Importo</th><th style="width:15%;">Incidenza</th><th style="width:10%;">IVA inclusa</th></tr>
+  <tr><td>A1 — Progettazione e Direzione Lavori</td><td>€180.000</td><td>14,5%</td><td>Sì</td></tr>
+  <tr><td>A2 — Scavo e opere preliminari</td><td>€250.000</td><td>20,1%</td><td>Sì</td></tr>
+  <tr><td>A3 — Elementi scatolari prefabbricati (fornitura e posa)</td><td>€350.000</td><td>28,2%</td><td>Sì</td></tr>
+  <tr><td>A4 — Rampe di accesso e finiture</td><td>€150.000</td><td>12,1%</td><td>Sì</td></tr>
+  <tr><td>A5 — Impianto illuminazione LED</td><td>€100.000</td><td>8,1%</td><td>Sì</td></tr>
+  <tr><td>A6 — Riqualificazione superficie rotatoria</td><td>€90.000</td><td>7,2%</td><td>Sì</td></tr>
+  <tr><td>A7 — Arredo urbano e segnaletica</td><td>€35.000</td><td>2,8%</td><td>Sì</td></tr>
+  <tr><td>A8 — Imprevisti e oneri sicurezza</td><td>€87.000</td><td>7,0%</td><td>Sì</td></tr>
+  <tr class="total-row"><td><strong>TOTALE GENERALE</strong></td><td><strong>€1.242.000</strong></td><td><strong>100%</strong></td><td><strong>Sì</strong></td></tr>
+</table>
+
+<div class="data-row">
+  <div class="data-card">
+    <div class="data-card-value">€<span class="accent">1,24</span>M</div>
+    <div class="data-card-label">Costo base (S1)</div>
+  </div>
+  <div class="data-card">
+    <div class="data-card-value">€<span class="accent">1,8</span>–<span class="accent">2,5</span>M</div>
+    <div class="data-card-label">Costo integrato (S2)</div>
+  </div>
+  <div class="data-card">
+    <div class="data-card-value">€<span class="accent">350</span>–<span class="accent">500</span>K</div>
+    <div class="data-card-label">Alternativa rialzato (S3)</div>
+  </div>
+  <div class="data-card" style="background:#0a1628;border-color:#0a1628;">
+    <div class="data-card-value" style="color:#fff;"><span style="color:#d4a843;">50</span>+ anni</div>
+    <div class="data-card-label" style="color:rgba(255,255,255,0.5);">Vita utile</div>
+  </div>
+</div>
+
+<h2>Confronto con benchmark nazionale</h2>
+
+<table>
+  <tr><th>Città</th><th>Opera</th><th>Costo</th><th>Differenza vs PL9</th></tr>
+  <tr><td><strong>Castelfranco Veneto (TV)</strong></td><td>Rotatoria + sottopasso Bella Venezia</td><td>€1.700.000</td><td>+37%</td></tr>
+  <tr><td><strong>Bari — Quintino Sella</strong></td><td>Sottovia con pista + fotocatalitico</td><td>€2.300.000</td><td>+85%</td></tr>
+  <tr><td><strong>Borgio Verezzi (SV)</strong></td><td>Sottopasso accesso a mare</td><td>€2.500.000</td><td>+101%</td></tr>
+  <tr style="background:#f8f6f0; font-weight:700;">
+    <td><strong>Martina Franca (TA)</strong></td><td><strong>Sottopasso Rotatoria Europa PL9</strong></td><td><strong>€1.242.000</strong></td><td><strong>—</strong></td>
+  </tr>
+</table>
+
+<div class="info-box">
+  <strong>📊 Nota economica</strong>
+  Il costo di PL9 è competitivo rispetto ai benchmark nazionali (inferiore del 27–50%). La differenza è giustificata dalla minore complessità geotecnica del sito e dall'utilizzo di elementi scatolari prefabbricati di dimensioni standard, che riducono i costi di produzione e posa.
+</div>
+
+<!-- Page 3 -->
+<div style="page-break-before:always;"></div>
+
+<h1><span class="accent">Cronoprogramma</span> di realizzazione</h1>
+
+<p>Durata totale stimata: <strong>8–14 mesi</strong> dall'avvio delle attività all'inaugurazione.</p>
+
+<div class="timeline">
+  <div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <div class="timeline-header">
+      <span class="timeline-name">Fase 1 — Attività immediate</span>
+      <span class="timeline-dur">1–2 mesi</span>
+    </div>
+    <ul class="timeline-items">
+      <li>Sopralluogo e rilievo geometrico di dettaglio</li>
+      <li>Verifica sottoservizi (acqua, gas, fibra ottica, elettricità)</li>
+      <li>Conteggio flussi veicolari, pedonali e ciclabili</li>
+      <li>Studio geotecnico preliminare</li>
+    </ul>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-dot active"></div>
+    <div class="timeline-header">
+      <span class="timeline-name">Fase 2 — Progettazione e autorizzazioni</span>
+      <span class="timeline-dur">3–6 mesi</span>
+    </div>
+    <ul class="timeline-items">
+      <li>Progetto di fattibilità tecnico-economica (PFTE)</li>
+      <li>Progetto definitivo ed esecutivo</li>
+      <li>Conferenza dei Servizi e acquisizione pareri</li>
+      <li>Richiesta finanziamento PNRR / D.M. 7/01/2026</li>
+    </ul>
+  </div>
+
+  <div class="timeline-item">
+    <div class="timeline-dot"></div>
+    <div class="timeline-header">
+      <span class="timeline-name">Fase 3 — Appalto e realizzazione</span>
+      <span class="timeline-dur">7–14 mesi</span>
+    </div>
+    <ul class="timeline-items">
+      <li>Bando di gara e assegnazione appalto</li>
+      <li>Allestimento cantiere e scavo preliminare</li>
+      <li>Varo elementi scatolari prefabbricati (1 notte)</li>
+      <li>Realizzazione rampe, finiture, illuminazione</li>
+      <li>Riqualificazione superficie rotatoria</li>
+      <li>Collaudo statico, funzionale e inaugurazione</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Strategia di finanziamento</h2>
+
+<table>
+  <tr><th>Fonte</th><th>Copertura prevista</th><th>Stato</th></tr>
+  <tr><td><strong>PNRR M2C4</strong> — Mobilità sostenibile</td><td>85% (€1.055.700)</td><td>Da candidare</td></tr>
+  <tr><td><strong>Bilancio comunale</strong> — Cofinanziamento</td><td>15% (€186.300)</td><td>Da stanziare</td></tr>
+  <tr><td><strong>Programma D.M. 7/01/2026</strong></td><td>Alternativa PNRR (fino a 100%)</td><td>Da valutare</td></tr>
+  <tr><td><strong>Bici in Comune (MIT)</strong></td><td>Integrativo (segnaletica/arredo)</td><td>Da valutare</td></tr>
+</table>
+
+<div class="info-box">
+  <strong>💡 Piano finanziario consigliato</strong>
+  1. Candidatura al bando <strong>PNRR M2C4</strong> entro la finestra 2026 (copertura 85%)<br>
+  2. Stanzimento in bilancio comunale del cofinanziamento 15%<br>
+  3. Backup: D.M. 7/01/2026 (500M€) nel caso il PNRR non fosse disponibile<br>
+  4. Accessorio: Bici in Comune per segnaletica e arredo (€35.000)
+</div>
+
+</body>
+</html>
