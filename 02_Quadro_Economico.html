@@ -4,31 +4,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Relazione tecnico-economica e analisi finanziaria | PL9 Sottopasso Rotatoria Europa</title>
+<link rel="stylesheet" href="theme.css">
 <style>
-@page { size: A4; margin: 20mm 22mm; }
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  font-size: 10pt;
-  line-height: 1.6;
-  color: #1a1a1a;
-  background: #fff;
+/* Quadro economico — page-specific styles */
+.quadro-page {
   max-width: 210mm;
   margin: 0 auto;
-  padding: 15mm 20mm;
+  padding: 48px 32px;
 }
 
+/* Cover page */
 .cover-page {
+  position: relative;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
-  min-height: 257mm;
   justify-content: center;
-  page-break-after: always;
-  position: relative;
-  color: #fff;
-  padding: 40mm 30mm;
+  padding: 60px 48px;
+  margin: -48px -32px 48px;
   background: linear-gradient(135deg, #0a1628 0%, #0d1b30 50%, #0a1628 100%);
+  color: #fff;
+  page-break-after: always;
 }
 
 .cover-page .label {
@@ -52,91 +48,101 @@ body {
   width: 60px; height: 3px; background: #d4a843; margin-bottom: 20px; border-radius: 2px;
 }
 
+/* Content headings */
 h1 {
-  font-size: 16pt; font-weight: 800; color: #0a1628;
-  letter-spacing: -0.5px; margin: 28px 0 14px;
-  padding-bottom: 6px; border-bottom: 3px solid #d4a843;
+  font-size: 22pt; font-weight: 800; color: var(--text-primary);
+  letter-spacing: -0.3px; margin: 28px 0 14px;
+  padding-bottom: 6px; border-bottom: 2px solid var(--border-accent);
 }
 
-h1 .accent { color: #d4a843; }
+h1 .accent { color: var(--accent); }
 
 h2 {
-  font-size: 12pt; font-weight: 700; color: #0a1628;
-  margin-top: 22px; margin-bottom: 8px;
-  padding-left: 10px; border-left: 3px solid #d4a843;
+  font-size: 13pt; font-weight: 700; color: var(--text-primary);
+  margin-top: 24px; margin-bottom: 8px;
+  padding-left: 10px; border-left: 2px solid var(--accent);
 }
 
 h3 {
-  font-size: 10.5pt; font-weight: 700; color: #0a1628;
+  font-size: 10.5pt; font-weight: 700; color: var(--text-primary);
   margin-top: 16px; margin-bottom: 6px;
 }
 
-table {
-  width: 100%; border-collapse: collapse; margin: 10px 0;
-  font-size: 9pt;
-}
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9.5pt; }
+th { background: var(--bg-secondary); color: var(--text-muted); font-weight: 600; text-align: left; padding: 6px 8px; font-size: 7.5pt; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 5px 8px; border-bottom: 1px solid var(--border-light); color: var(--text-secondary); }
+tr:nth-child(even) td { background: var(--bg-card); }
+.total-row td { font-weight: 700; border-top: 2px solid var(--accent); background: var(--bg-accent); color: var(--text-primary); }
+.highlight-row td { background: var(--bg-accent-strong); font-weight: 600; }
 
-th {
-  background: #0a1628; color: #fff; font-weight: 600;
-  text-align: left; padding: 6px 8px; font-size: 7.5pt;
-  text-transform: uppercase; letter-spacing: 0.3px;
-}
-
-td { padding: 5px 8px; border-bottom: 1px solid #e0ddd5; }
-tr:nth-child(even) td { background: #f9f8f6; }
-
-.total-row td {
-  font-weight: 700; border-top: 2px solid #d4a843;
-  background: #f8f6f0;
-}
-
-.highlight-row td {
-  background: #f0f4e8; font-weight: 600;
-}
-
-p { margin-bottom: 6px; text-align: justify; }
+/* Text */
+p { margin-bottom: 6px; text-align: justify; color: var(--text-secondary); font-size: 10.5pt; line-height: 1.7; }
 ul, ol { margin: 4px 0 6px 18px; }
-li { margin-bottom: 2px; }
+li { margin-bottom: 2px; color: var(--text-secondary); font-size: 10.5pt; }
+strong { color: var(--text-primary); }
 
-.info-box {
-  background: #f8f6f0; border-left: 4px solid #d4a843;
-  padding: 10px 14px; margin: 10px 0; font-size: 9pt;
-}
+/* Boxes */
+.info-box { background: var(--bg-card); border-left: 3px solid var(--accent); padding: 10px 14px; margin: 10px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.info-box strong:first-child { display: block; margin-bottom: 3px; color: var(--accent); font-size: 10pt; }
+.warn-box { background: var(--amber-bg); border-left: 3px solid var(--amber); padding: 10px 14px; margin: 10px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.warn-box strong:first-child { display: block; margin-bottom: 3px; color: var(--amber); }
+.good-box { background: var(--green-bg); border-left: 3px solid var(--green); padding: 10px 14px; margin: 10px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.good-box strong:first-child { display: block; margin-bottom: 3px; color: var(--green); }
 
-.warn-box {
-  background: #fff8e6; border-left: 4px solid #e6a817;
-  padding: 10px 14px; margin: 10px 0; font-size: 9pt;
-}
+/* Data cards */
+.data-row { display: flex; gap: 10px; margin: 10px 0; flex-wrap: wrap; }
+.data-card { flex: 1; min-width: 120px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; text-align: center; }
+.data-card-value { font-size: 14pt; font-weight: 800; color: var(--text-primary); }
+.data-card-value .accent { color: var(--accent); }
+.data-card-label { font-size: 7pt; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.3px; margin-top: 2px; }
 
-.good-box {
-  background: #eef7e6; border-left: 4px solid #4a9e2e;
-  padding: 10px 14px; margin: 10px 0; font-size: 9pt;
-}
-
-.data-row {
-  display: flex; gap: 10px; margin: 10px 0; flex-wrap: wrap;
-}
-
-.data-card {
-  flex: 1; min-width: 120px;
-  background: #f8f6f0; border: 1px solid #e8e5dd;
-  border-radius: 6px; padding: 12px; text-align: center;
-}
-
-.data-card-value { font-size: 14pt; font-weight: 800; color: #0a1628; }
-.data-card-value .accent { color: #d4a843; }
-.data-card-label { font-size: 7pt; font-weight: 500; color: #888; text-transform: uppercase; letter-spacing: 0.3px; margin-top: 2px; }
-
-.footnote { font-size: 8pt; color: #888; margin-top: 4px; }
-
-.source-ref {
-  font-size: 7.5pt; color: #666; font-style: italic;
-}
-
+.footnote { font-size: 8pt; color: var(--text-dim); margin-top: 4px; }
+.source-ref { font-size: 7.5pt; color: var(--text-muted); font-style: italic; }
 .page-break { page-break-before: always; }
+
+@media (max-width: 640px) {
+  .quadro-page { padding: 24px 16px; }
+  .cover-page { padding: 40px 24px; margin: -24px -16px 24px; min-height: auto; }
+  .cover-page h1 { font-size: 24pt; }
+  .data-row { flex-direction: column; }
+  table { font-size: 8pt; }
+}
+
+@media print {
+  .quadro-page { padding: 0; max-width: 190mm; }
+  .cover-page { min-height: 297mm; margin: 0; padding: 40mm 30mm; }
+  h1, h2, h3, .cover-page h1, .cover-page h1 .accent,
+  h1 .accent { color: #0a1628 !important; }
+  p, li, td, th, .cover-page .sub, .cover-page .label,
+  .source-ref, .footnote { color: #1a1a1a !important; }
+  th { background: #0a1628 !important; color: #fff !important; }
+  td { border-bottom: 1px solid #e0ddd5 !important; }
+  tr:nth-child(even) td { background: #f9f8f6 !important; }
+  .total-row td { background: #f8f6f0 !important; border-top: 2px solid #d4a843 !important; }
+  .data-card { background: #f8f6f0 !important; border-color: #e8e5dd !important; }
+  .data-card-value { color: #0a1628 !important; }
+  .data-card-label { color: #888 !important; }
+}
 </style>
 </head>
 <body>
+
+<nav class="global-nav">
+  <div class="global-nav-inner">
+    <a href="index.html" class="global-nav-back">
+      <span class="arrow">←</span> Home
+    </a>
+    <div style="flex:1"></div>
+    <div class="global-nav-links">
+      <a href="COMPLETA.html">Documento completo</a>
+      <a href="00_Lettera_accompagnamento.html">Lettera</a>
+      <a href="01_Relazione_Tecnica.html">Relazione tecnica</a>
+    </div>
+  </div>
+</nav>
+
+<div class="quadro-page">
 
 <!-- ========== COPERTINA ========== -->
 <div class="cover-page">
@@ -584,6 +590,12 @@ li { margin-bottom: 2px; }
   <strong>PL9 — Sottopasso Rotatoria Europa</strong> · Martina Franca (TA) · Giugno 2026 · Prot. 2026/PL9/001<br>
   Proponente: Andrea Maggi — Cittadino di Martina Franca
 </div>
+
+</div><!-- /quadro-page -->
+
+<footer class="global-footer">
+  <strong>PL9</strong> — Sottopasso Rotatoria Europa · Andrea Maggi · Giugno 2026
+</footer>
 
 </body>
 </html>
