@@ -6,12 +6,14 @@
 <title>PL9 — Sottopasso Rotatoria Europa | Andrea Maggi</title>
 <link rel="stylesheet" href="theme.css">
 <style>
-/* Homepage-specific styles */
+/* =============================================
+   FILE BROWSER — Homepage
+   ============================================= */
+
 .home-body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   min-height: 100vh;
   padding: 40px 20px;
   background: radial-gradient(ellipse at 20% 20%, #0f1f3a 0%, transparent 50%),
@@ -19,185 +21,456 @@
               linear-gradient(180deg, #0a1628 0%, #080f1e 50%, #060b16 100%);
 }
 
-.home-card {
-  max-width: 600px;
+/* ---- Header ---- */
+.fb-header {
+  max-width: 680px;
   width: 100%;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 16px;
-  padding: 48px 40px;
-  text-align: center;
+  margin-bottom: 20px;
 }
 
-.home-dot {
-  width: 12px; height: 12px;
-  background: var(--accent);
-  border-radius: 50%;
-  margin: 0 auto 16px;
-  box-shadow: 0 0 30px rgba(212,168,67,0.3);
-}
-
-.home-title {
-  font-size: 32px;
-  font-weight: 900;
-  letter-spacing: -1px;
-  line-height: 1.1;
-  color: var(--text-primary);
-}
-
-.home-title .accent { color: var(--accent); }
-
-.home-sub {
-  color: var(--text-muted);
-  margin: 12px 0 28px;
-  font-size: 15px;
-  line-height: 1.5;
-}
-
-.home-divider {
-  width: 60px; height: 2px;
-  background: var(--accent);
-  margin: 24px auto;
-  border-radius: 2px;
-}
-
-.home-links {
+.fb-repo-path {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-align: left;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-muted, rgba(255,255,255,0.4));
+  margin-bottom: 8px;
 }
 
-.home-links a {
+.fb-repo-path .sep { color: var(--text-dim, rgba(255,255,255,0.2)); }
+
+.fb-repo-path a {
+  color: var(--accent, #d4a843);
+  text-decoration: none;
+}
+
+.fb-repo-path a:hover { text-decoration: underline; }
+
+.fb-title-area {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 14px 18px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 10px;
-  color: var(--text-primary);
-  text-decoration: none;
-  font-size: 14px;
-  transition: all 0.2s;
 }
 
-.home-links a:hover {
-  background: rgba(212,168,67,0.08);
-  border-color: rgba(212,168,67,0.15);
-  transform: translateX(4px);
-}
-
-.home-links a .icon {
-  width: 40px; height: 40px;
+.fb-repo-icon {
+  width: 48px; height: 48px;
+  background: rgba(212,168,67,0.1);
+  border: 1px solid rgba(212,168,67,0.15);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(212,168,67,0.1);
-  border-radius: 10px;
-  font-size: 20px;
+  font-size: 22px;
   flex-shrink: 0;
 }
 
-.home-links a .label {
-  font-weight: 600;
+.fb-repo-name {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-primary, #fff);
+  letter-spacing: -0.5px;
+}
+
+.fb-repo-name .accent { color: var(--accent, #d4a843); }
+
+.fb-repo-desc {
+  font-size: 13px;
+  color: var(--text-muted, rgba(255,255,255,0.45));
+  margin-top: 2px;
+}
+
+/* ---- Browser card ---- */
+.fb-card {
+  max-width: 680px;
+  width: 100%;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Toolbar */
+.fb-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  background: rgba(255,255,255,0.03);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 12px;
+  color: var(--text-muted, rgba(255,255,255,0.4));
+}
+
+.fb-toolbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fb-toolbar-icon {
   font-size: 14px;
 }
 
-.home-links a .desc {
-  font-size: 12px;
-  color: var(--text-muted);
-  margin-top: 1px;
+/* Folder entry */
+.fb-folder {
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-.home-footer {
-  margin-top: 24px;
+.fb-folder:last-child { border-bottom: none; }
+
+/* Folder header (clickable toggle) */
+.fb-folder-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 18px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+  position: relative;
+}
+
+.fb-folder-header:hover {
+  background: rgba(212,168,67,0.04);
+}
+
+.fb-folder-header:active {
+  background: rgba(212,168,67,0.08);
+}
+
+.fb-folder-icon {
+  width: 36px; height: 36px;
+  background: rgba(212,168,67,0.08);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  transition: all 0.2s;
+}
+
+.fb-folder.open .fb-folder-icon {
+  background: rgba(212,168,67,0.15);
+}
+
+.fb-folder-name {
+  flex: 1;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-primary, #fff);
+}
+
+.fb-folder-count {
   font-size: 11px;
-  color: var(--text-dim);
+  color: var(--text-dim, rgba(255,255,255,0.25));
+  background: rgba(255,255,255,0.04);
+  padding: 2px 8px;
+  border-radius: 20px;
+  white-space: nowrap;
 }
 
-.home-footer strong { color: var(--accent); }
+.fb-folder-chevron {
+  font-size: 12px;
+  color: var(--text-dim, rgba(255,255,255,0.2));
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
 
+.fb-folder.open .fb-folder-chevron {
+  transform: rotate(90deg);
+}
+
+/* Folder contents (togglable) */
+.fb-folder-contents {
+  display: none;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  background: rgba(0,0,0,0.12);
+}
+
+.fb-folder.open .fb-folder-contents {
+  display: block;
+}
+
+/* File entry inside folder */
+.fb-file {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 18px 11px 30px;
+  text-decoration: none;
+  transition: background 0.15s;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.fb-file:last-child { border-bottom: none; }
+
+.fb-file:hover {
+  background: rgba(212,168,67,0.06);
+}
+
+.fb-file-icon {
+  width: 32px; height: 32px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.fb-file-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.fb-file-name {
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--text-primary, #fff);
+}
+
+.fb-file-desc {
+  font-size: 11px;
+  color: var(--text-muted, rgba(255,255,255,0.4));
+  margin-top: 1px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fb-file-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.fb-file-size {
+  font-size: 11px;
+  color: var(--text-dim, rgba(255,255,255,0.2));
+  font-family: monospace;
+}
+
+.fb-file-arrow {
+  font-size: 12px;
+  color: var(--text-dim, rgba(255,255,255,0.15));
+  transition: transform 0.15s;
+}
+
+.fb-file:hover .fb-file-arrow {
+  color: var(--accent, #d4a843);
+  transform: translateX(3px);
+}
+
+/* ---- Footer ---- */
+.fb-footer {
+  max-width: 680px;
+  width: 100%;
+  margin-top: 20px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--text-dim, rgba(255,255,255,0.2));
+  line-height: 1.6;
+}
+
+.fb-footer strong { color: var(--accent, #d4a843); }
+
+/* ---- Responsive ---- */
 @media (max-width: 640px) {
-  .home-body { padding: 24px 12px; }
-  .home-card { padding: 32px 24px; }
-  .home-title { font-size: 24px; }
-  .home-links a { padding: 12px 14px; font-size: 13px; }
-  .home-links a .icon { width: 36px; height: 36px; font-size: 16px; }
+  .home-body { padding: 20px 12px; }
+  .fb-card { border-radius: 10px; }
+  .fb-folder-header { padding: 11px 14px; }
+  .fb-file { padding: 10px 14px 10px 24px; }
+  .fb-toolbar { padding: 8px 14px; font-size: 11px; }
+  .fb-repo-name { font-size: 18px; }
+  .fb-repo-icon { width: 40px; height: 40px; font-size: 18px; }
+  .fb-file-meta .fb-file-size { display: none; }
 }
 </style>
 </head>
 <body class="home-body">
 
-<div class="home-card">
-  <div class="home-dot"></div>
-  <h1 class="home-title">PL9 · <span class="accent">Sottopasso</span><br>Rotatoria Europa</h1>
-  <p class="home-sub">Proposta di fattibilità al Comune di Martina Franca<br>Andrea Maggi — Cittadino di Martina Franca</p>
-
-  <div class="home-divider"></div>
-
-  <div class="home-links">
-    <a href="COMPLETA.html">
-      <span class="icon">📄</span>
-      <div>
-        <div class="label">Documento completo</div>
-        <div class="desc">Relazione tecnica + lettera + quadri economici</div>
-      </div>
-    </a>
-    <a href="SOTTOPASSO_INSTAGRAM_KIT.html">
-      <span class="icon">📱</span>
-      <div>
-        <div class="label">Kit Instagram — Ritratto 4:5</div>
-        <div class="desc">5 post 1080×1350 — design professionale</div>
-      </div>
-    </a>
-    <a href="SOTTOPASSO_INSTAGRAM_KIT_QUADRATO.html">
-      <span class="icon">📐</span>
-      <div>
-        <div class="label">Kit Instagram — Quadrato 1:1</div>
-        <div class="desc">5 post 1080×1080 — formato quadrato</div>
-      </div>
-    </a>
-    <a href="00_Lettera_accompagnamento.html">
-      <span class="icon">✉️</span>
-      <div>
-        <div class="label">Lettera di accompagnamento</div>
-        <div class="desc">Al Sindaco e all'Amministrazione comunale</div>
-      </div>
-    </a>
-    <a href="01_Relazione_Tecnica.html">
-      <span class="icon">📋</span>
-      <div>
-        <div class="label">Relazione tecnico-illustrativa</div>
-        <div class="desc">Analisi, criticità, soluzioni, benchmark, SWOT</div>
-      </div>
-    </a>
-    <a href="02_Quadro_Economico.html">
-      <span class="icon">💰</span>
-      <div>
-        <div class="label">Quadro economico e analisi finanziaria</div>
-        <div class="desc">€1.242.000 — CBA, benchmark, sensibilità, open data</div>
-      </div>
-    </a>
-    <a href="03_Formule_Matematiche.html">
-      <span class="icon">∑</span>
-      <div>
-        <div class="label">Quaderno delle formule matematiche</div>
-        <div class="desc">Raccolta completa e verificata di tutte le formule — 9 sezioni</div>
-      </div>
-    </a>
+<!-- ===== HEADER ===== -->
+<div class="fb-header">
+  <div class="fb-repo-path">
+    <a href="https://github.com/rufusdark/proposta-pl9-sottopasso-europa">proposta-pl9-sottopasso-europa</a>
+    <span class="sep">/</span>
+    <span style="color:var(--text-primary, #fff);">📂</span>
   </div>
 
-  <div class="home-divider"></div>
-
-  <p style="font-size:12px; color:var(--text-dim); line-height:1.5;">
-    <strong style="color:var(--accent);">📸 Per Instagram</strong><br>
-    Scarica i PNG pronti all'uso dal kit interattivo.
-  </p>
+  <div class="fb-title-area">
+    <div class="fb-repo-icon">📋</div>
+    <div>
+      <div class="fb-repo-name">PL9 · <span class="accent">Sottopasso</span> Rotatoria Europa</div>
+      <div class="fb-repo-desc">Proposta di fattibilità al Comune di Martina Franca · Andrea Maggi</div>
+    </div>
+  </div>
 </div>
 
-<div class="home-footer">
-  Andrea Maggi — Cittadino di Martina Franca · Giugno 2026 · Prot. 2026/PL9/001
+<!-- ===== FILE BROWSER ===== -->
+<div class="fb-card">
+
+  <!-- Toolbar -->
+  <div class="fb-toolbar">
+    <div class="fb-toolbar-left">
+      <span class="fb-toolbar-icon">📂</span>
+      <span>Nome</span>
+    </div>
+    <span style="font-size:11px;">📍 Martina Franca · Giugno 2026</span>
+  </div>
+
+  <!-- ============================== -->
+  <!-- 📁 DOCUMENTI UFFICIALI         -->
+  <!-- ============================== -->
+  <div class="fb-folder open">
+    <div class="fb-folder-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="fb-folder-icon">📄</div>
+      <span class="fb-folder-name">Documenti ufficiali</span>
+      <span class="fb-folder-count">2 file</span>
+      <span class="fb-folder-chevron">▶</span>
+    </div>
+    <div class="fb-folder-contents">
+      <a class="fb-file" href="COMPLETA.html">
+        <div class="fb-file-icon">📄</div>
+        <div class="fb-file-info">
+          <div class="fb-file-name">Documento completo</div>
+          <div class="fb-file-desc">Relazione tecnica + lettera + quadri economici in un unico documento</div>
+        </div>
+        <div class="fb-file-meta">
+          <span class="fb-file-size">HTML</span>
+          <span class="fb-file-arrow">→</span>
+        </div>
+      </a>
+      <a class="fb-file" href="00_Lettera_accompagnamento.html">
+        <div class="fb-file-icon">✉️</div>
+        <div class="fb-file-info">
+          <div class="fb-file-name">00_Lettera_accompagnamento.html</div>
+          <div class="fb-file-desc">Al Sindaco e all'Amministrazione comunale — Richiesta formale di presa in carico</div>
+        </div>
+        <div class="fb-file-meta">
+          <span class="fb-file-size">HTML</span>
+          <span class="fb-file-arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- 📁 RELAZIONI TECNICHE          -->
+  <!-- ============================== -->
+  <div class="fb-folder open">
+    <div class="fb-folder-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="fb-folder-icon">📊</div>
+      <span class="fb-folder-name">Relazioni tecniche</span>
+      <span class="fb-folder-count">3 file</span>
+      <span class="fb-folder-chevron">▶</span>
+    </div>
+    <div class="fb-folder-contents">
+      <a class="fb-file" href="01_Relazione_Tecnica.html">
+        <div class="fb-file-icon">📋</div>
+        <div class="fb-file-info">
+          <div class="fb-file-name">01_Relazione_Tecnica.html</div>
+          <div class="fb-file-desc">Analisi del contesto, criticità (8), soluzioni a confronto, benchmark nazionale, SWOT</div>
+        </div>
+        <div class="fb-file-meta">
+          <span class="fb-file-size">HTML</span>
+          <span class="fb-file-arrow">→</span>
+        </div>
+      </a>
+      <a class="fb-file" href="02_Quadro_Economico.html">
+        <div class="fb-file-icon">💰</div>
+        <div class="fb-file-info">
+          <div class="fb-file-name">02_Quadro_Economico.html</div>
+          <div class="fb-file-desc">€1.242.000 — Computo metrico, benchmark, CBA, VAN €4.963K, sensitivity, finanziamenti</div>
+        </div>
+        <div class="fb-file-meta">
+          <span class="fb-file-size">HTML</span>
+          <span class="fb-file-arrow">→</span>
+        </div>
+      </a>
+      <a class="fb-file" href="03_Formule_Matematiche.html">
+        <div class="fb-file-icon">∑</div>
+        <div class="fb-file-info">
+          <div class="fb-file-name">03_Formule_Matematiche.html</div>
+          <div class="fb-file-desc">Raccolta completa e verificata di tutte le formule — 9 sezioni con passaggi intermedi</div>
+        </div>
+        <div class="fb-file-meta">
+          <span class="fb-file-size">HTML</span>
+          <span class="fb-file-arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- 📁 KIT SOCIAL                  -->
+  <!-- ============================== -->
+  <div class="fb-folder open">
+    <div class="fb-folder-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="fb-folder-icon">📱</div>
+      <span class="fb-folder-name">Kit social</span>
+      <span class="fb-folder-count">2 file</span>
+      <span class="fb-folder-chevron">▶</span>
+    </div>
+    <div class="fb-folder-contents">
+      <a class="fb-file" href="SOTTOPASSO_INSTAGRAM_KIT.html">
+        <div class="fb-file-icon">📱</div>
+        <div class="fb-file-info">
+          <div class="fb-file-name">SOTTOPASSO_INSTAGRAM_KIT.html</div>
+          <div class="fb-file-desc">5 post formato ritratto 1080×1350 (4:5) — Scaricabili in PNG</div>
+        </div>
+        <div class="fb-file-meta">
+          <span class="fb-file-size">PNG</span>
+          <span class="fb-file-arrow">→</span>
+        </div>
+      </a>
+      <a class="fb-file" href="SOTTOPASSO_INSTAGRAM_KIT_QUADRATO.html">
+        <div class="fb-file-icon">📐</div>
+        <div class="fb-file-info">
+          <div class="fb-file-name">SOTTOPASSO_INSTAGRAM_KIT_QUADRATO.html</div>
+          <div class="fb-file-desc">5 post formato quadrato 1080×1080 (1:1) — Scaricabili in PNG</div>
+        </div>
+        <div class="fb-file-meta">
+          <span class="fb-file-size">PNG</span>
+          <span class="fb-file-arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- ============================== -->
+  <!-- 📁 ASSET E DESIGN              -->
+  <!-- ============================== -->
+  <div class="fb-folder open">
+    <div class="fb-folder-header" onclick="this.parentElement.classList.toggle('open')">
+      <div class="fb-folder-icon">🎨</div>
+      <span class="fb-folder-name">Asset e design system</span>
+      <span class="fb-folder-count">1 file</span>
+      <span class="fb-folder-chevron">▶</span>
+    </div>
+    <div class="fb-folder-contents">
+      <a class="fb-file" href="theme.css">
+        <div class="fb-file-icon">🎨</div>
+        <div class="fb-file-info">
+          <div class="fb-file-name">theme.css</div>
+          <div class="fb-file-desc">Design system condiviso — Palette #0a1628 + #d4a843, variabili CSS, @media print, @page A4</div>
+        </div>
+        <div class="fb-file-meta">
+          <span class="fb-file-size">CSS</span>
+          <span class="fb-file-arrow">→</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</div><!-- /fb-card -->
+
+<!-- ===== FOOTER ===== -->
+<div class="fb-footer">
+  <strong>PL9</strong> — Sottopasso Rotatoria Europa · Andrea Maggi · Cittadino di Martina Franca<br>
+  Prot. 2026/PL9/001 · Giugno 2026
 </div>
 
 </body>
