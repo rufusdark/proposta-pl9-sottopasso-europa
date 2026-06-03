@@ -208,6 +208,9 @@ tr:nth-child(even) td { background: var(--bg-card); }
   .pdf-btn { padding: 6px 14px; font-size: 12px; }
 }
 
+/* Print: A4 formatting */
+@page { size: A4; margin: 20mm 25mm; }
+
 @media print {
   .pdf-bar { display: none !important; }
 }
@@ -232,7 +235,6 @@ tr:nth-child(even) td { background: var(--bg-card); }
   .signature { border-top-color: #e0ddd5 !important; }
 }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
 <nav class="global-nav">
@@ -606,30 +608,13 @@ Dott. Gianfranco Palmisano · Palazzo Ducale · Piazza Roma · 74015 Martina Fra
 function generatePDF() {
   var btn = document.querySelector('.pdf-btn');
   if (btn.classList.contains('loading')) return;
-  
   btn.classList.add('loading');
-  btn.innerHTML = '<span class="pdf-btn-spinner"></span> Generazione...';
-  
-  var element = document.querySelector('.completa-page') || document.body;
-  
-  var opt = {
-    margin:       [10, 12, 10, 12],
-    filename:     'PL9_Documento_Completo.pdf',
-    image:        { type: 'jpeg', quality: 0.95 },
-    html2canvas:  { scale: 2, useCORS: true, letterRendering: true, logging: false },
-    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-    pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
-  };
-  
-  html2pdf().set(opt).from(element).save().then(function() {
+  btn.innerHTML = '<span class="pdf-btn-spinner"></span> Preparazione...';
+  setTimeout(function() {
+    window.print();
     btn.classList.remove('loading');
     btn.innerHTML = '<span class="pdf-btn-icon">⬇</span> Scarica PDF';
-  }).catch(function(err) {
-    console.error('PDF error:', err);
-    btn.classList.remove('loading');
-    btn.innerHTML = '<span class="pdf-btn-icon">⬇</span> Scarica PDF';
-    alert('Errore durante la generazione del PDF. Riprova.');
-  });
+  }, 300);
 }
 </script>
 </body>

@@ -525,6 +525,8 @@ li {
 }
 
 /* ---------- PRINT ---------- */
+@page { size: A4; margin: 20mm 25mm; }
+
 @media print {
   .global-nav, .global-footer, .no-print {
     display: none !important;
