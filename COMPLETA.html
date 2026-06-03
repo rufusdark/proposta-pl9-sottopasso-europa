@@ -134,6 +134,88 @@ tr:nth-child(even) td { background: var(--bg-card); }
   .datarow { flex-direction: column; }
 }
 
+/* PDF download bar */
+.pdf-bar {
+  background: linear-gradient(135deg, rgba(212,168,67,0.08), rgba(212,168,67,0.03));
+  border-bottom: 1px solid rgba(212,168,67,0.12);
+  padding: 0 24px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 56px;
+  z-index: 999;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.pdf-bar-inner {
+  max-width: 210mm;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pdf-bar-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary, rgba(255,255,255,0.5));
+}
+
+.pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: var(--accent, #d4a843);
+  border: none;
+  border-radius: 50px;
+  color: #0a1628;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+
+.pdf-btn:hover {
+  background: #c49a3a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(212,168,67,0.3);
+}
+
+.pdf-btn:active { transform: translateY(0); }
+
+.pdf-btn.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.pdf-btn-icon { font-size: 16px; line-height: 1; }
+
+.pdf-btn-spinner {
+  display: inline-block;
+  width: 16px; height: 16px;
+  border: 2px solid rgba(10,22,40,0.2);
+  border-top-color: #0a1628;
+  border-radius: 50%;
+  animation: pdf-spin 0.6s linear infinite;
+}
+
+@keyframes pdf-spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 640px) {
+  .pdf-bar { padding: 0 12px; height: 44px; top: 48px; }
+  .pdf-bar-text { font-size: 11px; }
+  .pdf-btn { padding: 6px 14px; font-size: 12px; }
+}
+
+@media print {
+  .pdf-bar { display: none !important; }
+}
+
 @media print {
   .completa-page { padding: 0; max-width: 190mm; }
   .cover { min-height: 297mm; margin: 0; padding: 40mm 30mm; }
@@ -154,6 +236,7 @@ tr:nth-child(even) td { background: var(--bg-card); }
   .signature { border-top-color: #e0ddd5 !important; }
 }
 </style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body>
 <nav class="global-nav">
@@ -169,6 +252,14 @@ tr:nth-child(even) td { background: var(--bg-card); }
     </div>
   </div>
 </nav>
+<div class="pdf-bar no-print">
+  <div class="pdf-bar-inner">
+    <span class="pdf-bar-text">📄 Scarica questa pagina in PDF</span>
+    <button class="pdf-btn" onclick="generatePDF()">
+      <span class="pdf-btn-icon">⬇</span> Scarica PDF
+    </button>
+  </div>
+</div>
 <div class="completa-page">
 
 <!-- ========== COVER ========== -->
@@ -515,5 +606,35 @@ Dott. Gianfranco Palmisano · Palazzo Ducale · Piazza Roma · 74015 Martina Fra
   <strong>PL9</strong> — Sottopasso Rotatoria Europa · Andrea Maggi · Giugno 2026
 </footer>
 
+<script>
+function generatePDF() {
+  var btn = document.querySelector('.pdf-btn');
+  if (btn.classList.contains('loading')) return;
+  
+  btn.classList.add('loading');
+  btn.innerHTML = '<span class="pdf-btn-spinner"></span> Generazione...';
+  
+  var element = document.querySelector('.completa-page') || document.body;
+  
+  var opt = {
+    margin:       [10, 12, 10, 12],
+    filename:     'PL9_Documento_Completo.pdf',
+    image:        { type: 'jpeg', quality: 0.95 },
+    html2canvas:  { scale: 2, useCORS: true, letterRendering: true, logging: false },
+    jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
+    pagebreak:    { mode: ['avoid-all', 'css', 'legacy'] }
+  };
+  
+  html2pdf().set(opt).from(element).save().then(function() {
+    btn.classList.remove('loading');
+    btn.innerHTML = '<span class="pdf-btn-icon">⬇</span> Scarica PDF';
+  }).catch(function(err) {
+    console.error('PDF error:', err);
+    btn.classList.remove('loading');
+    btn.innerHTML = '<span class="pdf-btn-icon">⬇</span> Scarica PDF';
+    alert('Errore durante la generazione del PDF. Riprova.');
+  });
+}
+</script>
 </body>
 </html>
