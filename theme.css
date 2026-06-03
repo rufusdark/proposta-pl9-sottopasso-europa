@@ -525,53 +525,116 @@ li {
 }
 
 /* ---------- PRINT ---------- */
-@page { size: A4; margin: 20mm 25mm; }
+@page { size: A4; margin: 18mm 22mm; }
 
 @media print {
-  .global-nav, .global-footer, .no-print {
+  /* --- HIDE screen-only elements --- */
+  .global-nav, .global-footer, .no-print, .pdf-bar, .pdf-overlay {
     display: none !important;
   }
 
-  body {
+  /* --- REMOVE backdrop-filter (causes blank PDF in some engines) --- */
+  * {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background-blend-mode: normal !important;
+  }
+
+  /* --- PAGE base --- */
+  html, body {
     background: #fff !important;
     color: #1a1a1a !important;
-    font-size: 10.5pt;
+    font-size: 10.5pt !important;
+    line-height: 1.5 !important;
+    min-height: auto !important;
+    height: auto !important;
   }
 
-  .page-container {
-    max-width: 190mm;
-    padding: 0;
+  /* --- CONTENT wrappers: fill the printable area --- */
+  .page-container,
+  .lettera-page,
+  .relazione-page,
+  .quadro-page,
+  .completa-page {
+    max-width: 100% !important;
+    width: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
   }
 
-  h1, h2, h3, h1 .accent { color: #0a1628 !important; }
-  p, li, td, th { color: #1a1a1a !important; }
+  /* --- TYPOGRAPHY --- */
+  h1, h2, h3, h1 .accent,
+  h1 .accent, .accent { color: #0a1628 !important; }
+  p, li, td, th, figcaption, blockquote { color: #1a1a1a !important; }
+  strong { color: #0a1628 !important; }
+  a { color: #0a1628 !important; text-decoration: underline; }
 
-  th { background: #0a1628 !important; color: #fff !important; }
+  h1 { font-size: 18pt; margin: 24pt 0 12pt; }
+  h2 { font-size: 14pt; margin: 18pt 0 8pt; }
+  h3 { font-size: 12pt; margin: 14pt 0 6pt; }
+
+  /* --- TABLES --- */
+  table { font-size: 9pt; }
+  th {
+    background: #0a1628 !important;
+    color: #fff !important;
+  }
   td { border-bottom: 1px solid #e0ddd5 !important; }
   tr:nth-child(even) td { background: #f9f8f6 !important; }
-  .total-row td { background: #f8f6f0 !important; border-top: 2px solid #d4a843 !important; }
+  .total-row td {
+    background: #f8f6f0 !important;
+    border-top: 2px solid #d4a843 !important;
+  }
+  .highlight-row td { background: #f8f6f0 !important; }
 
+  /* --- BOXES --- */
+  .info-box, .warn-box, .good-box {
+    padding: 10pt 14pt !important;
+    margin: 10pt 0 !important;
+  }
   .info-box { background: #f8f6f0 !important; border-left-color: #d4a843 !important; }
   .warn-box { background: #fdf2f0 !important; border-left-color: #e74c3c !important; }
   .good-box { background: #f0f9f2 !important; border-left-color: #27ae60 !important; }
 
-  .data-card { background: #f8f6f0 !important; border-color: #e8e5dd !important; }
-  .data-card-value { color: #0a1628 !important; }
+  /* --- DATA CARDS --- */
+  .data-card {
+    background: #f8f6f0 !important;
+    border-color: #e8e5dd !important;
+    border-radius: 4px !important;
+    padding: 10pt !important;
+  }
+  .data-card-value { color: #0a1628 !important; font-size: 16pt !important; }
   .data-card-label { color: #888 !important; }
   .data-card.inverse { background: #0a1628 !important; }
   .data-card.inverse .data-card-value { color: #fff !important; }
 
-  .score-card { border-color: #e0ddd5 !important; background: #fff !important; }
-  .score-card.best { border-color: #d4a843 !important; background: rgba(212,168,67,0.06) !important; }
+  /* --- SCORE CARDS --- */
+  .score-card {
+    border-color: #e0ddd5 !important;
+    background: #fff !important;
+  }
+  .score-card.best {
+    border-color: #d4a843 !important;
+    background: #f8f6f0 !important;
+  }
   .score-value { color: #0a1628 !important; }
 
+  /* --- TIMELINE --- */
   .timeline::before { background: #d4a843 !important; opacity: 0.3 !important; }
   .timeline-dot { background: #0a1628 !important; border-color: #d4a843 !important; }
   .timeline-dot.active { background: #d4a843 !important; }
   .timeline-name { color: #0a1628 !important; }
   .timeline-items li { color: #666 !important; }
 
-  strong { color: #0a1628 !important; }
-  .global-nav, .global-footer { display: none !important; }
-  a { color: #0a1628 !important; }
+  /* --- PAGE BREAKS --- */
+  .cover, .cover-page, section { page-break-inside: avoid; }
+  h1, h2 { page-break-after: avoid; }
+
+  /* --- FORCE background colors in print --- */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
 }
