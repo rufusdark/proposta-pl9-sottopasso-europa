@@ -6,6 +6,173 @@
 <title>Visione territoriale | PL9 — Sottopasso e riqualificazione Martina Franca</title>
 <link rel="stylesheet" href="theme.css">
 <style>
+/* ===== PASSWORD GATE ===== */
+.pw-gate {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(ellipse at 30% 20%, #0f1f3a 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, #0d1a30 0%, transparent 50%),
+              linear-gradient(135deg, #080f1e 0%, #060b16 50%, #0a0f1a 100%);
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.pw-gate.unlocked {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.pw-gate-card {
+  width: 400px;
+  max-width: 90vw;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(212,168,67,0.12);
+  border-radius: 20px;
+  padding: 48px 36px 36px;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.pw-gate-icon {
+  width: 72px; height: 72px;
+  margin: 0 auto 20px;
+  background: rgba(212,168,67,0.08);
+  border: 1px solid rgba(212,168,67,0.15);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+
+.pw-gate-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 4px;
+  letter-spacing: -0.3px;
+}
+
+.pw-gate-title .accent { color: #d4a843; }
+
+.pw-gate-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+.pw-gate-input-group {
+  position: relative;
+  width: 100%;
+}
+
+.pw-gate-input {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.pw-gate-input::placeholder {
+  color: rgba(255,255,255,0.2);
+}
+
+.pw-gate-input:focus {
+  border-color: #d4a843;
+  box-shadow: 0 0 0 3px rgba(212,168,67,0.08);
+}
+
+.pw-gate-input.error {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 3px rgba(231,76,60,0.1);
+  animation: pw-shake 0.4s ease;
+}
+
+@keyframes pw-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+
+.pw-gate-btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 14px;
+  background: #d4a843;
+  border: none;
+  border-radius: 12px;
+  color: #0a1628;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.pw-gate-btn:hover {
+  background: #c49a3a;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(212,168,67,0.25);
+}
+
+.pw-gate-btn:active {
+  transform: translateY(0);
+}
+
+.pw-gate-error {
+  font-size: 12px;
+  color: #e74c3c;
+  margin-top: 10px;
+  min-height: 20px;
+  transition: opacity 0.2s;
+  opacity: 0;
+}
+
+.pw-gate-error.visible {
+  opacity: 1;
+}
+
+.pw-gate-lock {
+  font-size: 11px;
+  color: rgba(255,255,255,0.15);
+  margin-top: 20px;
+  letter-spacing: 0.5px;
+}
+
+.pw-gate-lock span { color: rgba(212,168,67,0.3); }
+
+/* Hidden content container */
+.pw-content {
+  display: none;
+}
+
+.pw-content.unlocked {
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .pw-gate-card { padding: 36px 24px 28px; }
+  .pw-gate-icon { width: 60px; height: 60px; font-size: 26px; }
+  .pw-gate-title { font-size: 17px; }
+}
+
 .visione-page {
   max-width: 210mm;
   margin: 0 auto;
@@ -145,6 +312,28 @@ tr:nth-child(even) td { background: var(--bg-card); }
 </style>
 </head>
 <body>
+
+<!-- ===== PASSWORD GATE ===== -->
+<div class="pw-gate" id="pwGate">
+  <div class="pw-gate-card">
+    <div class="pw-gate-icon">🗺️</div>
+    <div class="pw-gate-title">Accesso riservato</div>
+    <div class="pw-gate-sub">
+      Documento ad accesso protetto.<br>
+      Inserisci la password per visualizzare i contenuti.
+    </div>
+    <div class="pw-gate-input-group" style="position:relative">
+      <input class="pw-gate-input" id="pwInput" type="password" placeholder="Password" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')unlock()" style="padding-right:46px">
+      <span onclick="var i=document.getElementById('pwInput'); i.type=i.type==='password'?'text':'password'; this.textContent=i.type==='password'?'👁️':'👁‍🗨'" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:18px;opacity:0.3;transition:opacity 0.2s;user-select:none" onmouseenter="this.style.opacity='0.6'" onmouseleave="this.style.opacity='0.3'">👁️</span>
+      <div class="pw-gate-error" id="pwError">Password errata. Riprova.</div>
+    </div>
+    <button class="pw-gate-btn" id="pwBtn" onclick="unlock()">Accedi</button>
+    <div class="pw-gate-lock">🔒 <span>PL9</span> · Sottopasso Rotatoria Europa</div>
+  </div>
+</div>
+
+<!-- ===== CONTENUTO PROTETTO ===== -->
+<div class="pw-content" id="pwContent">
 
 <nav class="global-nav">
   <div class="global-nav-inner">
@@ -642,6 +831,40 @@ tr:nth-child(even) td { background: var(--bg-card); }
 <footer class="global-footer">
   <strong>PL9</strong> — Sottopasso Rotatoria Europa · Andrea Maggi · Giugno 2026
 </footer>
+
+</div><!-- /pw-content -->
+
+<script>
+const CORRECT_PW = "martinafranca26";
+
+function unlock() {
+  const input = document.getElementById("pwInput");
+  const error = document.getElementById("pwError");
+  const gate = document.getElementById("pwGate");
+  const content = document.getElementById("pwContent");
+
+  if (input.value === CORRECT_PW) {
+    error.classList.remove("visible");
+    input.classList.remove("error");
+    gate.classList.add("unlocked");
+    content.classList.add("unlocked");
+    /* Re-enable print */
+    document.querySelector('link[href="theme.css"]').sheet && setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
+    /* Focus first heading inside content */
+    setTimeout(() => {
+      const h = content.querySelector('h1, h2, h3');
+      if (h) h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 800);
+  } else {
+    input.classList.add("error");
+    error.classList.add("visible");
+    input.focus();
+    input.select();
+    /* Remove shake after animation */
+    setTimeout(() => input.classList.remove("error"), 500);
+  }
+}
+</script>
 
 </body>
 </html>
