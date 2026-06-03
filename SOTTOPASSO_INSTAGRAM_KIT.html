@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PL9 — Sottopasso Rotatoria Europa | Instagram Kit</title>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 <style>
 /*
  *  PL9 — Sottopasso Rotatoria Europa
@@ -191,6 +192,32 @@ body {
   .slide-container { margin-bottom: 30px; }
   .slide-number { font-size: 9px; margin-bottom: 6px; }
 }
+
+/* Download button */
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 12px 28px;
+  background: rgba(212,168,67,0.1);
+  border: 1px solid rgba(212,168,67,0.25);
+  border-radius: 50px;
+  color: #d4a843;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+.download-btn:hover {
+  background: rgba(212,168,67,0.2);
+  border-color: rgba(212,168,67,0.4);
+  transform: translateY(-1px);
+}
+.download-btn:active { transform: translateY(0); }
+.download-btn.loading { opacity: 0.5; pointer-events: none; }
+.download-btn .icon { font-size: 16px; }
 
 /* ================================================================
    SLIDE 1 — HERO / LANCIO
@@ -1641,7 +1668,83 @@ function scalePosts() {
     wrapper.style.height = (1350 * scale) + 'px';
   });
 }
-window.addEventListener('DOMContentLoaded', scalePosts);
+
+// --- Aggiunge pulsanti "Scarica PNG" dopo ogni slide ---
+document.addEventListener('DOMContentLoaded', function() {
+  var labels = [
+    '01 — Lancio',
+    '02 — Criticit\u00e0',
+    '03 — Soluzione',
+    '04 — Confronto',
+    '05 — Piano'
+  ];
+  
+  var containers = document.querySelectorAll('.slide-container');
+  containers.forEach(function(container, idx) {
+    var btn = document.createElement('button');
+    btn.className = 'download-btn';
+    btn.setAttribute('data-slide', idx + 1);
+    btn.innerHTML = '<span class="icon">\u{1F4E5}</span> Scarica PNG \u00b7 Slide ' + labels[idx];
+    container.appendChild(btn);
+  });
+  
+  scalePosts();
+});
+
+// --- Download PNG ---
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('.download-btn');
+  if (!btn) return;
+  if (btn.classList.contains('loading')) return;
+  
+  var container = btn.closest('.slide-container');
+  var post = container.querySelector('.post');
+  var originalTransform = post.style.transform;
+  var originalHeight = container.querySelector('.post-wrapper').style.height;
+  
+  // Temporarily reset transform to capture full size
+  post.style.transform = 'none';
+  container.querySelector('.post-wrapper').style.height = '1350px';
+  
+  btn.classList.add('loading');
+  btn.innerHTML = '<span class="icon">\u{23F3}</span> Generazione...';
+  
+  // Wait for layout
+  setTimeout(function() {
+    html2canvas(post, {
+      width: 1080,
+      height: 1350,
+      scale: 1,
+      useCORS: true,
+      backgroundColor: '#070e1a',
+      logging: false,
+      onclone: function(clonedDoc) {
+        // Ensure cloned element has correct dimensions
+      }
+    }).then(function(canvas) {
+      var link = document.createElement('a');
+      link.download = 'PL9_Sottopasso_Europa_Slide_' + btn.getAttribute('data-slide') + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      
+      // Restore
+      post.style.transform = originalTransform;
+      container.querySelector('.post-wrapper').style.height = originalHeight;
+      btn.classList.remove('loading');
+      btn.innerHTML = '<span class="icon">\u2705</span> Scaricato!';
+      setTimeout(function() {
+        btn.innerHTML = '<span class="icon">\u{1F4E5}</span> Scarica PNG \u00b7 Slide ' + labels[parseInt(btn.getAttribute('data-slide')) - 1];
+      }, 2000);
+    }).catch(function(err) {
+      console.error('html2canvas error:', err);
+      post.style.transform = originalTransform;
+      container.querySelector('.post-wrapper').style.height = originalHeight;
+      btn.classList.remove('loading');
+      btn.innerHTML = '<span class="icon">\u274C</span> Errore, riprova';
+    });
+  }, 100);
+});
+
 window.addEventListener('resize', scalePosts);
 </script>
 
