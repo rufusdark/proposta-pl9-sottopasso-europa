@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Martina Franca — Progetti e Proposte</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='28'>🏛️</text></svg>">
+<style>
+/* =========================================
+   ROOT — stessa palette Barocco Cosmico
+   ========================================= */
+:root {
+  --bg:       #0a1628;
+  --surface:  #0e1d33;
+  --fg:       rgba(255,255,255,0.85);
+  --muted:    rgba(255,255,255,0.4);
+  --dim:      rgba(255,255,255,0.2);
+  --accent:   #d4a843;
+  --radius:   12px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse at 20% 15%, #0f1f3a 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 85%, #0d1a30 0%, transparent 50%),
+    linear-gradient(180deg, #0a1628 0%, #080f1e 50%, #060b16 100%);
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 60px 24px 80px;
+}
+
+/* Header */
+.page-header {
+  margin-bottom: 48px;
+}
+
+.stemma {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.stemma img {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  border: 1px solid rgba(212,168,67,0.15);
+}
+
+.stemma span {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+h1 {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+}
+
+h1 .accent { color: var(--accent); }
+
+.subtitle {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+.subtitle strong {
+  color: rgba(255,255,255,0.6);
+  font-weight: 500;
+}
+
+/* Section cards */
+.section-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 48px;
+}
+
+.section-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 20px;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.section-card:hover {
+  background: rgba(212,168,67,0.04);
+  border-color: rgba(212,168,67,0.15);
+  transform: translateX(4px);
+}
+
+.section-card:active {
+  transform: translateX(2px);
+}
+
+.card-icon {
+  width: 44px;
+  height: 44px;
+  background: rgba(212,168,67,0.08);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+
+.section-card:hover .card-icon {
+  background: rgba(212,168,67,0.15);
+}
+
+.card-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.card-title {
+  font-weight: 600;
+  font-size: 15px;
+  color: #fff;
+  margin-bottom: 2px;
+}
+
+.card-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.card-arrow {
+  font-size: 14px;
+  color: var(--dim);
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.section-card:hover .card-arrow {
+  color: var(--accent);
+  transform: translateX(4px);
+}
+
+/* Featured badge */
+.featured-badge {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  background: rgba(212,168,67,0.12);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* Footer */
+.page-footer {
+  text-align: center;
+  padding-top: 40px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  font-size: 12px;
+  color: var(--dim);
+  line-height: 1.8;
+}
+
+.page-footer a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.page-footer a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .container { padding: 32px 16px 60px; }
+  h1 { font-size: 28px; }
+  .section-card { padding: 14px 16px; }
+  .card-icon { width: 38px; height: 38px; font-size: 17px; }
+}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="page-header">
+    <div class="stemma">
+      <img src="10_Proposta_Cittadino/stemma-martina-franca.svg" alt="Stemma Martina Franca" onerror="this.style.display='none'">
+      <span>Città di Martina Franca</span>
+    </div>
+    <h1>Progetti · <span class="accent">Proposte</span></h1>
+    <div class="subtitle">
+      Raccolta di analisi, proposte di fattibilità e progetti per il territorio.
+      <strong>PL9 Sottopasso Rotatoria Europa</strong> — proposta attiva al Comune.
+    </div>
+  </div>
+
+  <!-- Projects -->
+  <div class="section-grid">
+
+    <!-- PL9 — Featured -->
+    <a class="section-card" href="10_Proposta_Cittadino/">
+      <div class="card-icon">📋</div>
+      <div class="card-info">
+        <div class="card-title">
+          PL9 · Sottopasso Rotatoria Europa
+          <span class="featured-badge">Attivo</span>
+        </div>
+        <div class="card-desc">Proposta di fattibilità — Relazione tecnica, quadri economici, analisi CBA, visione territoriale, kit social, asset design</div>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="section-card" href="01_Proposte/">
+      <div class="card-icon">📝</div>
+      <div class="card-info">
+        <div class="card-title">Proposte e Idee</div>
+        <div class="card-desc">Raccolta di proposte per il miglioramento urbano e territoriale</div>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="section-card" href="02_PistaCiclabile/">
+      <div class="card-icon">🚲</div>
+      <div class="card-info">
+        <div class="card-title">Pista Ciclabile</div>
+        <div class="card-desc">Analisi e proposte per la mobilità ciclabile urbana</div>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="section-card" href="03_PianoDiMandato/">
+      <div class="card-icon">📊</div>
+      <div class="card-info">
+        <div class="card-title">Piano di Mandato</div>
+        <div class="card-desc">Monitoraggio e analisi del programma amministrativo</div>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="section-card" href="04_Report/">
+      <div class="card-icon">📈</div>
+      <div class="card-info">
+        <div class="card-title">Report e Analisi</div>
+        <div class="card-desc">Report periodici, analisi dati e approfondimenti statistici</div>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="section-card" href="05_WebApp/">
+      <div class="card-icon">🌐</div>
+      <div class="card-info">
+        <div class="card-title">WebApp e Strumenti</div>
+        <div class="card-desc">Applicazioni web, tool interattivi e utility civiche</div>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="section-card" href="06_SocialKit/">
+      <div class="card-icon">📱</div>
+      <div class="card-info">
+        <div class="card-title">Social Kit</div>
+        <div class="card-desc">Contenuti per social media, template grafici e kit di comunicazione</div>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="section-card" href="07_Immagini/">
+      <div class="card-icon">🖼️</div>
+      <div class="card-info">
+        <div class="card-title">Immagini e Media</div>
+        <div class="card-desc">Archivio fotografico, render e materiale visivo</div>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="section-card" href="08_Reference/">
+      <div class="card-icon">📚</div>
+      <div class="card-info">
+        <div class="card-title">Riferimenti e Fonti</div>
+        <div class="card-desc">Documentazione, normative, benchmark e casi studio</div>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+
+    <a class="section-card" href="PL9/">
+      <div class="card-icon">🎨</div>
+      <div class="card-info">
+        <div class="card-title">PL9 — Asset Design</div>
+        <div class="card-desc">Logo Barocco Cosmico, brand spec, Instagram post, carosello, report finanziario</div>
+      </div>
+      <span class="card-arrow">→</span>
+    </a>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer">
+    Andrea Maggi · Cittadino di Martina Franca<br>
+    <a href="https://github.com/rufusdark">github.com/rufusdark</a>
+  </div>
+
+</div>
+</body>
+</html>
