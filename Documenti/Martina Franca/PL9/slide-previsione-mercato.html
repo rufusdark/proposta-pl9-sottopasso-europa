@@ -63,7 +63,85 @@ td.c { text-align:center; }
 .bar-fill.re { background:linear-gradient(90deg,rgba(96,165,250,0.3),var(--blue)); color:#0a1628; }
 .bar-val { width:80px; text-align:right; font-family:monospace; font-size:12px; color:var(--muted); flex-shrink:0; }
 .arrow-up { color:var(--red); } .arrow-dn { color:var(--green); }
-@media (max-width:768px) { .slide { padding:28px 20px; min-height:auto; } h1 { font-size:30px; } .cards { grid-template-columns:1fr 1fr; } }
+.slide-hero { display:flex; flex-direction:column; justify-content:center; min-height:480px; }
+.slide-hero-label { font-size:12px; font-weight:500; letter-spacing:3px; text-transform:uppercase; color:var(--muted); margin-bottom:16px; }
+.slide-hero-desc { font-size:18px; color:var(--muted); margin:12px 0 32px; line-height:1.5; }
+.slide-kpi-row { display:flex; gap:40px; margin-top:16px; flex-wrap:wrap; }
+.kpi-num { font-size:36px; font-weight:800; font-family:'Playfair Display',Georgia,serif; }
+.kpi-label { font-size:11px; color:var(--dim); text-transform:uppercase; letter-spacing:1px; }
+.kpi-sub { font-size:11px; color:var(--muted); }
+.slide-stats-row { display:flex; gap:16px; margin-top:16px; flex-wrap:wrap; }
+.stat-card { flex:1; min-width:140px; padding:16px; background:var(--card); border:1px solid var(--border); border-radius:10px; }
+.stat-card-label { font-size:11px; color:var(--muted); margin-bottom:4px; }
+.stat-card-val { font-size:28px; font-weight:800; }
+.stat-card-sub { font-size:11px; color:var(--muted); }
+
+/* ===== RESPONSIVE TABLET ===== */
+@media (max-width:768px) {
+  .slide { padding:24px 16px; min-height:auto; }
+  h1 { font-size:26px; }
+  h2 { font-size:18px; margin-bottom:14px; }
+  .sub { font-size:13px; max-width:100%; margin-bottom:20px; }
+  .slide-num { top:12px; right:14px; font-size:10px; }
+  .cards { grid-template-columns:1fr 1fr; gap:8px; }
+  .card { padding:12px 8px; }
+  .card .v { font-size:20px; }
+  .card .l { font-size:10px; }
+  .flag-box { padding:10px 12px; font-size:12px; }
+  .slide-ft { position:relative; bottom:auto; left:auto; right:auto; margin-top:16px; flex-direction:column; align-items:flex-start; gap:2px; border-top-color:var(--border-l); }
+  .slide-hero { min-height:auto; }
+  .slide-hero-desc { font-size:14px; margin-bottom:16px; }
+  .slide-kpi-row { gap:16px; }
+  .slide-kpi-row > div { flex:1; min-width:80px; }
+  .slide-kpi-row .kpi-num { font-size:24px; }
+  .slide-stats-row > div { min-width:100px; }
+  .stat-card-val { font-size:22px; }
+  table { font-size:11px; display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; white-space:nowrap; }
+  th, td { padding:6px 8px; }
+  td.num { font-size:11px; white-space:nowrap; }
+  .badge { font-size:10px; padding:1px 8px; }
+  .bar-row { flex-wrap:wrap; gap:4px; }
+  .bar-lbl { width:100%; font-size:12px; }
+  .bar-tr { width:100%; height:20px; }
+  .bar-fill { font-size:10px; }
+  .bar-val { width:100%; text-align:left; font-size:11px; }
+  .chart-bar { margin:12px 0; }
+}
+
+/* ===== PHONES (small screens) ===== */
+@media (max-width:480px) {
+  .slide { padding:14px 10px; }
+  h1 { font-size:20px; letter-spacing:0; }
+  h2 { font-size:15px; margin-bottom:10px; }
+  h2 .ic { font-size:15px; }
+  .sub { font-size:12px; margin-bottom:14px; }
+  .sub > br { display:none; }
+  .cards { grid-template-columns:1fr; gap:6px; }
+  .card .v { font-size:17px; }
+  .card .l { font-size:9px; text-transform:none; }
+  .slide-hero { min-height:auto; }
+  .slide-hero-desc { font-size:13px; margin-bottom:12px; }
+  .slide-kpi-row { gap:10px; flex-direction:column; }
+  .slide-kpi-row .kpi-num { font-size:20px; }
+  .slide-stats-row { flex-direction:column; }
+  .slide-stats-row > div { min-width:auto; }
+  .stat-card { min-width:auto; }
+  .stat-card-val { font-size:20px; }
+  table { font-size:10px; }
+  th, td { padding:4px 5px; }
+  td.num { font-size:10px; }
+  .flag-box { font-size:11px; padding:8px 10px; margin:8px 0; }
+  .flag-box .ft { font-size:11px; }
+  .slide-num { top:6px; right:8px; font-size:8px; letter-spacing:1px; }
+  .slide-ft { font-size:10px; padding-top:6px; margin-top:12px; }
+  .slide-ft span:last-child { font-size:9px; }
+  .bar-row { gap:2px; }
+  .bar-lbl { font-size:11px; }
+  .bar-tr { height:16px; }
+  .bar-val { font-size:10px; }
+  table { display:block; overflow-x:auto; -webkit-overflow-scrolling:touch; white-space:nowrap; }
+}
+
 @media print { body { background:#fff; } .slide { break-inside:avoid; page-break-after:always; border:1px solid #ddd; box-shadow:none; background:#fff !important; } }
 </style>
 </head>
@@ -72,17 +150,17 @@ td.c { text-align:center; }
 
 <!-- ========== SLIDE 1 ========== -->
 <div class="slide"><span class="slide-num">01/07</span>
-<div style="display:flex;flex-direction:column;justify-content:center;min-height:480px;">
-  <div style="font-size:12px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Previsione Mercato 2026–2028</div>
+<div class="slide-hero">
+  <div class="slide-hero-label">Previsione Mercato 2026–2028</div>
   <h1>PL9 · <span class="a">Andamento costi</span> costruzione</h1>
-  <div style="font-size:18px;color:var(--muted);margin:12px 0 32px;line-height:1.5;">
+  <div class="slide-hero-desc">
     Analisi dell'evoluzione dei prezzi nel settore delle opere civili in Italia<br>
     con focus su <strong style="color:#fff;">Puglia, materiali, manodopera</strong> e impatto sul progetto PL9
   </div>
-  <div style="display:flex;gap:40px;margin-top:16px;flex-wrap:wrap;">
-    <div><div style="font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;">Indice ISTAT opere stradali (mar 2026)</div><div style="font-size:36px;font-weight:800;color:var(--accent);font-family:'Playfair Display',serif;">122,5</div><div style="font-size:11px;color:var(--muted);">+6,2% annuo</div></div>
-    <div><div style="font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;">Inflazione edilizia prevista 2026–2027</div><div style="font-size:36px;font-weight:800;color:var(--red);font-family:'Playfair Display',serif;">+4,8%</div><div style="font-size:11px;color:var(--muted);">Fonte: trend ISTAT + previsionali</div></div>
-    <div><div style="font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;">Costo PL9 a € correnti (2026)</div><div style="font-size:36px;font-weight:800;color:#fff;font-family:'Playfair Display',serif;">€1.242K</div></div>
+  <div class="slide-kpi-row">
+    <div><div class="kpi-label">Indice ISTAT opere stradali (mar 2026)</div><div class="kpi-num" style="color:var(--accent);">122,5</div><div class="kpi-sub">+6,2% annuo</div></div>
+    <div><div class="kpi-label">Inflazione edilizia prevista 2026–2027</div><div class="kpi-num" style="color:var(--red);">+4,8%</div><div class="kpi-sub">Fonte: trend ISTAT + previsionali</div></div>
+    <div><div class="kpi-label">Costo PL9 a € correnti (2026)</div><div class="kpi-num" style="color:#fff;">€1.242K</div></div>
   </div>
   <div class="flag-box blue" style="margin-top:24px;"><span class="ft">📊 Fonti dati</span>ISTAT — Indici prezzi produzione costruzioni (base 2021, mar 2026) · Prezzario Puglia 2025 (D.G.R. 1022/2025) · BURP n.2/2025 · ANCE · Open Data Regione Puglia · ACCA software</div>
 </div>
@@ -240,21 +318,21 @@ td.c { text-align:center; }
   <tr><td><strong>Operaio altamente specializzato</strong></td><td class="num">€38,00/h</td><td class="num">€40,00/h</td><td class="num">€42,50/h</td><td class="c" style="color:var(--red);">+11,8%</td></tr>
 </table>
 
-<div style="display:flex;gap:16px;margin-top:16px;flex-wrap:wrap;">
-  <div style="flex:1;min-width:140px;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:10px;">
-    <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Costo manodopera medio PL9</div>
-    <div style="font-size:28px;font-weight:800;color:var(--accent);">€38/h</div>
-    <div style="font-size:11px;color:var(--muted);">Specializzato — Prezzario Puglia 2025</div>
+<div class="slide-stats-row">
+  <div class="stat-card">
+    <div class="stat-card-label">Costo manodopera medio PL9</div>
+    <div class="stat-card-val" style="color:var(--accent);">€38/h</div>
+    <div class="stat-card-sub">Specializzato — Prezzario Puglia 2025</div>
   </div>
-  <div style="flex:1;min-width:140px;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:10px;">
-    <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Incidenza MO su costo totale PL9</div>
-    <div style="font-size:28px;font-weight:800;color:var(--amber);">≈38%</div>
-    <div style="font-size:11px;color:var(--muted);">≈€472K su €1.242K</div>
+  <div class="stat-card">
+    <div class="stat-card-label">Incidenza MO su costo totale PL9</div>
+    <div class="stat-card-val" style="color:var(--amber);">≈38%</div>
+    <div class="stat-card-sub">≈€472K su €1.242K</div>
   </div>
-  <div style="flex:1;min-width:140px;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:10px;">
-    <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Trend retributivo edile Puglia</div>
-    <div style="font-size:28px;font-weight:800;color:var(--red);">+4% annuo</div>
-    <div style="font-size:11px;color:var(--muted);">CCNL Edilizia — rinnovo previsto 2026</div>
+  <div class="stat-card">
+    <div class="stat-card-label">Trend retributivo edile Puglia</div>
+    <div class="stat-card-val" style="color:var(--red);">+4% annuo</div>
+    <div class="stat-card-sub">CCNL Edilizia — rinnovo previsto 2026</div>
   </div>
 </div>
 
