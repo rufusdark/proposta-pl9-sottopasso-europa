@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PL9 — Sottopasso Rotatoria Europa | Instagram Kit Quadrato</title>
+<link rel="stylesheet" href="theme.css">
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<style>
+/*
+ *  PL9 — Sottopasso Rotatoria Europa
+ *  Instagram Post Kit (1080×1080 px)
+ */
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #070e1a;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.insta-page {
+  width: 100%;
+  max-width: 1140px;
+  padding: 40px 20px;
+}
+
+.slide-container {
+  margin-bottom: 40px;
+}
+
+.slide-number {
+  color: rgba(255,255,255,0.15);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+/* ========== POST CANVAS ========== */
+.post {
+  width: 1080px;
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+  transform-origin: top left;
+}
+
+/* ========== COMMON ELEMENTS ========== */
+
+/* Rich background gradient */
+.bg-deep {
+  position: absolute;
+  inset: 0;
+  background: 
+    radial-gradient(ellipse at 20% 20%, #0f1f3a 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, #0d1a30 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 0%, rgba(212,168,67,0.03) 0%, transparent 40%),
+    linear-gradient(180deg, #0a1628 0%, #080f1e 50%, #060b16 100%);
+}
+
+/* Organic amber glow */
+.glow-amber {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+/* Grid pattern */
+.pattern-grid {
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Subtle grain texture */
+.pattern-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* Corner amber bracket */
+.corner-bracket-tl {
+  position: absolute;
+  top: 30px; left: 30px;
+  width: 50px; height: 50px;
+  border-top: 2px solid rgba(212,168,67,0.12);
+  border-left: 2px solid rgba(212,168,67,0.12);
+}
+
+.corner-bracket-br {
+  position: absolute;
+  bottom: 70px; right: 30px;
+  width: 50px; height: 50px;
+  border-bottom: 2px solid rgba(212,168,67,0.08);
+  border-right: 2px solid rgba(212,168,67,0.08);
+}
+
+/* Brand top bar */
+.brand-bar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 35px 0;
+}
+
+.brand-amber-dot {
+  width: 10px; height: 10px;
+  background: #d4a843;
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(212,168,67,0.3);
+}
+
+.brand-line {
+  width: 50px; height: 1.5px;
+  background: linear-gradient(90deg, #d4a843, transparent);
+}
+
+.brand-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+/* Bottom bar */
+.bottom-bar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 35px 18px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  margin-top: auto;
+}
+
+.bottom-left { display: flex; align-items: center; gap: 10px; }
+.bottom-dot { width: 6px; height: 6px; border-radius: 50%; background: #d4a843; }
+.bottom-text { font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.25); letter-spacing: 2px; text-transform: uppercase; }
+.bottom-right { display: flex; gap: 14px; }
+.bottom-right-item { font-size: 10px; font-weight: 400; color: rgba(255,255,255,0.15); letter-spacing: 1px; }
+
+/* Right accent strip */
+.accent-strip {
+  position: absolute;
+  top: 0; right: 0;
+  width: 3px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #d4a843 25%, #d4a843 65%, transparent);
+}
+
+/* Content padding helper */
+.content-area {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 0 50px;
+}
+
+/* ========== RESPONSIVE SCALING ========== */
+.post-wrapper {
+  width: 100%;
+  max-width: 1080px;
+  overflow: visible;
+}
+
+@media (max-width: 1140px) {
+  body { padding: 20px 10px; }
+  .slide-container { margin-bottom: 40px; }
+  .slide-number { font-size: 10px; margin-bottom: 8px; }
+}
+
+/* Mobile adjustments for text elements outside the post */
+@media (max-width: 600px) {
+  body { padding: 12px 8px; }
+  .slide-container { margin-bottom: 30px; }
+  .slide-number { font-size: 9px; margin-bottom: 6px; }
+}
+
+/* Download button */
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 12px 28px;
+  background: rgba(212,168,67,0.1);
+  border: 1px solid rgba(212,168,67,0.25);
+  border-radius: 50px;
+  color: #d4a843;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+.download-btn:hover {
+  background: rgba(212,168,67,0.2);
+  border-color: rgba(212,168,67,0.4);
+  transform: translateY(-1px);
+}
+.download-btn:active { transform: translateY(0); }
+.download-btn.loading { opacity: 0.5; pointer-events: none; }
+.download-btn .icon { font-size: 16px; }
+
+/* ================================================================
+   SLIDE 1 — HERO / LANCIO
+   ================================================================ */
+
+.watermark-pl9 {
+  position: absolute;
+  bottom: 20px; right: 35px;
+  font-size: 120px;
+  font-weight: 900;
+  color: rgba(255,255,255,0.012);
+  letter-spacing: -8px;
+  line-height: 1;
+  z-index: 1;
+  pointer-events: none;
+  font-family: 'Arial Black', 'Impact', sans-serif;
+}
+
+.hero-badge {
+  position: relative;
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 35px 0;
+  background: rgba(212,168,67,0.08);
+  border: 1px solid rgba(212,168,67,0.12);
+  padding: 6px 16px;
+  border-radius: 50px;
+  width: fit-content;
+}
+
+.hero-badge-dot {
+  width: 6px; height: 6px;
+  background: #d4a843;
+  border-radius: 50%;
+}
+
+.hero-badge-text {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #d4a843;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 35px;
+}
+
+.hero-pre {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  margin-bottom: 10px;
+}
+
+.hero-title {
+  font-size: 58px;
+  font-weight: 900;
+  line-height: 1.02;
+  color: #ffffff;
+  letter-spacing: -3px;
+}
+
+.hero-title .accent {
+  color: #d4a843;
+  text-shadow: 0 0 40px rgba(212,168,67,0.15);
+}
+
+.hero-desc {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.35;
+  color: rgba(255,255,255,0.4);
+  margin-top: 10px;
+  max-width: 80%;
+}
+
+.hero-divider {
+  width: 90px;
+  height: 3px;
+  background: #d4a843;
+  margin-top: 18px;
+  border-radius: 2px;
+}
+
+/* Stats row */
+.hero-stats {
+  display: flex;
+  gap: 30px;
+  margin-top: 18px;
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-stat-num {
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.5px;
+}
+
+.hero-stat-num .accent { color: #d4a843; }
+
+.hero-stat-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+/* Abstract circle decoration */
+.hero-circle-decor {
+  position: absolute;
+  right: -40px; top: 140px;
+  width: 300px; height: 300px;
+  border: 1px solid rgba(212,168,67,0.04);
+  border-radius: 50%;
+}
+
+.hero-circle-decor-2 {
+  position: absolute;
+  right: -10px; top: 170px;
+  width: 240px; height: 240px;
+  border: 1px solid rgba(212,168,67,0.03);
+  border-radius: 50%;
+}
+
+.hero-diagonal-lines {
+  position: absolute;
+  right: 50px; top: 200px;
+  z-index: 2;
+}
+
+.hero-diag-line {
+  height: 1px;
+  background: rgba(255,255,255,0.03);
+  margin-bottom: 12px;
+}
+
+.hero-diag-line.accent {
+  background: rgba(212,168,67,0.1);
+  width: 50%;
+}
+
+/* ================================================================
+   SLIDE 2 — CRITICITÀ
+   ================================================================ */
+
+.crit-header {
+  position: relative;
+  z-index: 10;
+  padding: 10px 35px 0;
+}
+
+.crit-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #d4a843;
+  margin-bottom: 6px;
+}
+
+.crit-title {
+  font-size: 30px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+.crit-title .accent { color: #d4a843; }
+
+.crit-sub {
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.35);
+  margin-top: 4px;
+}
+
+.crit-grid {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 10px 35px 0;
+  flex: 1;
+}
+
+.crit-card {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 8px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s;
+}
+
+.crit-card.level-high { 
+  background: rgba(231,76,60,0.04);
+  border-color: rgba(231,76,60,0.08);
+  box-shadow: inset 3px 0 0 rgba(231,76,60,0.3);
+}
+
+.crit-card.level-mid {
+  background: rgba(212,168,67,0.03);
+  border-color: rgba(212,168,67,0.06);
+  box-shadow: inset 3px 0 0 rgba(212,168,67,0.25);
+}
+
+.crit-card.level-low {
+  box-shadow: inset 3px 0 0 rgba(255,255,255,0.05);
+}
+
+.crit-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.crit-card-id {
+  font-size: 9px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.15);
+  letter-spacing: 1px;
+}
+
+.crit-card-badge {
+  font-size: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 2px 8px;
+  border-radius: 50px;
+}
+
+.crit-card-badge.high { background: rgba(231,76,60,0.12); color: #e74c3c; }
+.crit-card-badge.mid { background: rgba(212,168,67,0.12); color: #d4a843; }
+.crit-card-badge.low { background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.3); }
+
+.crit-card-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.2;
+  margin-bottom: 1px;
+}
+
+.crit-card-desc {
+  font-size: 10px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.3;
+  flex: 1;
+}
+
+.crit-card-bar {
+  margin-top: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.crit-bar-track {
+  flex: 1;
+  height: 2px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.crit-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+}
+
+.crit-bar-fill.high { background: linear-gradient(90deg, #e74c3c, #c0392b); }
+.crit-bar-fill.mid { background: linear-gradient(90deg, #d4a843, #b8942e); }
+.crit-bar-fill.low { background: linear-gradient(90deg, rgba(255,255,255,0.15), rgba(255,255,255,0.05)); }
+
+.crit-bar-label {
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.25);
+}
+
+/* ================================================================
+   SLIDE 3 — SOLUZIONE
+   ================================================================ */
+
+.sol-content {
+  position: relative;
+  z-index: 10;
+  padding: 10px 35px 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.sol-tag {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #d4a843;
+  margin-bottom: 6px;
+}
+
+.sol-title {
+  font-size: 30px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -1px;
+  line-height: 1.1;
+}
+
+.sol-title .accent { color: #d4a843; }
+
+.sol-main-card {
+  margin-top: 10px;
+  background: linear-gradient(135deg, rgba(212,168,67,0.06), rgba(212,168,67,0.02));
+  border: 1px solid rgba(212,168,67,0.12);
+  border-radius: 14px;
+  padding: 16px 20px;
+  backdrop-filter: blur(10px);
+}
+
+.sol-main-label {
+  font-size: 10px;
+  font-weight: 700;
+  color: #d4a843;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.sol-main-name {
+  font-size: 17px;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 4px;
+}
+
+.sol-main-desc {
+  font-size: 11px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.45);
+  line-height: 1.35;
+}
+
+.sol-metrics {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.sol-metric-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.sol-metric-val {
+  font-size: 15px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.sol-metric-val .accent { color: #d4a843; }
+
+.sol-metric-lbl {
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.3);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 1px;
+}
+
+/* Cross section */
+.sol-cross-section {
+  position: relative;
+  margin-top: 10px;
+  height: 36px;
+  background: rgba(255,255,255,0.02);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.03);
+}
+
+.sol-cross-road {
+  position: absolute;
+  inset: 0;
+  background: 
+    repeating-linear-gradient(90deg, transparent, transparent 15px, rgba(255,255,255,0.02) 15px, rgba(255,255,255,0.02) 16px);
+}
+
+.sol-cross-tunnel {
+  position: absolute;
+  bottom: 12px;
+  left: 30%;
+  width: 40%;
+  height: 55%;
+  background: rgba(212,168,67,0.08);
+  border: 1px solid rgba(212,168,67,0.12);
+  border-radius: 3px 3px 0 0;
+}
+
+.sol-cross-label {
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 8px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.2);
+  white-space: nowrap;
+  letter-spacing: 0.5px;
+}
+
+/* Pros */
+.sol-pros {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.sol-pro-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.5);
+}
+
+.sol-pro-check {
+  color: #27ae60;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+/* Alternatives row */
+.sol-alts {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.sol-alt-card {
+  flex: 1;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.04);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.sol-alt-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 2px;
+}
+
+.sol-alt-detail {
+  font-size: 10px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.3);
+}
+
+.sol-alt-detail .amber { color: #d4a843; }
+
+.sol-alt-card.worst {
+  border-color: rgba(231,76,60,0.08);
+  background: rgba(231,76,60,0.02);
+}
+
+.sol-alt-card.worst .sol-alt-name { color: #e74c3c; }
+
+/* ================================================================
+   SLIDE 4 — CONFRONTO
+   ================================================================ */
+
+.comp-content {
+  position: relative;
+  z-index: 10;
+  padding: 10px 35px 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.comp-tag {
+  font-size: 11px; font-weight: 600; letter-spacing: 3px;
+  text-transform: uppercase; color: #d4a843; margin-bottom: 6px;
+}
+
+.comp-title {
+  font-size: 26px; font-weight: 800; color: #ffffff;
+  letter-spacing: -1px; line-height: 1.1;
+}
+
+.comp-title .accent { color: #d4a843; }
+
+.comp-table {
+  margin-top: 8px;
+  flex: 1;
+}
+
+.comp-th {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.comp-th-cell {
+  font-size: 9px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.comp-th-cell:last-child { text-align: right; }
+
+.comp-tr {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  align-items: center;
+}
+
+.comp-tr:last-child { border-bottom: none; }
+
+.comp-td {
+  font-size: 10px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.5);
+}
+
+.comp-td:first-child { font-weight: 500; color: rgba(255,255,255,0.7); }
+.comp-td:last-child { text-align: right; }
+
+.comp-td .gold { color: #d4a843; font-weight: 600; }
+.comp-td .green { color: #27ae60; font-weight: 500; }
+.comp-td .red { color: #e74c3c; font-weight: 500; font-size: 11px; }
+.comp-td .muted { color: rgba(255,255,255,0.25); }
+
+.comp-scores {
+  display: flex;
+  gap: 10px;
+  padding: 8px 0 0;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+.comp-score {
+  flex: 1;
+  text-align: center;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.03);
+  border-radius: 6px;
+  padding: 6px;
+}
+
+.comp-score.best {
+  background: rgba(212,168,67,0.05);
+  border-color: rgba(212,168,67,0.12);
+}
+
+.comp-score-val {
+  font-size: 15px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.comp-score-val .accent { color: #d4a843; }
+
+.comp-score-lbl {
+  font-size: 9px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.25);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 1px;
+}
+
+.comp-score-sub {
+  font-size: 8px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.15);
+  margin-top: 2px;
+}
+
+/* ================================================================
+   SLIDE 5 — PIANO ECONOMICO
+   ================================================================ */
+
+.piano-content {
+  position: relative;
+  z-index: 10;
+  padding: 10px 35px 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.piano-tag {
+  font-size: 11px; font-weight: 600; letter-spacing: 3px;
+  text-transform: uppercase; color: #d4a843; margin-bottom: 6px;
+}
+
+.piano-title {
+  font-size: 26px; font-weight: 800; color: #ffffff;
+  letter-spacing: -1px; line-height: 1.1;
+}
+
+.piano-title .accent { color: #d4a843; }
+
+.piano-two-cols {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+  flex: 1;
+}
+
+.piano-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.piano-col-header {
+  font-size: 11px;
+  font-weight: 600;
+  color: #d4a843;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.piano-cost-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+.piano-cost-row:last-of-type { border-bottom: none; }
+
+.piano-cost-name {
+  font-size: 10px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.45);
+}
+
+.piano-cost-val {
+  font-size: 10px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.piano-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding: 6px 0 0;
+  border-top: 2px solid #d4a843;
+}
+
+.piano-total-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #d4a843;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.piano-total-val {
+  font-size: 18px;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.piano-total-val .accent { color: #d4a843; }
+
+/* Timeline */
+.piano-timeline {
+  position: relative;
+  padding-left: 24px;
+  flex: 1;
+}
+
+.piano-timeline::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 4px;
+  bottom: 4px;
+  width: 1.5px;
+  background: rgba(212,168,67,0.1);
+}
+
+.piano-phase {
+  position: relative;
+  margin-bottom: 12px;
+}
+
+.piano-phase:last-child { margin-bottom: 0; }
+
+.piano-phase-dot {
+  position: absolute;
+  left: -24px;
+  top: 2px;
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: #0a1628;
+  border: 2px solid #d4a843;
+}
+
+.piano-phase-dot.active {
+  background: #d4a843;
+  box-shadow: 0 0 10px rgba(212,168,67,0.4);
+}
+
+.piano-phase-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+}
+
+.piano-phase-name {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.piano-phase-dur {
+  font-size: 10px;
+  font-weight: 500;
+  color: #d4a843;
+}
+
+.piano-phase-items {
+  list-style: none;
+  padding: 0;
+}
+
+.piano-phase-items li {
+  font-size: 9px;
+  font-weight: 400;
+  color: rgba(255,255,255,0.35);
+  line-height: 1.4;
+  padding: 0;
+}
+
+/* Funding */
+.piano-funding {
+  padding: 6px 0 0;
+  border-top: 1px solid rgba(255,255,255,0.04);
+}
+
+.piano-fund-title {
+  font-size: 10px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.25);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.piano-fund-bars {
+  display: flex;
+  gap: 8px;
+}
+
+.piano-fund-bar {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.piano-fund-track {
+  height: 5px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.piano-fund-fill {
+  height: 100%;
+  border-radius: 3px;
+}
+
+.piano-fund-label {
+  font-size: 8px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.2);
+}
+</style>
+</head>
+<body>
+
+<nav class="global-nav">
+  <div class="global-nav-inner">
+    <a href="index.html" class="global-nav-back">
+      <span class="arrow">←</span> Home
+    </a>
+    <div style="flex:1"></div>
+    <div class="global-nav-links">
+      <a href="COMPLETA.html">Documento</a>
+      <a href="01_Relazione_Tecnica.html">Relazione</a>
+      <a href="02_Quadro_Economico.html">Quadro eco.</a>
+      <a href="SOTTOPASSO_INSTAGRAM_KIT.html">Kit 4:5</a>
+    </div>
+  </div>
+</nav>
+
+<div class="insta-page">
+
+<!-- ============================================================ -->
+<!-- SLIDE 1 — HERO -->
+<!-- ============================================================ -->
+<div class="slide-container">
+  <div class="slide-number">01 / 05 · Lancio</div>
+  <div class="post-wrapper">
+  <div class="post">
+    <div class="bg-deep"></div>
+    <div class="pattern-grid"></div>
+    <div class="pattern-grain"></div>
+    <div class="accent-strip"></div>
+    <div class="corner-bracket-tl"></div>
+    <div class="corner-bracket-br"></div>
+    <div class="watermark-pl9">PL9</div>
+    
+    <div class="hero-circle-decor"></div>
+    <div class="hero-circle-decor-2"></div>
+    
+    <div class="hero-diagonal-lines">
+      <div class="hero-diag-line" style="width:140px"></div>
+      <div class="hero-diag-line accent"></div>
+      <div class="hero-diag-line" style="width:110px"></div>
+      <div class="hero-diag-line" style="width:90px"></div>
+      <div class="hero-diag-line accent"></div>
+      <div class="hero-diag-line" style="width:120px"></div>
+    </div>
+
+    <div class="brand-bar">
+      <div class="brand-amber-dot"></div>
+      <div class="brand-line"></div>
+      <span class="brand-label">Andrea Maggi</span>
+    </div>
+
+    <div class="hero-badge">
+      <div class="hero-badge-dot"></div>
+      <span class="hero-badge-text">Progetto Pilota · PL9</span>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-pre">Infrastrutture Urbane · 2026</div>
+      <h1 class="hero-title">
+        Sottopasso<br>
+        <span class="accent">Rotatoria</span><br>
+        Europa
+      </h1>
+      <p class="hero-desc">
+        Sicurezza, mobilità sostenibile e riqualificazione<br>
+        per il nodo strategico di Martina Franca
+      </p>
+      <div class="hero-divider"></div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <span class="hero-stat-num"><span class="accent">8</span> criticità</span>
+          <span class="hero-stat-label">Analizzate</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num"><span class="accent">3</span> soluzioni</span>
+          <span class="hero-stat-label">Confrontate</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">€<span class="accent">1,2</span>M</span>
+          <span class="hero-stat-label">Investimento</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num"><span class="accent">50</span>+ anni</span>
+          <span class="hero-stat-label">Vita utile</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-bar">
+      <div class="bottom-left">
+        <div class="bottom-dot"></div>
+        <span class="bottom-text">Un progetto pilota per Martina Franca</span>
+      </div>
+      <div class="bottom-right">
+        <span class="bottom-right-item">ANDREA MAGGI</span>
+        <span class="bottom-right-item">·</span>
+        <span class="bottom-right-item">2026</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div class="slide-container">
+  <div class="slide-number">02 / 05 · Criticità</div>
+  <div class="post-wrapper">
+  <div class="post">
+    <div class="bg-deep"></div>
+    <div class="pattern-grid"></div>
+    <div class="pattern-grain"></div>
+    <div class="accent-strip"></div>
+    <div class="corner-bracket-tl"></div>
+    <div class="corner-bracket-br"></div>
+    <div class="watermark-pl9">CRITICITÀ</div>
+
+    <div class="brand-bar">
+      <div class="brand-amber-dot"></div>
+      <div class="brand-line"></div>
+      <span class="brand-label">Andrea Maggi</span>
+    </div>
+
+    <div class="crit-header">
+      <div class="crit-tag">Analisi dei Rischi · PL9</div>
+      <h2 class="crit-title">
+        <span class="accent">8 criticità</span> identificate<br>
+        sulla Rotatoria Europa
+      </h2>
+      <p class="crit-sub">Dall'attraversamento pedonale assente alla sosta selvaggia</p>
+    </div>
+
+    <div class="crit-grid">
+      <div class="crit-card level-high">
+        <div class="crit-card-top">
+          <span class="crit-card-id">C1 · CRITICO</span>
+          <span class="crit-card-badge high">95%</span>
+        </div>
+        <div class="crit-card-title">Attraversamento pedonale assente</div>
+        <div class="crit-card-desc">Nessun attraversamento protetto. Pedoni sulla carreggiata.</div>
+        <div class="crit-card-bar">
+          <div class="crit-bar-track"><div class="crit-bar-fill high" style="width:95%"></div></div>
+          <span class="crit-bar-label">95%</span>
+        </div>
+      </div>
+
+      <div class="crit-card level-high">
+        <div class="crit-card-top">
+          <span class="crit-card-id">C2 · CRITICO</span>
+          <span class="crit-card-badge high">90%</span>
+        </div>
+        <div class="crit-card-title">Conflitto bici-auto sulla corona</div>
+        <div class="crit-card-desc">Ciclisti sulla rotatoria condividono spazio con le auto.</div>
+        <div class="crit-card-bar">
+          <div class="crit-bar-track"><div class="crit-bar-fill high" style="width:90%"></div></div>
+          <span class="crit-bar-label">90%</span>
+        </div>
+      </div>
+
+      <div class="crit-card level-high">
+        <div class="crit-card-top">
+          <span class="crit-card-id">C3 · CRITICO</span>
+          <span class="crit-card-badge high">85%</span>
+        </div>
+        <div class="crit-card-title">Visibilità ridotta in ingresso</div>
+        <div class="crit-card-desc">Raggi di curvatura limitano visuale in immissione.</div>
+        <div class="crit-card-bar">
+          <div class="crit-bar-track"><div class="crit-bar-fill high" style="width:85%"></div></div>
+          <span class="crit-bar-label">85%</span>
+        </div>
+      </div>
+
+      <div class="crit-card level-mid">
+        <div class="crit-card-top">
+          <span class="crit-card-id">C4 · SIGNIFICATIVO</span>
+          <span class="crit-card-badge mid">75%</span>
+        </div>
+        <div class="crit-card-title">Code nelle ore di punta</div>
+        <div class="crit-card-desc">Code 08:00-09:00 e 17:30-19:00 su Viale Stazione.</div>
+        <div class="crit-card-bar">
+          <div class="crit-bar-track"><div class="crit-bar-fill mid" style="width:75%"></div></div>
+          <span class="crit-bar-label">75%</span>
+        </div>
+      </div>
+
+      <div class="crit-card level-mid">
+        <div class="crit-card-top">
+          <span class="crit-card-id">C5 · SIGNIFICATIVO</span>
+          <span class="crit-card-badge mid">70%</span>
+        </div>
+        <div class="crit-card-title">Trasporto pubblico ostacolato</div>
+        <div class="crit-card-desc">Bus navetta in ritardo. Fermata in condizioni precarie.</div>
+        <div class="crit-card-bar">
+          <div class="crit-bar-track"><div class="crit-bar-fill mid" style="width:70%"></div></div>
+          <span class="crit-bar-label">70%</span>
+        </div>
+      </div>
+
+      <div class="crit-card level-mid">
+        <div class="crit-card-top">
+          <span class="crit-card-id">C6 · SIGNIFICATIVO</span>
+          <span class="crit-card-badge mid">65%</span>
+        </div>
+        <div class="crit-card-title">Marciapiede insufficiente</div>
+        <div class="crit-card-desc">Larghezza &lt; 1m. Pedoni e passeggini sulla strada.</div>
+        <div class="crit-card-bar">
+          <div class="crit-bar-track"><div class="crit-bar-fill mid" style="width:65%"></div></div>
+          <span class="crit-bar-label">65%</span>
+        </div>
+      </div>
+
+      <div class="crit-card level-low">
+        <div class="crit-card-top">
+          <span class="crit-card-id">C7 · DA MIGLIORARE</span>
+          <span class="crit-card-badge low">45%</span>
+        </div>
+        <div class="crit-card-title">Illuminazione inadeguata</div>
+        <div class="crit-card-desc">Scarsa illuminazione in ore serali in alcuni punti.</div>
+        <div class="crit-card-bar">
+          <div class="crit-bar-track"><div class="crit-bar-fill low" style="width:45%"></div></div>
+          <span class="crit-bar-label">45%</span>
+        </div>
+      </div>
+
+      <div class="crit-card level-low">
+        <div class="crit-card-top">
+          <span class="crit-card-id">C8 · DA MIGLIORARE</span>
+          <span class="crit-card-badge low">40%</span>
+        </div>
+        <div class="crit-card-title">Sosta selvaggia in prossimità</div>
+        <div class="crit-card-desc">Veicoli in sosta vietata riducono visibilità.</div>
+        <div class="crit-card-bar">
+          <div class="crit-bar-track"><div class="crit-bar-fill low" style="width:40%"></div></div>
+          <span class="crit-bar-label">40%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-bar">
+      <div class="bottom-left">
+        <div class="bottom-dot"></div>
+        <span class="bottom-text">Analisi tecnica · Giugno 2026</span>
+      </div>
+      <div class="bottom-right">
+        <span class="bottom-right-item">ANDREA MAGGI</span>
+        <span class="bottom-right-item">·</span>
+        <span class="bottom-right-item">PL9</span>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 3 — SOLUZIONE -->
+<!-- ============================================================ -->
+<div class="slide-container">
+  <div class="slide-number">03 / 05 · Soluzione</div>
+  <div class="post-wrapper">
+  <div class="post">
+    <div class="bg-deep"></div>
+    <div class="pattern-grid"></div>
+    <div class="pattern-grain"></div>
+    <div class="accent-strip"></div>
+    <div class="corner-bracket-tl"></div>
+    <div class="corner-bracket-br"></div>
+    <div class="watermark-pl9">SOLUZIONE</div>
+
+    <div class="brand-bar">
+      <div class="brand-amber-dot"></div>
+      <div class="brand-line"></div>
+      <span class="brand-label">Andrea Maggi</span>
+    </div>
+
+    <div class="sol-content">
+      <div class="sol-tag">Proposta progettuale · PL9</div>
+      <h2 class="sol-title">
+        <span class="accent">Sottopasso</span> ciclopedonale<br>
+        con elementi prefabbricati
+      </h2>
+
+      <div class="sol-main-card">
+        <div class="sol-main-label">Soluzione consigliata · S1</div>
+        <div class="sol-main-name">Sottopasso prefabbricato 4m × 2,5m</div>
+        <div class="sol-main-desc">
+          Elementi scatolari prefabbricati in c.a. — Varo in 1 notte — Minima invasione del traffico — Durata 50+ anni
+        </div>
+        <div class="sol-metrics">
+          <div class="sol-metric-item">
+            <span class="sol-metric-val">€<span class="accent">1,2</span>–<span class="accent">1,5</span>M</span>
+            <span class="sol-metric-lbl">Costo</span>
+          </div>
+          <div class="sol-metric-item">
+            <span class="sol-metric-val"><span class="accent">8</span>–<span class="accent">10</span> mesi</span>
+            <span class="sol-metric-lbl">Realizzazione</span>
+          </div>
+          <div class="sol-metric-item">
+            <span class="sol-metric-val"><span class="accent">50</span>+ anni</span>
+            <span class="sol-metric-lbl">Vita utile</span>
+          </div>
+          <div class="sol-metric-item">
+            <span class="sol-metric-val">€<span class="accent">2</span>–<span class="accent">5</span>K</span>
+            <span class="sol-metric-lbl">Manut./anno</span>
+          </div>
+        </div>
+        
+        <!-- Cross-section -->
+        <div class="sol-cross-section">
+          <div class="sol-cross-road"></div>
+          <div class="sol-cross-tunnel"></div>
+          <span class="sol-cross-label">Sezione sottopasso 4,0 × 2,5 m</span>
+        </div>
+      </div>
+
+      <div class="sol-pros">
+        <div class="sol-pro-item"><span class="sol-pro-check">✓</span> Varo rapido (1 notte)</div>
+        <div class="sol-pro-item"><span class="sol-pro-check">✓</span> Minima invasione traffico</div>
+        <div class="sol-pro-item"><span class="sol-pro-check">✓</span> Costo contenuto</div>
+        <div class="sol-pro-item"><span class="sol-pro-check">✓</span> Durata 50+ anni</div>
+        <div class="sol-pro-item"><span class="sol-pro-check">✓</span> Finanziabile PNRR</div>
+        <div class="sol-pro-item"><span class="sol-pro-check">✓</span> Zero manut. ordinaria</div>
+      </div>
+
+      <div class="sol-alts">
+        <div class="sol-alt-card">
+          <div class="sol-alt-name">S2 · Riqualificazione integrata</div>
+          <div class="sol-alt-detail">€1,8–2,5M · <span class="amber">voto 8/10</span></div>
+        </div>
+        <div class="sol-alt-card">
+          <div class="sol-alt-name">S3 · Attraversamento rialzato</div>
+          <div class="sol-alt-detail">€350–500K · <span class="amber">voto 5/10</span></div>
+        </div>
+        <div class="sol-alt-card worst">
+          <div class="sol-alt-name">Status quo · Nessun intervento</div>
+          <div class="sol-alt-detail">€0 · ma a costo della sicurezza · voto 2/10</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-bar" style="margin-top:12px">
+      <div class="bottom-left">
+        <div class="bottom-dot"></div>
+        <span class="bottom-text">Progetto pilota · Giugno 2026</span>
+      </div>
+      <div class="bottom-right">
+        <span class="bottom-right-item">ANDREA MAGGI</span>
+        <span class="bottom-right-item">·</span>
+        <span class="bottom-right-item">PL9</span>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 4 — CONFRONTO -->
+<!-- ============================================================ -->
+<div class="slide-container">
+  <div class="slide-number">04 / 05 · Confronto</div>
+  <div class="post-wrapper">
+  <div class="post">
+    <div class="bg-deep"></div>
+    <div class="pattern-grid"></div>
+    <div class="pattern-grain"></div>
+    <div class="accent-strip"></div>
+    <div class="corner-bracket-tl"></div>
+    <div class="corner-bracket-br"></div>
+    <div class="watermark-pl9">CONFRONTO</div>
+
+    <div class="brand-bar">
+      <div class="brand-amber-dot"></div>
+      <div class="brand-line"></div>
+      <span class="brand-label">Andrea Maggi</span>
+    </div>
+
+    <div class="comp-content">
+      <div class="comp-tag">Analisi multicriteria · PL9</div>
+      <h2 class="comp-title">
+        <span class="accent">Sottopasso</span> vince su<br>
+        <span class="accent">7 criteri</span> su 9
+      </h2>
+
+      <div class="comp-table">
+        <div class="comp-th">
+          <div class="comp-th-cell">Criterio</div>
+          <div class="comp-th-cell">Sottopasso</div>
+          <div class="comp-th-cell">Rialzato</div>
+          <div class="comp-th-cell">Status quo</div>
+        </div>
+
+        <div class="comp-tr">
+          <div class="comp-td">Sicurezza pedoni/ciclisti</div>
+          <div class="comp-td"><span class="gold">Alta (10)</span></div>
+          <div class="comp-td">Media (6)</div>
+          <div class="comp-td"><span class="red">Bassa (2)</span></div>
+        </div>
+        <div class="comp-tr">
+          <div class="comp-td">Costo realizzazione</div>
+          <div class="comp-td"><span class="muted">€1,2–2,5M</span></div>
+          <div class="comp-td"><span class="green">€350–500K</span></div>
+          <div class="comp-td"><span class="muted">€0</span></div>
+        </div>
+        <div class="comp-tr">
+          <div class="comp-td">Vita utile</div>
+          <div class="comp-td"><span class="gold">50+ anni</span></div>
+          <div class="comp-td">10–15 anni</div>
+          <div class="comp-td"><span class="muted">—</span></div>
+        </div>
+        <div class="comp-tr">
+          <div class="comp-td">Manutenzione annua</div>
+          <div class="comp-td"><span class="green">€2–5K</span></div>
+          <div class="comp-td">€5–10K</div>
+          <div class="comp-td"><span class="muted">—</span></div>
+        </div>
+        <div class="comp-tr">
+          <div class="comp-td">Impatto su traffico</div>
+          <div class="comp-td"><span class="gold">Nullo (sotto)</span></div>
+          <div class="comp-td">Rallentamento</div>
+          <div class="comp-td"><span class="muted">Nessuno</span></div>
+        </div>
+        <div class="comp-tr">
+          <div class="comp-td">Accessibilità disabili</div>
+          <div class="comp-td"><span class="gold">Alta</span></div>
+          <div class="comp-td">Media</div>
+          <div class="comp-td"><span class="red">Bassa</span></div>
+        </div>
+        <div class="comp-tr">
+          <div class="comp-td">Impatto estetico</div>
+          <div class="comp-td"><span class="gold">Riqualifica</span></div>
+          <div class="comp-td">Medio</div>
+          <div class="comp-td"><span class="muted">—</span></div>
+        </div>
+        <div class="comp-tr">
+          <div class="comp-td">Finanziabilità PNRR</div>
+          <div class="comp-td"><span class="gold">Ammissibile</span></div>
+          <div class="comp-td">Parziale</div>
+          <div class="comp-td">No</div>
+        </div>
+        <div class="comp-tr">
+          <div class="comp-td">Durata lavori</div>
+          <div class="comp-td"><span class="muted">8–14 mesi</span></div>
+          <div class="comp-td"><span class="green">4–6 mesi</span></div>
+          <div class="comp-td"><span class="muted">—</span></div>
+        </div>
+      </div>
+
+      <div class="comp-scores">
+        <div class="comp-score best">
+          <div class="comp-score-val"><span class="accent">9</span>/10</div>
+          <div class="comp-score-lbl">Sottopasso</div>
+          <div class="comp-score-sub">Scelta consigliata</div>
+        </div>
+        <div class="comp-score">
+          <div class="comp-score-val">5/10</div>
+          <div class="comp-score-lbl">Rialzato</div>
+          <div class="comp-score-sub">Soluzione tampone</div>
+        </div>
+        <div class="comp-score">
+          <div class="comp-score-val">2/10</div>
+          <div class="comp-score-lbl">Status quo</div>
+          <div class="comp-score-sub">Insostenibile</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-bar" style="margin-top:10px">
+      <div class="bottom-left">
+        <div class="bottom-dot"></div>
+        <span class="bottom-text">Analisi multicriteria · Giugno 2026</span>
+      </div>
+      <div class="bottom-right">
+        <span class="bottom-right-item">ANDREA MAGGI</span>
+        <span class="bottom-right-item">·</span>
+        <span class="bottom-right-item">PL9</span>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+
+<!-- ============================================================ -->
+<!-- SLIDE 5 — PIANO -->
+<!-- ============================================================ -->
+<div class="slide-container">
+  <div class="slide-number">05 / 05 · Piano</div>
+  <div class="post-wrapper">
+  <div class="post">
+    <div class="bg-deep"></div>
+    <div class="pattern-grid"></div>
+    <div class="pattern-grain"></div>
+    <div class="accent-strip"></div>
+    <div class="corner-bracket-tl"></div>
+    <div class="corner-bracket-br"></div>
+    <div class="watermark-pl9">PIANO</div>
+
+    <div class="brand-bar">
+      <div class="brand-amber-dot"></div>
+      <div class="brand-line"></div>
+      <span class="brand-label">Andrea Maggi</span>
+    </div>
+
+    <div class="piano-content">
+      <div class="piano-tag">Piano economico e cronoprogramma · PL9</div>
+      <h2 class="piano-title">
+        <span class="accent">€1,24 milioni</span> per un'opera<br>
+        che dura <span class="accent">50 anni</span>
+      </h2>
+
+      <div class="piano-two-cols">
+        <div class="piano-col">
+          <div class="piano-col-header">Costi di realizzazione</div>
+          <div class="piano-cost-row">
+            <span class="piano-cost-name">Progettazione e DL</span>
+            <span class="piano-cost-val">€180.000</span>
+          </div>
+          <div class="piano-cost-row">
+            <span class="piano-cost-name">Scavo e opere preliminari</span>
+            <span class="piano-cost-val">€250.000</span>
+          </div>
+          <div class="piano-cost-row">
+            <span class="piano-cost-name">Elementi scatolari prefabbricati</span>
+            <span class="piano-cost-val">€350.000</span>
+          </div>
+          <div class="piano-cost-row">
+            <span class="piano-cost-name">Rampe e finiture</span>
+            <span class="piano-cost-val">€150.000</span>
+          </div>
+          <div class="piano-cost-row">
+            <span class="piano-cost-name">Illuminazione LED</span>
+            <span class="piano-cost-val">€100.000</span>
+          </div>
+          <div class="piano-cost-row">
+            <span class="piano-cost-name">Riqualificazione superficie</span>
+            <span class="piano-cost-val">€90.000</span>
+          </div>
+          <div class="piano-cost-row">
+            <span class="piano-cost-name">Arredo e segnaletica</span>
+            <span class="piano-cost-val">€35.000</span>
+          </div>
+          <div class="piano-cost-row">
+            <span class="piano-cost-name">Imprevisti e sicurezza</span>
+            <span class="piano-cost-val">€87.000</span>
+          </div>
+          <div class="piano-total">
+            <span class="piano-total-label">Totale</span>
+            <span class="piano-total-val">€<span class="accent">1.242</span>.000</span>
+          </div>
+        </div>
+
+        <div class="piano-col">
+          <div class="piano-col-header">Cronoprogramma</div>
+          <div class="piano-timeline">
+            <div class="piano-phase">
+              <div class="piano-phase-dot"></div>
+              <div class="piano-phase-header">
+                <span class="piano-phase-name">Fase 1 · Immediata</span>
+                <span class="piano-phase-dur">1–2 mesi</span>
+              </div>
+              <ul class="piano-phase-items">
+                <li>Sopralluogo e rilievo geometrico</li>
+                <li>Verifica sottoservizi</li>
+                <li>Conteggio flussi veicolari/pedonali</li>
+                <li>Studio geotecnico preliminare</li>
+              </ul>
+            </div>
+            <div class="piano-phase">
+              <div class="piano-phase-dot active"></div>
+              <div class="piano-phase-header">
+                <span class="piano-phase-name">Fase 2 · Progettazione</span>
+                <span class="piano-phase-dur">3–6 mesi</span>
+              </div>
+              <ul class="piano-phase-items">
+                <li>Progetto di fattibilità tecnico-economica</li>
+                <li>Conferenza dei Servizi</li>
+                <li>Richiesta finanziamento PNRR</li>
+              </ul>
+            </div>
+            <div class="piano-phase">
+              <div class="piano-phase-dot"></div>
+              <div class="piano-phase-header">
+                <span class="piano-phase-name">Fase 3 · Realizzazione</span>
+                <span class="piano-phase-dur">7–14 mesi</span>
+              </div>
+              <ul class="piano-phase-items">
+                <li>Bando di gara e assegnazione</li>
+                <li>Varo sottopasso (1 notte)</li>
+                <li>Riqualificazione rotatoria</li>
+                <li>Collaudo e inaugurazione</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="piano-funding">
+        <div class="piano-fund-title">Fonti di finanziamento</div>
+        <div class="piano-fund-bars">
+          <div class="piano-fund-bar">
+            <div class="piano-fund-track"><div class="piano-fund-fill" style="width:85%;background:linear-gradient(90deg,#d4a843,#c49a3a)"></div></div>
+            <span class="piano-fund-label">PNRR M2C4</span>
+          </div>
+          <div class="piano-fund-bar">
+            <div class="piano-fund-track"><div class="piano-fund-fill" style="width:80%;background:linear-gradient(90deg,#4a8bc2,#3a7bb2)"></div></div>
+            <span class="piano-fund-label">D.M. 7/01/2026</span>
+          </div>
+          <div class="piano-fund-bar">
+            <div class="piano-fund-track"><div class="piano-fund-fill" style="width:55%;background:linear-gradient(90deg,#5b8c3e,#4b7c2e)"></div></div>
+            <span class="piano-fund-label">Bici in Comune</span>
+          </div>
+          <div class="piano-fund-bar">
+            <div class="piano-fund-track"><div class="piano-fund-fill" style="width:45%;background:linear-gradient(90deg,#f39c12,#e38e02)"></div></div>
+            <span class="piano-fund-label">Regione FSC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-bar" style="margin-top:10px">
+      <div class="bottom-left">
+        <div class="bottom-dot"></div>
+        <span class="bottom-text">Piano economico · Giugno 2026</span>
+      </div>
+      <div class="bottom-right">
+        <span class="bottom-right-item">ANDREA MAGGI</span>
+        <span class="bottom-right-item">·</span>
+        <span class="bottom-right-item">PL9</span>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+
+<script>
+// Scale Instagram posts to fit viewport width
+function scalePosts() {
+  document.querySelectorAll('.post-wrapper').forEach(function(wrapper) {
+    var post = wrapper.querySelector('.post');
+    if (!post) return;
+    var scale = Math.min(1, wrapper.offsetWidth / 1080);
+    post.style.transform = 'scale(' + scale + ')';
+    wrapper.style.height = (1080 * scale) + 'px';
+  });
+}
+
+// --- Aggiunge pulsanti "Scarica PNG" dopo ogni slide ---
+document.addEventListener('DOMContentLoaded', function() {
+  var labels = [
+    '01 — Lancio',
+    '02 — Criticit\u00e0',
+    '03 — Soluzione',
+    '04 — Confronto',
+    '05 — Piano'
+  ];
+  
+  var containers = document.querySelectorAll('.slide-container');
+  containers.forEach(function(container, idx) {
+    var btn = document.createElement('button');
+    btn.className = 'download-btn';
+    btn.setAttribute('data-slide', idx + 1);
+    btn.innerHTML = '<span class="icon">\u{1F4E5}</span> Scarica PNG \u00b7 Slide ' + labels[idx];
+    container.appendChild(btn);
+  });
+  
+  scalePosts();
+});
+
+// --- Download PNG ---
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('.download-btn');
+  if (!btn) return;
+  if (btn.classList.contains('loading')) return;
+  
+  var container = btn.closest('.slide-container');
+  var post = container.querySelector('.post');
+  var originalTransform = post.style.transform;
+  var originalHeight = container.querySelector('.post-wrapper').style.height;
+  
+  // Temporarily reset transform to capture full size
+  post.style.transform = 'none';
+  container.querySelector('.post-wrapper').style.height = '1080px';
+  
+  btn.classList.add('loading');
+  btn.innerHTML = '<span class="icon">\u{23F3}</span> Generazione...';
+  
+  // Wait for layout
+  setTimeout(function() {
+    html2canvas(post, {
+      width: 1080,
+      height: 1350,
+      scale: 1,
+      useCORS: true,
+      backgroundColor: '#070e1a',
+      logging: false,
+      onclone: function(clonedDoc) {
+        // Ensure cloned element has correct dimensions
+      }
+    }).then(function(canvas) {
+      var link = document.createElement('a');
+      link.download = 'PL9_Sottopasso_Europa_Slide_' + btn.getAttribute('data-slide') + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      
+      // Restore
+      post.style.transform = originalTransform;
+      container.querySelector('.post-wrapper').style.height = originalHeight;
+      btn.classList.remove('loading');
+      btn.innerHTML = '<span class="icon">\u2705</span> Scaricato!';
+      setTimeout(function() {
+        btn.innerHTML = '<span class="icon">\u{1F4E5}</span> Scarica PNG \u00b7 Slide ' + labels[parseInt(btn.getAttribute('data-slide')) - 1];
+      }, 2000);
+    }).catch(function(err) {
+      console.error('html2canvas error:', err);
+      post.style.transform = originalTransform;
+      container.querySelector('.post-wrapper').style.height = originalHeight;
+      btn.classList.remove('loading');
+      btn.innerHTML = '<span class="icon">\u274C</span> Errore, riprova';
+    });
+  }, 100);
+});
+
+window.addEventListener('resize', scalePosts);
+</script>
+
+</div><!-- /insta-page -->
+
+<footer class="global-footer">
+  <strong>PL9</strong> — Sottopasso Rotatoria Europa · Andrea Maggi · Giugno 2026
+</footer>
+
+</body>
+</html>

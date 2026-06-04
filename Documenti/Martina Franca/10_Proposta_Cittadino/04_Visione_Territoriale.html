@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Visione territoriale | PL9 — Sottopasso e riqualificazione Martina Franca</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+/* ===== PASSWORD GATE ===== */
+.pw-gate {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(ellipse at 30% 20%, #0f1f3a 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, #0d1a30 0%, transparent 50%),
+              linear-gradient(135deg, #080f1e 0%, #060b16 50%, #0a0f1a 100%);
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.pw-gate.unlocked {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.pw-gate-card {
+  width: 400px;
+  max-width: 90vw;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(212,168,67,0.12);
+  border-radius: 20px;
+  padding: 48px 36px 36px;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.pw-gate-icon {
+  width: 72px; height: 72px;
+  margin: 0 auto 20px;
+  background: rgba(212,168,67,0.08);
+  border: 1px solid rgba(212,168,67,0.15);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+
+.pw-gate-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 4px;
+  letter-spacing: -0.3px;
+}
+
+.pw-gate-title .accent { color: #d4a843; }
+
+.pw-gate-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.4);
+  margin-bottom: 28px;
+  line-height: 1.5;
+}
+
+.pw-gate-input-group {
+  position: relative;
+  width: 100%;
+}
+
+.pw-gate-input {
+  width: 100%;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.pw-gate-input::placeholder {
+  color: rgba(255,255,255,0.2);
+}
+
+.pw-gate-input:focus {
+  border-color: #d4a843;
+  box-shadow: 0 0 0 3px rgba(212,168,67,0.08);
+}
+
+.pw-gate-input.error {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 3px rgba(231,76,60,0.1);
+  animation: pw-shake 0.4s ease;
+}
+
+@keyframes pw-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+
+.pw-gate-btn {
+  width: 100%;
+  margin-top: 14px;
+  padding: 14px;
+  background: #d4a843;
+  border: none;
+  border-radius: 12px;
+  color: #0a1628;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.pw-gate-btn:hover {
+  background: #c49a3a;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(212,168,67,0.25);
+}
+
+.pw-gate-btn:active {
+  transform: translateY(0);
+}
+
+.pw-gate-error {
+  font-size: 12px;
+  color: #e74c3c;
+  margin-top: 10px;
+  min-height: 20px;
+  transition: opacity 0.2s;
+  opacity: 0;
+}
+
+.pw-gate-error.visible {
+  opacity: 1;
+}
+
+.pw-gate-lock {
+  font-size: 11px;
+  color: rgba(255,255,255,0.15);
+  margin-top: 20px;
+  letter-spacing: 0.5px;
+}
+
+.pw-gate-lock span { color: rgba(212,168,67,0.3); }
+
+/* Hidden content container */
+.pw-content {
+  display: none;
+}
+
+.pw-content.unlocked {
+  display: block;
+}
+
+@media (max-width: 640px) {
+  .pw-gate-card { padding: 36px 24px 28px; }
+  .pw-gate-icon { width: 60px; height: 60px; font-size: 26px; }
+  .pw-gate-title { font-size: 17px; }
+}
+
+.visione-page {
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+/* Cover */
+.cover-page {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 48px;
+  margin: -48px -32px 48px;
+  background: linear-gradient(135deg, #0a1628 0%, #0d1b30 50%, #0a1628 100%);
+  color: #fff;
+  page-break-after: always;
+}
+
+.cover-page .label {
+  font-size: 10px; font-weight: 500; letter-spacing: 3px;
+  text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 8px;
+}
+
+.cover-page h1 {
+  font-size: 32pt; font-weight: 900; color: #fff;
+  letter-spacing: -1px; margin-bottom: 12px;
+}
+
+.cover-page h1 .accent { color: #d4a843; }
+
+.cover-page .sub {
+  font-size: 13pt; font-weight: 300;
+  color: rgba(255,255,255,0.5); margin-bottom: 24px;
+}
+
+.cover-page .divider {
+  width: 60px; height: 3px; background: #d4a843; margin-bottom: 20px; border-radius: 2px;
+}
+
+/* Content */
+h1 {
+  font-size: 22pt; font-weight: 800; color: var(--text-primary);
+  letter-spacing: -0.3px; margin: 28px 0 14px;
+  padding-bottom: 6px; border-bottom: 2px solid var(--border-accent);
+}
+
+h1 .accent { color: var(--accent); }
+
+h2 {
+  font-size: 13pt; font-weight: 700; color: var(--text-primary);
+  margin-top: 24px; margin-bottom: 8px;
+  padding-left: 10px; border-left: 2px solid var(--accent);
+}
+
+h3 {
+  font-size: 10.5pt; font-weight: 700; color: var(--text-primary);
+  margin-top: 16px; margin-bottom: 6px;
+}
+
+p { margin-bottom: 6px; text-align: justify; color: var(--text-secondary); font-size: 10.5pt; line-height: 1.7; }
+ul, ol { margin: 4px 0 6px 18px; }
+li { margin-bottom: 2px; color: var(--text-secondary); font-size: 10.5pt; }
+strong { color: var(--text-primary); }
+
+table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9.5pt; }
+th { background: var(--bg-secondary); color: var(--text-muted); font-weight: 600; text-align: left; padding: 6px 8px; font-size: 7.5pt; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 5px 8px; border-bottom: 1px solid var(--border-light); color: var(--text-secondary); }
+tr:nth-child(even) td { background: var(--bg-card); }
+.total-row td { font-weight: 700; border-top: 2px solid var(--accent); background: var(--bg-accent); color: var(--text-primary); }
+
+.info-box { background: var(--bg-card); border-left: 3px solid var(--accent); padding: 10px 14px; margin: 10px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.info-box strong:first-child { display: block; margin-bottom: 3px; color: var(--accent); font-size: 10pt; }
+.warn-box { background: var(--amber-bg); border-left: 3px solid var(--amber); padding: 10px 14px; margin: 10px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.warn-box strong:first-child { display: block; margin-bottom: 3px; color: var(--amber); }
+.good-box { background: var(--green-bg); border-left: 3px solid var(--green); padding: 10px 14px; margin: 10px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.good-box strong:first-child { display: block; margin-bottom: 3px; color: var(--green); }
+.idea-box { background: rgba(212,168,67,0.05); border: 1px solid rgba(212,168,67,0.12); border-radius: 8px; padding: 14px 18px; margin: 12px 0; }
+.idea-box-title { font-weight: 700; color: var(--accent); font-size: 11pt; margin-bottom: 4px; }
+.idea-box-desc { font-size: 9.5pt; color: var(--text-secondary); line-height: 1.6; }
+
+.data-row { display: flex; gap: 10px; margin: 10px 0; flex-wrap: wrap; }
+.data-card { flex: 1; min-width: 120px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; text-align: center; }
+.data-card-value { font-size: 14pt; font-weight: 800; color: var(--text-primary); }
+.data-card-value .accent { color: var(--accent); }
+.data-card-label { font-size: 7pt; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.3px; margin-top: 2px; }
+
+.footnote { font-size: 8pt; color: var(--text-dim); margin-top: 4px; }
+.source-ref { font-size: 7.5pt; color: var(--text-muted); font-style: italic; }
+.page-break { page-break-before: always; }
+
+/* Map placeholder */
+.map-placeholder {
+  background: var(--bg-card);
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  padding: 30px 20px;
+  text-align: center;
+  margin: 14px 0;
+}
+
+.map-placeholder .map-icon { font-size: 40px; margin-bottom: 8px; }
+.map-placeholder .map-text { font-size: 11pt; color: var(--text-muted); }
+
+/* Location grid */
+.loc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 10px 0; }
+.loc-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 8px; padding: 12px 14px; }
+.loc-item-id { font-size: 8pt; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 1px; }
+.loc-item-name { font-weight: 700; color: var(--text-primary); font-size: 10pt; margin: 2px 0; }
+.loc-item-desc { font-size: 8.5pt; color: var(--text-muted); line-height: 1.5; }
+
+@media (max-width: 640px) {
+  .visione-page { padding: 24px 16px; }
+  .cover-page { padding: 40px 24px; margin: -24px -16px 24px; min-height: auto; }
+  .cover-page h1 { font-size: 24pt; }
+  .loc-grid { grid-template-columns: 1fr; }
+  table { font-size: 8pt; }
+}
+
+@media print {
+  .visione-page { padding: 0; max-width: 190mm; }
+  .cover-page { min-height: 297mm; margin: 0; padding: 40mm 30mm; }
+  h1, h2, h3, .cover-page h1, .cover-page h1 .accent,
+  h1 .accent { color: #0a1628 !important; }
+  p, li, td, th, .cover-page .sub, .cover-page .label,
+  .source-ref, .footnote { color: #1a1a1a !important; }
+  th { background: #0a1628 !important; color: #fff !important; }
+  td { border-bottom: 1px solid #e0ddd5 !important; }
+  tr:nth-child(even) td { background: #f9f8f6 !important; }
+  .total-row td { background: #f8f6f0 !important; border-top: 2px solid #d4a843 !important; }
+  .data-card { background: #f8f6f0 !important; border-color: #e8e5dd !important; }
+  .data-card-value { color: #0a1628 !important; }
+  .data-card-label { color: #888 !important; }
+  .idea-box { background: rgba(212,168,67,0.04) !important; border-color: rgba(212,168,67,0.3) !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== PASSWORD GATE ===== -->
+<div class="pw-gate" id="pwGate">
+  <div class="pw-gate-card">
+    <div class="pw-gate-icon">🗺️</div>
+    <div class="pw-gate-title">Accesso riservato</div>
+    <div class="pw-gate-sub">
+      Documento ad accesso protetto.<br>
+      Inserisci la password per visualizzare i contenuti.
+    </div>
+    <div class="pw-gate-input-group" style="position:relative">
+      <input class="pw-gate-input" id="pwInput" type="password" placeholder="Password" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')unlock()" style="padding-right:46px">
+      <span onclick="var i=document.getElementById('pwInput'); i.type=i.type==='password'?'text':'password'; this.textContent=i.type==='password'?'👁️':'👁‍🗨'" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:18px;opacity:0.3;transition:opacity 0.2s;user-select:none" onmouseenter="this.style.opacity='0.6'" onmouseleave="this.style.opacity='0.3'">👁️</span>
+      <div class="pw-gate-error" id="pwError">Password errata. Riprova.</div>
+    </div>
+    <button class="pw-gate-btn" id="pwBtn" onclick="unlock()">Accedi</button>
+    <div class="pw-gate-lock">🔒 <span>PL9</span> · Sottopasso Rotatoria Europa</div>
+  </div>
+</div>
+
+<!-- ===== CONTENUTO PROTETTO ===== -->
+<div class="pw-content" id="pwContent">
+
+<nav class="global-nav">
+  <div class="global-nav-inner">
+    <a href="index.html" class="global-nav-back">
+      <span class="arrow">←</span> Home
+    </a>
+    <div style="flex:1"></div>
+    <div class="global-nav-links">
+      <a href="COMPLETA.html">Documento completo</a>
+      <a href="02_Quadro_Economico.html">Quadro economico</a>
+    </div>
+  </div>
+</nav>
+
+<div class="visione-page">
+
+<!-- ========== COPERTINA ========== -->
+<div class="cover-page">
+  <div class="label">Allegato D · PL9</div>
+  <h1>Visione <span class="accent">territoriale</span><br>e mappa delle opportunità</h1>
+  <div class="sub">Analisi del contesto urbano di Martina Franca,<br>nodi strategici, criticità e molteplici proposte<br>per una mobilità sostenibile integrata</div>
+  <div class="divider"></div>
+  <p style="color:rgba(255,255,255,0.4); font-size:9pt; margin:0;">
+    Martina Franca · Giugno 2026<br>
+    Prot. 2026/PL9/001
+  </p>
+</div>
+
+<!-- ================================================================ -->
+<!-- 1. INQUADRAMENTO TERRITORIALE -->
+<!-- ================================================================ -->
+
+<h1>1. <span class="accent">Inquadramento</span> territoriale</h1>
+
+<h2>1.1 Martina Franca — dati chiave</h2>
+
+<div class="data-row">
+  <div class="data-card">
+    <div class="data-card-value"><span class="accent">46.753</span></div>
+    <div class="data-card-label">Abitanti (2026)</div>
+  </div>
+  <div class="data-card">
+    <div class="data-card-value"><span class="accent">299,6</span> km²</div>
+    <div class="data-card-label">Superficie comunale</div>
+  </div>
+  <div class="data-card">
+    <div class="data-card-value"><span class="accent">156</span>/km²</div>
+    <div class="data-card-label">Densità abitativa</div>
+  </div>
+  <div class="data-card">
+    <div class="data-card-value"><span class="accent">2°</span></div>
+    <div class="data-card-label">Comune in prov. TA</div>
+  </div>
+  <div class="data-card">
+    <div class="data-card-value"><span class="accent">18°</span></div>
+    <div class="data-card-label">in Puglia per dimensione</div>
+  </div>
+</div>
+
+<p>Martina Franca è il secondo comune della provincia di Taranto per popolazione e superficie. Situata nel cuore della <strong>Valle d'Itria</strong>, a 40°42'N 17°20'E, confina con i comuni di Locorotondo (BA), Cisternino (BR), Alberobello (BA), Crispiano, Grottaglie, Massafra, Montemesola e Villa Castelli (BR).</p>
+
+<p>La città è un crocevia strategico della mobilità regionale: è servita dalla <strong>stazione ferroviaria</strong> di Ferrovie del Sud Est (FSE) su Viale della Stazione, con collegamenti diretti per Taranto, Bari, Francavilla Fontana e Lecce. La rete autobus FSE e "La Valle Trasporti" integra il trasporto pubblico locale.</p>
+
+<div class="info-box">
+  <strong>📍 Posizione strategica</strong><br>
+  Martina Franca si trova all'intersezione di tre province (Taranto, Bari, Brindisi) ed è il naturale punto di accesso alla Valle d'Itria, area ad altissimo potenziale turistico con i trulli di Alberobello (UNESCO), Locorotondo (Borgo più bello d'Italia) e Cisternino.
+</div>
+
+<h2>1.2 Inquadramento urbanistico del nodo</h2>
+
+<div class="map-placeholder">
+  <div class="map-icon">🗺️</div>
+  <div class="map-text">Mappa del quadrante urbano — Viale Europa / Viale della Stazione / Corso Messapia / Via Grappa</div>
+  <div class="map-text" style="font-size:9pt; margin-top:6px; color:var(--text-dim);">
+    Coordinate: 40°42'05"N 17°19'58"E — Rotatoria Europa
+  </div>
+</div>
+
+<p>La <strong>Rotatoria Europa</strong> è il nodo viario centrale del quadrante ovest di Martina Franca. Si trova all'intersezione di quattro arterie fondamentali:</p>
+
+<table>
+  <tr><th>Direttrice</th><th>Direzione</th><th>Ruolo</th><th>Flusso stimato</th></tr>
+  <tr><td><strong>Viale della Stazione</strong></td><td>SE → Stazione FS</td><td>Asse di accesso alla stazione FSE</td><td>Alto (35%)</td></tr>
+  <tr><td><strong>Corso Messapia</strong></td><td>NE → Centro città</td><td>Asse principale di penetrazione urbana</td><td>Molto alto (40%)</td></tr>
+  <tr><td><strong>Via Grappa</strong></td><td>SW → Zona residenziale San Paolo</td><td>Asse di distribuzione locale</td><td>Medio (15%)</td></tr>
+  <tr><td><strong>Viale Europa</strong></td><td>NW → San Paolo / Zona commerciale</td><td>Asse di collegamento extraurbano</td><td>Medio-basso (10%)</td></tr>
+</table>
+
+<h2>1.3 Elementi di pregio nell'area di influenza</h2>
+
+<div class="loc-grid">
+  <div class="loc-item">
+    <div class="loc-item-id">A</div>
+    <div class="loc-item-name">Stazione FSE Martina Franca</div>
+    <div class="loc-item-desc">Scalo ferroviario su Viale della Stazione, a ~300 m dalla rotatoria. Collegamenti per Taranto, Bari, Lecce. Punto di interscambio modale strategico.</div>
+  </div>
+  <div class="loc-item">
+    <div class="loc-item-id">B</div>
+    <div class="loc-item-name">Centro storico</div>
+    <div class="loc-item-desc">A circa 800 m dalla rotatoria. Patrimonio barocco, Basilica di San Martino, Palazzo Ducale. Polo attrattivo turistico primario.</div>
+  </div>
+  <div class="loc-item">
+    <div class="loc-item-id">C</div>
+    <div class="loc-item-name">Quartiere San Paolo</div>
+    <div class="loc-item-desc">Zona residenziale a ovest della rotatoria. Scuole, servizi, popolazione residente. Principale bacino di utenza pedonale e ciclabile.</div>
+  </div>
+  <div class="loc-item">
+    <div class="loc-item-id">D</div>
+    <div class="loc-item-name">Zona commerciale Corso Messapia</div>
+    <div class="loc-item-desc">Asse commerciale e direzionale. Negozi, uffici, attività terziarie. Genera flussi pedonali significativi.</div>
+  </div>
+  <div class="loc-item">
+    <div class="loc-item-id">E</div>
+    <div class="loc-item-name">Stadio Tursi</div>
+    <div class="loc-item-desc">Impianto sportivo polivalente (4.900 posti) a ~1 km dalla rotatoria. Genera flussi concentrati in occasione di eventi.</div>
+  </div>
+  <div class="loc-item">
+    <div class="loc-item-id">F</div>
+    <div class="loc-item-name">Ciclovia dell'Acqua / LLP11</div>
+    <div class="loc-item-desc">Percorso ciclabile di interesse regionale che attraversa il territorio. PL9 si inserisce come nodo di connessione di questa rete.</div>
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- 2. QUADRO PROGRAMMATICO -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>2. <span class="accent">Quadro programmatico</span> di riferimento</h1>
+
+<h2>2.1 PUMS — Piano Urbano della Mobilità Sostenibile</h2>
+
+<p>Il Comune di Martina Franca ha avviato la redazione del <strong>PUMS</strong> già nel 2018–2019, affidandola a TRT Trasporti e Territorio, società di consulenza specializzata. L'Amministrazione ha scelto di dotarsi di questo strumento volontariamente (pur non essendo obbligatoria per comuni sotto i 100.000 abitanti), dimostrando un'attenzione anticipatoria al tema della mobilità sostenibile.</p>
+
+<p>Il PUMS ha previsto:</p>
+<ul>
+  <li>Sistema dei dati e documenti relativi a iniziative e progetti in atto;</li>
+  <li>Definizione di obiettivi, strategie e target;</li>
+  <li>Costruzione e condivisione della Proposta di Piano;</li>
+  <li>Valutazione quali-quantitativa con il modello <strong>MOMOS</strong> (MOdello per la MObilità Sostenibile) di TRT;</li>
+  <li>Processo partecipativo con indagine online rivolta a residenti e city users.</li>
+</ul>
+
+<div class="warn-box">
+  <strong>⚠️ Criticità rilevata</strong><br>
+  Nonostante l'impegno dell'Amministrazione, il PUMS risale al periodo 2018-2019. Sarebbe opportuno un <strong>aggiornamento del quadro conoscitivo</strong> per verificare lo stato di attuazione delle misure previste e integrare le nuove opportunità di finanziamento (PNRR, D.M. 7/01/2026).
+</div>
+
+<h2>2.2 Strumenti urbanistici e programmatori</h2>
+
+<table>
+  <tr><th>Strumento</th><th>Stato</th><th>Rilevanza per PL9</th></tr>
+  <tr><td>PUGS (Piano Urbanistico Generale Strutturale)</td><td>In elaborazione/definitivo</td><td>Definisce le destinazioni d'uso dell'area della rotatoria</td></tr>
+  <tr><td>PUMS (Piano Urbano Mobilità Sostenibile)</td><td>Redatto 2018-2019</td><td>Fissa gli obiettivi di mobilità: PL9 è coerente</td></tr>
+  <tr><td>Biciplan regionale Puglia</td><td>Adottato</td><td>Individua la rete ciclabile d'interesse regionale (LLP11)</td></tr>
+  <tr><td>DUP 2025-2027</td><td>Approvato</td><td>Programmazione triennale: possibile inserimento PL9</td></tr>
+  <tr><td>Programma triennale OO.PP. 2025-2027</td><td>Approvato</td><td>Necessario inserimento per candidatura a finanziamenti</td></tr>
+  <tr><td>Piano di Azione Criticità 2025-2027</td><td>Approvato</td><td>Le criticità C1-C3 del nodo sono coerenti con il piano</td></tr>
+</table>
+
+<!-- ================================================================ -->
+<!-- 3. MAPPA DELLE OPPORTUNITÀ -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>3. <span class="accent">Mappa delle</span> opportunità</h1>
+
+<p>L'analisi territoriale ha identificato <strong>n. 6 ambiti di intervento</strong> nell'area di influenza della Rotatoria Europa, ciascuno con specifiche criticità e potenzialità. Per ogni ambito viene proposta una <strong>scheda di fattibilità</strong> con soluzione descrittiva, stima economica indicativa e priorità.</p>
+
+<!-- ================================================================ -->
+<!-- PROPOSTA 1 -->
+<!-- ================================================================ -->
+
+<div class="idea-box">
+  <div class="idea-box-title">🚇 P1 — Sottopasso ciclopedonale Rotatoria Europa (PL9)</div>
+  <div class="idea-box-desc">
+    <strong>Obiettivo:</strong> Separazione fisica dei flussi veicolari dalla mobilità dolce.<br>
+    <strong>Soluzione:</strong> Elementi scatolari prefabbricati in c.a. 4,0×2,5 m, lunghezza 24 m, rampe 2×35 m. Varo in 1 notte.<br>
+    <strong>Costo:</strong> €1.242.000<br>
+    <strong>Finanziamento:</strong> PNRR M2C4 (85%) + cofinanziamento comunale (15%)<br>
+    <strong>Priorità:</strong> 🔴 Alta — Risolve le criticità C1, C2, C3 (pericolo immediato)<br>
+    <strong>Stato:</strong> Proposta presentata — documentazione completa disponibile
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PROPOSTA 2 -->
+<!-- ================================================================ -->
+
+<div class="idea-box">
+  <div class="idea-box-title">🚲 P2 — Rete ciclabile di collegamento San Paolo ↔ Centro</div>
+  <div class="idea-box-desc">
+    <strong>Obiettivo:</strong> Creare un itinerario ciclabile protetto dal quartiere San Paolo al centro storico, passando per la Rotatoria Europa.<br>
+    <strong>Soluzione:</strong> Pista ciclabile bidirezionale in sede propria o promiscua su Viale Europa e Corso Messapia, connessione al sottopasso PL9 e alla Ciclovia dell'Acqua (LLP11).<br>
+    <strong>Sviluppo:</strong> ≈ 1,8 km di pista ciclabile<br>
+    <strong>Costo stimato:</strong> €450.000 – €650.000 (€250–350/ml)<br>
+    <strong>Finanziamento:</strong> PNRR M2C4, Bici in Comune (MIT), FSC Puglia<br>
+    <strong>Priorità:</strong> 🟡 Media — Realizzabile in fase 2 dopo il sottopasso<br>
+    <strong>Integrazione:</strong> Il sottopasso PL9 costituisce l'attraversamento sicuro della rotatoria, necessario per completare la rete
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PROPOSTA 3 -->
+<!-- ================================================================ -->
+
+<div class="idea-box">
+  <div class="idea-box-title">🅿️ P3 — Parcheggio di interscambio "Stazione-Rotatoria"</div>
+  <div class="idea-box-desc">
+    <strong>Obiettivo:</strong> Ridurre il traffico veicolare in ingresso al centro storico offrendo un parcheggio di interscambio con collegamento ciclopedonale protetto.<br>
+    <strong>Soluzione:</strong> Parcheggio scambiatore in area dismessa/libera tra Viale della Stazione e la rotatoria (capacità 100-150 posti), connesso al sottopasso PL9 e alla stazione FSE. Possibile dotazione di rastrelliere biciclette, colonnine ricarica e-bike e posto auto per car sharing.<br>
+    <strong>Costo stimato:</strong> €350.000 – €550.000<br>
+    <strong>Finanziamento:</strong> PNRR M5C2 (Rigenerazione urbana), FSC Puglia, fondi comunali<br>
+    <strong>Priorità:</strong> 🟡 Media — Complementare al sottopasso<br>
+    <strong>Nota:</strong> Da verificare la disponibilità dell'area (possibili aree: ex scalo merci FSE, aree incolte lungo Viale della Stazione)
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PROPOSTA 4 -->
+<!-- ================================================================ -->
+
+<div class="idea-box">
+  <div class="idea-box-title">🌳 P4 — Riqualificazione urbana del nodo e area verde attrezzata</div>
+  <div class="idea-box-desc">
+    <strong>Obiettivo:</strong> Trasformare la rotatoria e le aree limitrofe in uno spazio pubblico di qualità, migliorando la percezione di sicurezza e l'attrattività.<br>
+    <strong>Soluzione:</strong> Progetto integrato di riqualificazione dell'intero nodo con: aiuola centrale con elementi vegetali e fontana/luce; pavimentazione fotocatalitica antismog; arredo urbano (panchine, illuminazione decorativa, totem informativi); aree di sosta e verde attrezzato sui quadranti della rotatoria; illuminazione architetturale LED della rotatoria e degli accessi.<br>
+    <strong>Costo stimato:</strong> €250.000 – €400.000 (upgrade rispetto alla soluzione base PL9)<br>
+    <strong>Finanziamento:</strong> PNRR M5C2, Bici in Comune, DM 7/01/2026<br>
+    <strong>Priorità:</strong> 🟢 Bassa — Fase opzionale di completamento<br>
+    <strong>Sinergia:</strong> La riqualificazione della superficie rotatoria è già parzialmente inclusa in PL9 (€90.000 per fresatura e arredo). L'upgrade fotocatalitico e decorativo è un'opzione migliorativa
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PROPOSTA 5 -->
+<!-- ================================================================ -->
+
+<div class="idea-box">
+  <div class="idea-box-title">🚏 P5 — Nodo di interscambio modale Stazione-Rotatoria</div>
+  <div class="idea-box-desc">
+    <strong>Obiettivo:</strong> Integrare la stazione ferroviaria FSE con la rotatoria Europa in un nodo di interscambio modale: treno ↔ bici ↔ bus ↔ pedoni ↔ auto.<br>
+    <strong>Soluzione:</strong> Riorganizzazione della fermata bus su Viale della Stazione con pensiline, informazioni all'utenza (paline digitali); rastrelliera bici coperta e videosorvegliata (80-120 posti); bike sharing e e-bike station; percorso pedonale protetto stazione ↔ sottopasso con illuminazione LED; segnaletica integrata di indirizzamento verso centro storico, San Paolo e percorsi turistici.<br>
+    <strong>Costo stimato:</strong> €180.000 – €300.000<br>
+    <strong>Finanziamento:</strong> Bici in Comune, FSC, DM 7/01/2026, fondi regionali TPL<br>
+    <strong>Priorità:</strong> 🟢 Bassa — Fase di completamento rete<br>
+    <strong>Vantaggio:</strong> Martina Franca ha già una stazione FSE attiva con collegamenti per Taranto e Bari. Il potenziamento dell'interscambio modale aumenta il bacino di utenza del sottopasso e promuove il trasporto integrato
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- PROPOSTA 6 -->
+<!-- ================================================================ -->
+
+<div class="idea-box">
+  <div class="idea-box-title">📱 P6 — Sistema di mobility management e digital signage</div>
+  <div class="idea-box-desc">
+    <strong>Obiettivo:</strong> Implementare un sistema intelligente di gestione della mobilità per l'area, con monitoraggio flussi e informazione all'utenza in tempo reale.<br>
+    <strong>Soluzione:</strong> Pannelli a messaggio variabile agli ingressi della rotatoria per informare su traffico, parcheggi disponibili, eventi; sensori di conteggio veicoli/pedoni/bici per il monitoraggio continuo dell'efficacia degli interventi; app/web di mobility sharing per l'area (parcheggi, orari treni, percorsi ciclabili); totem interattivi al nodo di interscambio con mappa della mobilità integrata.<br>
+    <strong>Costo stimato:</strong> €80.000 – €150.000<br>
+    <strong>Finanziamento:</strong> DM 7/01/2026, fondi innovazione, programmi smart city regionali<br>
+    <strong>Priorità:</strong> 🟢 Bassa — Completamento tecnologico<br>
+    <strong>Nota:</strong> I dati raccolti dai sensori sarebbero utilizzabili per aggiornare il PUMS e calibrare gli interventi futuri su base evidence-based
+  </div>
+</div>
+
+<!-- ================================================================ -->
+<!-- 4. QUADRO SINOTTICO -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>4. <span class="accent">Quadro sinottico</span> delle proposte</h1>
+
+<table>
+  <tr><th>ID</th><th>Proposta</th><th>Costo stimato</th><th>Priorità</th><th>Fonte finanz.</th><th>Integrazione con PL9</th></tr>
+  <tr>
+    <td><strong>P1</strong></td>
+    <td>Sottopasso ciclopedonale Rotatoria Europa</td>
+    <td>€1.242.000</td>
+    <td>🔴 Alta</td>
+    <td>PNRR M2C4</td>
+    <td>—</td>
+  </tr>
+  <tr>
+    <td><strong>P2</strong></td>
+    <td>Rete ciclabile San Paolo ↔ Centro</td>
+    <td>€450–650K</td>
+    <td>🟡 Media</td>
+    <td>PNRR / Bici in Comune</td>
+    <td>PL9 è l'attraversamento obbligato</td>
+  </tr>
+  <tr>
+    <td><strong>P3</strong></td>
+    <td>Parcheggio di interscambio</td>
+    <td>€350–550K</td>
+    <td>🟡 Media</td>
+    <td>PNRR M5C2 / FSC</td>
+    <td>Alimenta il flusso pedonale del sottopasso</td>
+  </tr>
+  <tr>
+    <td><strong>P4</strong></td>
+    <td>Riqualificazione urbana del nodo</td>
+    <td>€250–400K</td>
+    <td>🟢 Bassa</td>
+    <td>PNRR M5C2</td>
+    <td>Upgrade della superficie PL9</td>
+  </tr>
+  <tr>
+    <td><strong>P5</strong></td>
+    <td>Nodo interscambio modale</td>
+    <td>€180–300K</td>
+    <td>🟢 Bassa</td>
+    <td>Bici in Comune / FSC</td>
+    <td>Completa il nodo con servizi</td>
+  </tr>
+  <tr>
+    <td><strong>P6</strong></td>
+    <td>Mobility management e digital signage</td>
+    <td>€80–150K</td>
+    <td>🟢 Bassa</td>
+    <td>DM / Smart city</td>
+    <td>Monitoraggio e informazione</td>
+  </tr>
+  <tr class="total-row">
+    <td><strong>P1–P6</strong></td>
+    <td><strong>Visione integrata complessiva</strong></td>
+    <td><strong>€2,55–3,29 M</strong></td>
+    <td></td>
+    <td><strong>Multifonte</strong></td>
+    <td></td>
+  </tr>
+</table>
+
+<div class="info-box">
+  <strong>💡 Strategia di implementazione a fasi</strong><br>
+  <strong>Fase 1 (2026-2027)</strong> — P1 Sottopasso PL9 (€1.242.000) — candidatura PNRR M2C4 finestra 2026<br>
+  <strong>Fase 2 (2027-2028)</strong> — P2 Rete ciclabile + P3 Parcheggio interscambio (€800K–1,2M)<br>
+  <strong>Fase 3 (2028-2030)</strong> — P4 Riqualificazione + P5 Nodo modale + P6 Digital signage (€510K–850K)<br><br>
+  <strong>Totale visione integrata:</strong> €2,55–3,29 M — finanziabile con un mix di PNRR (M2C4 + M5C2), FSC Puglia, Bici in Comune e DM 7/01/2026.
+</div>
+
+<!-- ================================================================ -->
+<!-- 5. MAPPA DEI SOGGETTI -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>5. <span class="accent">Mappa dei soggetti</span> coinvolgibili</h1>
+
+<table>
+  <tr><th>Soggetto</th><th>Ruolo</th><th>Competenza</th><th>Interazione</th></tr>
+  <tr>
+    <td><strong>Comune di Martina Franca</strong></td>
+    <td>Ente attuatore</td>
+    <td>Approvazione, cofinanziamento, iter autorizzativo</td>
+    <td>Primario</td>
+  </tr>
+  <tr>
+    <td><strong>Città Metropolitana di Taranto</strong></td>
+    <td>Ente intermedio</td>
+    <td>Accesso DM 7/01/2026, pianificazione sovracomunale</td>
+    <td>Strategico</td>
+  </tr>
+  <tr>
+    <td><strong>Regione Puglia</strong></td>
+    <td>Finanziatore</td>
+    <td>FSC Puglia, Biciplan, L.R. 1/2023 mobilità ciclistica</td>
+    <td>Strategico</td>
+  </tr>
+  <tr>
+    <td><strong>Ferrovie del Sud Est (FSE)</strong></td>
+    <td>Gestore stazione</td>
+    <td>Integrazione interscambio modale, aree stazione</td>
+    <td>Operativo</td>
+  </tr>
+  <tr>
+    <td><strong>La Valle Trasporti</strong></td>
+    <td>Gestore TPL</td>
+    <td>Fermate bus, orari, integrazione tariffaria</td>
+    <td>Operativo</td>
+  </tr>
+  <tr>
+    <td><strong>TRT Trasporti e Territorio</strong></td>
+    <td>Redattore PUMS</td>
+    <td>Conoscenza dati mobilità, modello MOMOS</td>
+    <td>Consultivo</td>
+  </tr>
+  <tr>
+    <td><strong>Associazioni ciclistiche locali</strong></td>
+    <td>Portatori d'interesse</td>
+    <td>Promozione mobilità dolce, segnalazione criticità</td>
+    <td>Partecipativo</td>
+  </tr>
+  <tr>
+    <td><strong>FIAB (Federazione Ambiente e Bicicletta)</strong></td>
+    <td>Associazione nazionale</td>
+    <td>Supporto tecnico e advocacy per mobilità ciclistica</td>
+    <td>Consultivo</td>
+  </tr>
+  <tr>
+    <td><strong>Commercianti di Corso Messapia</strong></td>
+    <td>Portatori d'interesse</td>
+    <td>Impatto dei lavori, benefici attesi dalla riqualificazione</td>
+    <td>Partecipativo</td>
+  </tr>
+</table>
+
+<!-- ================================================================ -->
+<!-- 6. CRONOPROGRAMMA DELLA VISIONE -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>6. <span class="accent">Cronoprogramma</span> della visione integrata</h1>
+
+<h2>6.1 Diagramma temporale</h2>
+
+<table>
+  <tr><th>Fase</th><th>Proposte</th><th>2026</th><th>2027</th><th>2028</th><th>2029</th><th>2030</th></tr>
+  <tr>
+    <td><strong>1 — Intervento fondativo</strong></td>
+    <td>P1 Sottopasso PL9</td>
+    <td style="background:#d4a843;color:#0a1628;font-weight:700;text-align:center;">██</td>
+    <td style="background:rgba(212,168,67,0.3);text-align:center;">▌</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>2 — Rete e accessibilità</strong></td>
+    <td>P2 Rete ciclabile + P3 Parcheggio</td>
+    <td></td>
+    <td style="background:#d4a843;color:#0a1628;font-weight:700;text-align:center;">██</td>
+    <td style="background:rgba(212,168,67,0.3);text-align:center;">▌</td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td><strong>3 — Completamento e innovazione</strong></td>
+    <td>P4 Riqualif. + P5 Nodo + P6 Digital</td>
+    <td></td>
+    <td></td>
+    <td style="background:#d4a843;color:#0a1628;font-weight:700;text-align:center;">██</td>
+    <td style="background:rgba(212,168,67,0.3);text-align:center;">▌</td>
+    <td style="background:rgba(212,168,67,0.1);text-align:center;">▌</td>
+  </tr>
+</table>
+
+<h2>6.2 Interdipendenze</h2>
+
+<div class="good-box">
+  <strong>✅ P1 è abilitante</strong><br>
+  Il sottopasso PL9 (P1) è il <strong>prerequisito fisico</strong> per tutte le altre proposte. Senza l'attraversamento protetto della rotatoria, la rete ciclabile (P2) non può essere completata, il parcheggio di interscambio (P3) non ha un collegamento sicuro con la stazione, e la riqualificazione urbana (P4) perderebbe il suo elemento ordinatore.
+</div>
+
+<div class="info-box">
+  <strong>🎯 Benefici cumulativi della visione integrata</strong><br>
+  <ul style="margin:4px 0 0 18px;">
+    <li><strong>P1</strong> — Eliminazione del conflitto pedoni/auto/bici alla rotatoria</li>
+    <li><strong>P1+P2</strong> — Rete ciclabile continua San Paolo ↔ Centro (1,8 km)</li>
+    <li><strong>P1+P2+P3</strong> — Sistema di mobilità integrata: parcheggia-scambia-pedala</li>
+    <li><strong>P1→P4</strong> — Riqualificazione del nodo come porta urbana</li>
+    <li><strong>P1→P5</strong> — Hub intermodale treno+bici+bus+pedoni</li>
+    <li><strong>P1→P6</strong> — Monitoraggio data-driven dell'efficacia degli interventi</li>
+  </ul>
+</div>
+
+<!-- ================================================================ -->
+<!-- 7. FONTI -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>7. <span class="accent">Fonti</span> e riferimenti</h1>
+
+<table>
+  <tr><th>Fonte</th><th>Dato utilizzato</th></tr>
+  <tr><td>Istat — Popolazione residente al 01/01/2026</td><td>46.753 abitanti</td></tr>
+  <tr><td>Quantitalia — Dati demografici Martina Franca</td><td>Superficie 299,6 km², densità 156 ab./km²</td></tr>
+  <tr><td>TRT Trasporti e Territorio — PUMS Martina Franca</td><td>Processo partecipativo, modello MOMOS, obiettivi mobilità sostenibile</td></tr>
+  <tr><td>Comune di Martina Franca — Facebook (PUMS)</td><td>Questionari BOX PUMS, iniziative Settimana Europea Mobilità 2025</td></tr>
+  <tr><td>Pro Loco Martina Franca — Ciclovia dell'Acqua</td><td>Percorso ciclabile n. 11 Bicitalia / Eurovelo</td></tr>
+  <tr><td>Ferrovie del Sud Est — Orari e collegamenti</td><td>Collegamenti Martina Franca ↔ Taranto, Bari, Francavilla, Lecce</td></tr>
+  <tr><td>Komoot — Percorsi ciclabili Valle d'Itria</td><td>36 percorsi difficili, 9 facili, Ciclovia dell'Acquedotto Pugliese</td></tr>
+  <tr><td>Urbismap — PUGS Martina Franca</td><td>Piano Urbanistico Generale Strutturale</td></tr>
+  <tr><td>Ministero Infrastrutture — PUMS nazionale</td><td>Linee guida DM 4/08/2017, Rete Nazionale Nodi Urbani 2026</td></tr>
+  <tr><td>FSE Online — Stazione di Martina Franca</td><td>Indirizzo Viale della Stazione, servizi, orari</td></tr>
+</table>
+
+<div class="footnote">
+  <em>Documento redatto con dati aggiornati a giugno 2026. Le stime economiche per le proposte P2-P6 sono indicative e basate su benchmark di opere similari. Si raccomanda approfondimento progettuale per ogni singolo intervento.</em><br><br>
+  <strong>PL9 — Visione territoriale</strong> · Martina Franca (TA) · Giugno 2026 · Prot. 2026/PL9/001<br>
+  Proponente: Andrea Maggi — Cittadino di Martina Franca
+</div>
+
+</div><!-- /visione-page -->
+
+<footer class="global-footer">
+  <strong>PL9</strong> — Sottopasso Rotatoria Europa · Andrea Maggi · Giugno 2026
+</footer>
+
+</div><!-- /pw-content -->
+
+<script>
+const CORRECT_PW = "martinafranca26";
+
+function unlock() {
+  const input = document.getElementById("pwInput");
+  const error = document.getElementById("pwError");
+  const gate = document.getElementById("pwGate");
+  const content = document.getElementById("pwContent");
+
+  if (input.value === CORRECT_PW) {
+    error.classList.remove("visible");
+    input.classList.remove("error");
+    gate.classList.add("unlocked");
+    content.classList.add("unlocked");
+    /* Re-enable print */
+    document.querySelector('link[href="theme.css"]').sheet && setTimeout(() => window.dispatchEvent(new Event('resize')), 100);
+    /* Focus first heading inside content */
+    setTimeout(() => {
+      const h = content.querySelector('h1, h2, h3');
+      if (h) h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 800);
+  } else {
+    input.classList.add("error");
+    error.classList.add("visible");
+    input.focus();
+    input.select();
+    /* Remove shake after animation */
+    setTimeout(() => input.classList.remove("error"), 500);
+  }
+}
+</script>
+
+</body>
+</html>

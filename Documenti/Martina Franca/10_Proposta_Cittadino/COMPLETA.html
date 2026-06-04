@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Proposta PL9 — Sottopasso Rotatoria Europa | Andrea Maggi</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+/* COMPLETA — page-specific styles */
+.completa-page {
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+/* Cover */
+.cover {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 48px;
+  margin: -48px -32px 48px;
+  background: linear-gradient(135deg, #0a1628 0%, #0d1b30 50%, #0a1628 100%);
+  color: #fff;
+  page-break-after: always;
+}
+
+.cover-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(212,168,67,0.1); border: 1px solid rgba(212,168,67,0.2);
+  padding: 6px 16px; border-radius: 50px; width: fit-content; margin-bottom: 28px;
+}
+
+.cover-badge-dot { width: 6px; height: 6px; background: #d4a843; border-radius: 50%; }
+
+.cover-badge-text {
+  font-size: 9px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: #d4a843;
+}
+
+.cover .label {
+  font-size: 10px; font-weight: 500; letter-spacing: 4px;
+  text-transform: uppercase; color: rgba(255,255,255,0.25); margin-bottom: 8px;
+}
+
+.cover h1 {
+  font-size: 44pt; font-weight: 900; line-height: 1.02;
+  color: #fff; letter-spacing: -2px; margin-bottom: 14px;
+  border: none; padding: 0;
+}
+
+.cover h1 .accent { color: #d4a843; }
+
+.cover .subtitle {
+  font-size: 14pt; font-weight: 300;
+  color: rgba(255,255,255,0.45); line-height: 1.4;
+  margin-bottom: 28px; max-width: 80%;
+}
+
+.cover .divider { width: 70px; height: 3px; background: #d4a843; margin-bottom: 24px; border-radius: 2px; }
+
+.cover-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 20px; max-width: 65%; }
+.cover-meta-item { display: flex; flex-direction: column; }
+.cover-meta-label { font-size: 7pt; font-weight: 600; color: rgba(255,255,255,0.25); text-transform: uppercase; letter-spacing: 1px; }
+.cover-meta-value { font-size: 9pt; font-weight: 500; color: rgba(255,255,255,0.6); }
+
+/* Headings */
+h1 {
+  font-size: 20pt; font-weight: 800; color: var(--text-primary);
+  letter-spacing: -0.3px; margin: 24px 0 14px;
+  padding-bottom: 6px; border-bottom: 2px solid var(--border-accent);
+  page-break-before: always;
+}
+
+h1:first-of-type { page-break-before: avoid; }
+h1 .accent { color: var(--accent); }
+
+h2 {
+  font-size: 13pt; font-weight: 700; color: var(--text-primary);
+  margin: 22px 0 8px; padding-left: 10px;
+  border-left: 2px solid var(--accent);
+}
+
+h3 { font-size: 11pt; font-weight: 700; color: var(--text-primary); margin: 14px 0 6px; }
+
+p { margin-bottom: 8px; text-align: justify; color: var(--text-secondary); font-size: 10.5pt; line-height: 1.7; }
+ul, ol { margin: 4px 0 8px 20px; }
+li { margin-bottom: 3px; color: var(--text-secondary); font-size: 10.5pt; }
+strong { color: var(--text-primary); }
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9.5pt; }
+th { background: var(--bg-secondary); color: var(--text-muted); font-weight: 600; text-align: left; padding: 6px 8px; font-size: 7.5pt; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 5px 8px; border-bottom: 1px solid var(--border-light); color: var(--text-secondary); }
+tr:nth-child(even) td { background: var(--bg-card); }
+.total-row td { font-weight: 700; border-top: 2px solid var(--accent); background: var(--bg-accent); }
+.gold { color: var(--accent); font-weight: 600; }
+.red { color: var(--red); font-weight: 500; }
+.green { color: var(--green); font-weight: 500; }
+
+/* Boxes */
+.info-box { background: var(--bg-card); border-left: 3px solid var(--accent); padding: 10px 14px; margin: 10px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.info-box.warn { border-left-color: var(--red); background: var(--red-bg); }
+.info-box.ok { border-left-color: var(--green); background: var(--green-bg); }
+.info-box strong:first-child { display: block; margin-bottom: 2px; color: var(--accent); font-size: 9.5pt; }
+.info-box.warn strong:first-child { color: var(--red); }
+.info-box.ok strong:first-child { color: var(--green); }
+
+/* Data cards */
+.datarow { display: flex; gap: 10px; margin: 10px 0; flex-wrap: wrap; }
+.datacard { flex: 1; min-width: 100px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px; text-align: center; }
+.datacard-val { font-size: 14pt; font-weight: 800; color: var(--text-primary); }
+.datacard-val .accent { color: var(--accent); }
+.datacard-lbl { font-size: 7pt; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.3px; margin-top: 2px; }
+
+/* Signature */
+.signature { margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border); }
+.signature-name { font-weight: 700; color: var(--text-primary); font-size: 11pt; }
+.signature-role { font-size: 9pt; color: var(--text-muted); margin-top: 2px; }
+
+@media (max-width: 640px) {
+  .completa-page { padding: 24px 16px; }
+  .cover { padding: 40px 24px; margin: -24px -16px 24px; min-height: auto; }
+  .cover h1 { font-size: 28pt; }
+  .cover .subtitle { max-width: 100%; font-size: 12pt; }
+  .cover-meta { max-width: 100%; }
+  h1 { font-size: 16pt; }
+  .datarow { flex-direction: column; }
+}
+
+/* PDF download bar */
+.pdf-bar {
+  background: linear-gradient(135deg, rgba(212,168,67,0.08), rgba(212,168,67,0.03));
+  border-bottom: 1px solid rgba(212,168,67,0.12);
+  padding: 0 24px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 56px;
+  z-index: 999;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.pdf-bar-inner {
+  max-width: 210mm;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pdf-bar-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary, rgba(255,255,255,0.5));
+}
+
+.pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: var(--accent, #d4a843);
+  border: none;
+  border-radius: 50px;
+  color: #0a1628;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+
+.pdf-btn:hover {
+  background: #c49a3a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(212,168,67,0.3);
+}
+
+.pdf-btn:active { transform: translateY(0); }
+
+.pdf-btn.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.pdf-btn-icon { font-size: 16px; line-height: 1; }
+
+.pdf-btn-spinner {
+  display: inline-block;
+  width: 16px; height: 16px;
+  border: 2px solid rgba(10,22,40,0.2);
+  border-top-color: #0a1628;
+  border-radius: 50%;
+  animation: pdf-spin 0.6s linear infinite;
+}
+
+@keyframes pdf-spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 640px) {
+  .pdf-bar { padding: 0 12px; height: 44px; top: 48px; }
+  .pdf-bar-text { font-size: 11px; }
+  .pdf-btn { padding: 6px 14px; font-size: 12px; }
+}
+
+
+@media print {
+  .completa-page { padding: 0; max-width: 190mm; }
+  .cover { min-height: 297mm; margin: 0; padding: 40mm 30mm; }
+  h1, h2, h3, .cover h1, .cover h1 .accent,
+  h1 .accent, .signature-name, strong { color: #0a1628 !important; }
+  p, li, td, th, .cover .subtitle, .cover .label,
+  .cover-meta-value { color: #1a1a1a !important; }
+  th { background: #0a1628 !important; color: #fff !important; }
+  td { border-bottom: 1px solid #e0ddd5 !important; }
+  tr:nth-child(even) td { background: #f9f8f6 !important; }
+  .total-row td { background: #f8f6f0 !important; }
+  .info-box { background: #f8f6f0 !important; }
+  .info-box.warn { background: #fdf2f0 !important; }
+  .info-box.ok { background: #f0f9f2 !important; }
+  .datacard { background: #f8f6f0 !important; border-color: #e8e5dd !important; }
+  .datacard-val { color: #0a1628 !important; }
+  .datacard-lbl { color: #888 !important; }
+  .signature { border-top-color: #e0ddd5 !important; }
+}
+/* PDF overlay — instructions for print-to-PDF */
+.pdf-overlay {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pdf-overlay-box {
+  background: #fff;
+  border-radius: 14px;
+  padding: 32px 36px;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.pdf-overlay-icon { font-size: 40px; margin-bottom: 12px; }
+.pdf-overlay-title {
+  font-size: 20px; font-weight: 700;
+  color: #0a1628; margin-bottom: 8px;
+}
+.pdf-overlay-text {
+  font-size: 14px; color: #555;
+  line-height: 1.6; margin-bottom: 20px;
+}
+.pdf-overlay-text strong { color: #0a1628; }
+.pdf-overlay-btn {
+  background: #d4a843; color: #0a1628;
+  border: none; border-radius: 50px;
+  padding: 10px 28px; font-size: 14px;
+  font-weight: 700; cursor: pointer;
+}
+.pdf-overlay-btn:hover { background: #c49a3a; }
+</style>
+</head>
+<body>
+<nav class="global-nav">
+  <div class="global-nav-inner">
+    <a href="index.html" class="global-nav-back">
+      <span class="arrow">←</span> Home
+    </a>
+    <div style="flex:1"></div>
+    <div class="global-nav-links">
+      <a href="00_Lettera_accompagnamento.html">Lettera</a>
+      <a href="01_Relazione_Tecnica.html">Relazione tecnica</a>
+      <a href="02_Quadro_Economico.html">Quadro economico</a>
+    </div>
+  </div>
+</nav>
+<div class="pdf-bar no-print">
+  <div class="pdf-bar-inner">
+    <span class="pdf-bar-text">📄 Scarica questa pagina in PDF</span>
+    <button class="pdf-btn" onclick="generatePDF()">
+      <span class="pdf-btn-icon">⬇</span> Scarica PDF
+    </button>
+  </div>
+</div>
+<div class="completa-page">
+
+<!-- ========== COVER ========== -->
+<div class="cover">
+  <div class="cover-badge">
+    <div class="cover-badge-dot"></div>
+    <span class="cover-badge-text">Proposta al Comune di Martina Franca</span>
+  </div>
+  <div class="label">Progetto PL9 · Infrastrutture Urbane</div>
+  <h1>Sottopasso<br><span class="accent">Rotatoria</span><br>Europa</h1>
+  <div class="subtitle">
+    Proposta di fattibilità per la realizzazione di un sottopasso<br>
+    ciclopedonale in corrispondenza della Rotatoria Europa<br>
+    (Viale Europa / Viale della Stazione) a Martina Franca
+  </div>
+  <div class="divider"></div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Proponente</span>
+      <span class="cover-meta-value">Andrea Maggi — Cittadino di Martina Franca</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Proponente</span>
+      <span class="cover-meta-value">Andrea Maggi — Cittadino di Martina Franca</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Recapito</span>
+      <span class="cover-meta-value">[da inserire]</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Protocollo</span>
+      <span class="cover-meta-value">2026/PL9/001</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="cover-meta-label">Data</span>
+      <span class="cover-meta-value">Giugno 2026</span>
+    </div>
+  </div>
+</div>
+
+<!-- ========== LETTERA ========== -->
+<h1>Lettera di <span class="accent">accompagnamento</span></h1>
+
+<p style="font-size:11pt; margin-bottom:16px;"><strong>Prot.</strong> 2026/PL9/001 · Martina Franca, 3 giugno 2026</p>
+
+<p><strong>Al Signor Sindaco del Comune di Martina Franca</strong><br>
+Dott. Gianfranco Palmisano · Palazzo Ducale · Piazza Roma · 74015 Martina Franca TA</p>
+
+<p style="margin-top:6px;"><strong>e p.c.</strong> Assessorato ai Lavori Pubblici e Mobilità · Ufficio Tecnico Comunale</p>
+<p><strong>e p.c.</strong> Consiglio Comunale di Martina Franca</p>
+
+<div class="info-box" style="margin:16px 0;">
+  <strong>Oggetto:</strong> Proposta di fattibilità per la realizzazione di un sottopasso ciclopedonale presso la Rotatoria Europa (Viale Europa / Viale della Stazione) — Progetto Pilota PL9
+</div>
+
+<p>Illustrissimo Signor Sindaco,</p>
+
+<p>con la presente, il sottoscritto <strong>Andrea Maggi</strong>, cittadino di Martina Franca, intende sottoporre alla cortese attenzione di codesta Amministrazione comunale una proposta tecnico-progettuale per la realizzazione di un <strong>sottopasso ciclopedonale</strong> in corrispondenza della <strong>Rotatoria Europa</strong>, snodo viario strategico tra Viale Europa, Viale della Stazione, Corso Messapia e Via Grappa.</p>
+
+<p>Il progetto, identificato con il codice <strong>PL9 — Sottopasso Rotatoria Europa</strong>, nasce dall'analisi approfondita delle criticità che quotidianamente pedoni, ciclisti e automobilisti affrontano su questo nodo: attraversamento pedonale assente, conflitto bici-auto sulla corona della rotatoria, visibilità ridotta in fase di immissione, code sistematiche nelle ore di punta e condizioni dei marciapiedi insufficienti. Otto criticità specifiche sono state identificate e documentate nella presente relazione.</p>
+
+<p>La soluzione proposta prevede la realizzazione di un <strong>sottopasso con elementi scatolari prefabbricati in calcestruzzo armato</strong> (tecnologia "One Night Solution"), con larghezza interna di 4,0 metri e altezza di 2,5 metri, accessibile a pedoni, ciclisti, carrozzine e persone con disabilità motoria. Il costo stimato è compreso tra <strong>€1.200.000 e €1.500.000</strong>, con un cronoprogramma di realizzazione di 8–10 mesi dalla data di aggiudicazione dei lavori.</p>
+
+<p>Questa proposta si inserisce nel quadro delle opportunità di finanziamento offerte dal <strong>PNRR — Missione 2 Componente 4</strong> (Mobilità sostenibile) e dal <strong>Programma nazionale di controllo dell'inquinamento</strong> (D.M. 7 gennaio 2026, dotazione 500 milioni di euro), per i quali il progetto risulta pienamente ammissibile e finanziabile.</p>
+
+<p>I punti di forza della proposta sono:</p>
+<ul>
+  <li><strong>Benchmark nazionale positivo</strong> — Casi analoghi già realizzati con successo a Castelfranco Veneto (TV), Tradate (VA), Bari e Borgio Verezzi (SV);</li>
+  <li><strong>Tecnologia collaudata</strong> — Elementi prefabbricati con varo in una notte, minima invasione del traffico;</li>
+  <li><strong>Integrazione urbanistica</strong> — Il sottopasso si inserisce nel piano della pista ciclabile provinciale LLP11 e nel sistema della mobilità dolce della Valle d'Itria;</li>
+  <li><strong>Rapporto costo-beneficio</strong> — Vita utile di 50+ anni con manutenzione annua irrisoria (€2.000–5.000);</li>
+  <li><strong>Riqualificazione urbana</strong> — Possibilità di abbinare pavimentazione fotocatalitica e illuminazione LED intelligente.</li>
+</ul>
+
+<p>Nella convinzione che questa proposta possa rappresentare un primo concreto passo verso una mobilità più sicura, sostenibile e moderna per la città di Martina Franca, si chiede un incontro con i competenti uffici comunali per illustrare nel dettaglio i contenuti del progetto.</p>
+
+<p>Ringraziando per l'attenzione, si porgono distinti saluti.</p>
+
+<div class="signature">
+  <div class="signature-name">Andrea Maggi</div>
+  <div class="signature-role">Cittadino di Martina Franca</div>
+</div>
+
+<!-- ========== 1. PREMESSA ========== -->
+<h1>1. <span class="accent">Premessa</span> e inquadramento</h1>
+
+<p>La presente relazione illustra la proposta di fattibilità per la realizzazione di un <strong>sottopasso ciclopedonale</strong> in corrispondenza della <strong>Rotatoria Europa</strong>, snodo viario strategico situato all'intersezione tra Viale Europa, Viale della Stazione, Corso Messapia e Via Grappa, nel comune di Martina Franca (TA).</p>
+
+<p>Il sottoscritto <strong>Andrea Maggi</strong>, cittadino di Martina Franca, ha condotto uno studio preliminare sul nodo, spinto dalla necessità di porre la mobilità sostenibile e la sicurezza stradale tra le priorità della città, identificando criticità oggettive e proponendo soluzioni basate su tecnologie già sperimentate con successo in contesti urbani analoghi sul territorio nazionale.</p>
+
+<p>L'obiettivo della proposta è duplice:</p>
+<ul>
+  <li><strong>Risolvere il conflitto pedoni/auto/bici</strong> nella rotatoria, separando i flussi della mobilità dolce dal traffico veicolare;</li>
+  <li><strong>Innescare un processo di riqualificazione urbana</strong> dell'intero nodo, migliorando la qualità dello spazio pubblico, la sicurezza percepita e l'attrattività dell'area.</li>
+</ul>
+
+<div class="info-box">
+  <strong>📋 Inquadramento urbanistico</strong>
+  Il nodo Rotatoria Europa si colloca in un'area di cerniera tra il centro storico, la stazione ferroviaria, i quartieri residenziali di San Paolo e la zona commerciale di Corso Messapia. È interessato da flussi veicolari stimati in oltre 15.000 veicoli/giorno e da un transito pedonale e ciclabile significativo.
+</div>
+
+<h2>Direttrici di traffico interessate</h2>
+
+<table>
+  <tr><th>Direttrice</th><th>Direzione</th><th>Traffico</th><th>Criticità</th></tr>
+  <tr><td>Viale della Stazione</td><td>Verso Stazione FS</td><td>Alto (35%)</td><td>C1, C3, C4</td></tr>
+  <tr><td>Corso Messapia</td><td>Verso Centro città</td><td>Molto alto (40%)</td><td>C2, C4, C5</td></tr>
+  <tr><td>Via Grappa</td><td>Verso zona residenziale</td><td>Medio (15%)</td><td>C6, C7</td></tr>
+  <tr><td>Viale Europa</td><td>Verso San Paolo</td><td>Medio-basso (10%)</td><td>C3, C8</td></tr>
+</table>
+
+<!-- ========== 2. CRITICITÀ ========== -->
+<h1>2. <span class="accent">Criticità</span> riscontrate</h1>
+
+<p>L'analisi del nodo ha portato all'identificazione di <strong>8 criticità</strong>, classificate per livello di rischio e impatto.</p>
+
+<table>
+  <tr><th>ID</th><th>Criticità</th><th>Rischio</th><th>Impatto</th></tr>
+  <tr><td><strong>C1</strong></td><td>Attraversamento pedonale assente</td><td class="red">Critico</td><td>95%</td></tr>
+  <tr><td><strong>C2</strong></td><td>Conflitto bici-auto sulla corona</td><td class="red">Critico</td><td>90%</td></tr>
+  <tr><td><strong>C3</strong></td><td>Visibilità ridotta in ingresso</td><td class="red">Critico</td><td>85%</td></tr>
+  <tr><td><strong>C4</strong></td><td>Code nelle ore di punta</td><td class="gold">Significativo</td><td>75%</td></tr>
+  <tr><td><strong>C5</strong></td><td>Trasporto pubblico ostacolato</td><td class="gold">Significativo</td><td>70%</td></tr>
+  <tr><td><strong>C6</strong></td><td>Marciapiede insufficiente</td><td class="gold">Significativo</td><td>65%</td></tr>
+  <tr><td><strong>C7</strong></td><td>Illuminazione inadeguata</td><td>Migliorabile</td><td>45%</td></tr>
+  <tr><td><strong>C8</strong></td><td>Sosta selvaggia in prossimità</td><td>Migliorabile</td><td>40%</td></tr>
+</table>
+
+<div class="info-box warn">
+  <strong>⚠️ Considerazione chiave</strong>
+  Le prime tre criticità (C1, C2, C3) rappresentano un pericolo immediato e concreto per l'incolumità di pedoni e ciclisti.
+</div>
+
+<!-- ========== 3. SOLUZIONI ========== -->
+<h1>3. Soluzioni <span class="accent">a confronto</span></h1>
+
+<p>Sono state valutate tre alternative progettuali, confrontate su 9 criteri chiave.</p>
+
+<p><strong>S1 — Sottopasso prefabbricato</strong> (One Night Solution) · €1,2–1,5M · 8–10 mesi · <span class="gold">voto 9/10</span></p>
+<p><strong>S2 — Sottopasso + riqualificazione integrata</strong> · €1,8–2,5M · 12–14 mesi · <span class="gold">voto 8/10</span></p>
+<p><strong>S3 — Attraversamento rialzato</strong> · €350–500K · 4–6 mesi · voto 5/10</p>
+
+<h2>Confronto multicriteria</h2>
+
+<table>
+  <tr><th>Criterio</th><th style="background:#d4a843;color:#0a1628;">Sottopasso</th><th>Rialzato</th><th>Status quo</th></tr>
+  <tr><td>Sicurezza pedoni/ciclisti</td><td class="gold">Alta (10)</td><td>Media (6)</td><td class="red">Bassa (2)</td></tr>
+  <tr><td>Vita utile</td><td class="gold">50+ anni</td><td>10–15 anni</td><td>—</td></tr>
+  <tr><td>Manutenzione annua</td><td class="green">€2–5K</td><td>€5–10K</td><td>—</td></tr>
+  <tr><td>Impatto su traffico</td><td class="gold">Nullo (sotto)</td><td>Rallentamento</td><td>Nessuno</td></tr>
+  <tr><td>Accessibilità disabili</td><td class="gold">Alta</td><td>Media</td><td class="red">Bassa</td></tr>
+  <tr><td>Finanziabilità PNRR</td><td class="gold">Ammissibile</td><td>Parziale</td><td>No</td></tr>
+  <tr><td>Costo realizzazione</td><td>€1,2–2,5M</td><td class="green">€350–500K</td><td>€0</td></tr>
+  <tr><td>Durata lavori</td><td>8–14 mesi</td><td class="green">4–6 mesi</td><td>—</td></tr>
+</table>
+
+<div class="info-box ok">
+  <strong>✓ Verdetto</strong>
+  Il sottopasso prefabbricato (S1) è la soluzione consigliata: vince su 7 criteri su 9, con il miglior rapporto costo/beneficio nel lungo periodo.
+</div>
+
+<!-- ========== 4. SOLUZIONE PROPOSTA ========== -->
+<h1>4. <span class="accent">Soluzione</span> proposta: sottopasso prefabbricato</h1>
+
+<h2>Specifiche tecniche</h2>
+
+<table>
+  <tr><th>Parametro</th><th>Valore</th><th>Note</th></tr>
+  <tr><td>Larghezza interna</td><td>4,0 m</td><td>Doppio senso ciclopedonale</td></tr>
+  <tr><td>Altezza interna</td><td>2,5–3,0 m</td><td>Conforme a normative</td></tr>
+  <tr><td>Lunghezza attraversamento</td><td>20–30 m</td><td>Dipende dal diametro rotatoria</td></tr>
+  <tr><td>Pendenza rampe</td><td>≤ 8%</td><td>Accessibile a carrozzine/bici</td></tr>
+  <tr><td>Tecnologia</td><td>Elementi scatolari prefabbricati c.a.</td><td>Varo in 1 notte</td></tr>
+  <tr><td>Vita utile</td><td>50+ anni</td><td>Manutenzione ordinaria minima</td></tr>
+  <tr><td>Illuminazione</td><td>LED con sensori di presenza</td><td>Risparmio 60–70%</td></tr>
+</table>
+
+<h2>Vantaggi chiave</h2>
+<ul>
+  <li><strong>Varo rapido</strong>: elementi prefabbricati installati in una notte</li>
+  <li><strong>Minima invasione</strong>: lavori preparatori gestibili con deviazioni parziali</li>
+  <li><strong>Costo contenuto</strong>: prefabbricazione riduce costi del 20–30% rispetto a gettato in opera</li>
+  <li><strong>Durata 50+ anni</strong>: calcestruzzo armato ad alta resistenza</li>
+  <li><strong>Accessibilità totale</strong>: rampe con pendenza ≤8% (D.P.R. 503/96)</li>
+</ul>
+
+<!-- ========== 5. QUADRO ECONOMICO ========== -->
+<h1>5. <span class="accent">Quadro</span> economico</h1>
+
+<table>
+  <tr><th style="width:55%;">Voce di costo</th><th style="width:20%;">Importo</th><th style="width:15%;">%</th></tr>
+  <tr><td>Progettazione e Direzione Lavori</td><td>€180.000</td><td>14,5%</td></tr>
+  <tr><td>Scavo e opere preliminari</td><td>€250.000</td><td>20,1%</td></tr>
+  <tr><td>Elementi scatolari prefabbricati</td><td>€350.000</td><td>28,2%</td></tr>
+  <tr><td>Rampe e finiture</td><td>€150.000</td><td>12,1%</td></tr>
+  <tr><td>Illuminazione LED</td><td>€100.000</td><td>8,1%</td></tr>
+  <tr><td>Riqualificazione superficie rotatoria</td><td>€90.000</td><td>7,2%</td></tr>
+  <tr><td>Arredo urbano e segnaletica</td><td>€35.000</td><td>2,8%</td></tr>
+  <tr><td>Imprevisti e sicurezza</td><td>€87.000</td><td>7,0%</td></tr>
+  <tr class="total-row"><td><strong>TOTALE</strong></td><td><strong>€1.242.000</strong></td><td><strong>100%</strong></td></tr>
+</table>
+
+<div class="datarow">
+  <div class="datacard">
+    <div class="datacard-val">€<span class="accent">1,24</span>M</div>
+    <div class="datacard-lbl">Costo base S1</div>
+  </div>
+  <div class="datacard">
+    <div class="datacard-val"><span class="accent">8</span>–<span class="accent">14</span> mesi</div>
+    <div class="datacard-lbl">Tempi realizzazione</div>
+  </div>
+  <div class="datacard">
+    <div class="datacard-val"><span class="accent">50</span>+ anni</div>
+    <div class="datacard-lbl">Vita utile</div>
+  </div>
+  <div class="datacard">
+    <div class="datacard-val">€<span class="accent">2</span>–<span class="accent">5</span>K</div>
+    <div class="datacard-lbl">Manutenzione/anno</div>
+  </div>
+</div>
+
+<!-- ========== 6. CRONOPROGRAMMA ========== -->
+<h1>6. <span class="accent">Cronoprogramma</span></h1>
+
+<p>Durata totale stimata: <strong>8–14 mesi</strong> dall'avvio all'inaugurazione.</p>
+
+<p><strong>Fase 1 — Attività immediate</strong> (1–2 mesi)</p>
+<ul>
+  <li>Sopralluogo e rilievo geometrico di dettaglio</li>
+  <li>Verifica sottoservizi (acqua, gas, fibra, elettricità)</li>
+  <li>Conteggio flussi veicolari, pedonali e ciclabili</li>
+  <li>Studio geotecnico preliminare</li>
+</ul>
+
+<p><strong>Fase 2 — Progettazione e autorizzazioni</strong> (3–6 mesi)</p>
+<ul>
+  <li>Progetto di fattibilità tecnico-economica</li>
+  <li>Progetto definitivo ed esecutivo</li>
+  <li>Conferenza dei Servizi e acquisizione pareri</li>
+  <li>Richiesta finanziamento PNRR / D.M. 7/01/2026</li>
+</ul>
+
+<p><strong>Fase 3 — Appalto e realizzazione</strong> (7–14 mesi)</p>
+<ul>
+  <li>Bando di gara e assegnazione appalto</li>
+  <li>Allestimento cantiere e scavo preliminare</li>
+  <li><strong>Varo elementi scatolari prefabbricati (1 notte)</strong></li>
+  <li>Realizzazione rampe, finiture, illuminazione</li>
+  <li>Riqualificazione superficie rotatoria</li>
+  <li>Collaudo statico, funzionale e inaugurazione</li>
+</ul>
+
+<!-- ========== 7. FONTI DI FINANZIAMENTO ========== -->
+<h1>7. <span class="accent">Fonti</span> di finanziamento</h1>
+
+<table>
+  <tr><th>Fonte</th><th>Copertura</th><th>Priorità</th></tr>
+  <tr><td><strong>PNRR M2C4</strong> — Mobilità sostenibile</td><td>85% (€1.055.700)</td><td class="gold">Alta</td></tr>
+  <tr><td><strong>Bilancio comunale</strong> — Cofinanziamento</td><td>15% (€186.300)</td><td>Da stanziare</td></tr>
+  <tr><td><strong>D.M. 7/01/2026</strong> — Controllo inquinamento</td><td>Alternativa PNRR</td><td class="gold">Alta</td></tr>
+  <tr><td><strong>Bici in Comune (MIT)</strong></td><td>Integrativo</td><td>Media</td></tr>
+  <tr><td><strong>Regione Puglia — FSC</strong></td><td>Da valutare</td><td>Media</td></tr>
+</table>
+
+<div class="info-box ok">
+  <strong>💡 Strategia consigliata</strong>
+  1. Candidatura al bando PNRR M2C4 (copertura 85%)<br>
+  2. Stanzimento in bilancio comunale del cofinanziamento 15%<br>
+  3. Backup: D.M. 7/01/2026 (500M€) se PNRR non disponibile
+</div>
+
+<!-- ========== 8. BENCHMARK ========== -->
+<h1>8. <span class="accent">Benchmark</span> nazionale</h1>
+
+<table>
+  <tr><th>Città</th><th>Opera</th><th>Costo</th><th>Anno</th></tr>
+  <tr><td><strong>Castelfranco Veneto (TV)</strong></td><td>Rotatoria + sottopasso Bella Venezia</td><td>€1.700.000</td><td>2023</td></tr>
+  <tr><td><strong>Tradate (VA)</strong></td><td>Sottopasso ciclopedonale + rotatoria</td><td>—</td><td>2013</td></tr>
+  <tr><td><strong>Bari — Quintino Sella</strong></td><td>Sottovia con pista + asfalto fotocatalitico</td><td>€2.300.000</td><td>2025</td></tr>
+  <tr><td><strong>Borgio Verezzi (SV)</strong></td><td>Sottopasso accesso a mare</td><td>€2.500.000</td><td>2025</td></tr>
+</table>
+
+<div class="info-box">
+  <strong>📌 Castelfranco Veneto — Il benchmark più rilevante</strong>
+  Realizzato nel 2023, ha previsto rotatoria con sottopasso ciclopedonale in elementi scatolari prefabbricati. Risultato: azzeramento incidenti, +35% capacità di traffico. Costo €1,7M. PL9 si allinea a questo modello con un costo inferiore del 27% (€1,24M).
+</div>
+
+<!-- ========== 9. RIFERIMENTI NORMATIVI ========== -->
+<h1>9. <span class="accent">Riferimenti</span> normativi</h1>
+
+<table>
+  <tr><th>Norma</th><th>Oggetto</th></tr>
+  <tr><td>D.M. 19/04/2006</td><td>Norme funzionali e geometriche per rotatorie</td></tr>
+  <tr><td>NTC 2018 (D.M. 17/01/2018)</td><td>Norme tecniche per le costruzioni</td></tr>
+  <tr><td>D.Lgs 81/2008</td><td>Sicurezza nei cantieri</td></tr>
+  <tr><td>D.P.R. 380/2001</td><td>Testo Unico Edilizia</td></tr>
+  <tr><td>D.Lgs 285/92 (CdS)</td><td>Codice della Strada</td></tr>
+  <tr><td>D.M. 21/04/2021</td><td>Costi parametrizzati — Linee guida Biciplan</td></tr>
+  <tr><td>Circolare MIT 6935/2017</td><td>Disciplina delle rotatorie</td></tr>
+  <tr><td>D.P.R. 503/96</td><td>Barriere architettoniche</td></tr>
+</table>
+
+<!-- ========== CONCLUSIONI ========== -->
+<h1>10. <span class="accent">Conclusioni</span></h1>
+
+<p>La presente proposta dimostra la <strong>fattibilità tecnica, economica e urbanistica</strong> della realizzazione di un sottopasso ciclopedonale alla Rotatoria Europa. Il progetto si basa su:</p>
+
+<ul>
+  <li>Un'analisi puntuale delle criticità del nodo</li>
+  <li>Un confronto oggettivo tra le possibili soluzioni</li>
+  <li>Una soluzione progettuale già sperimentata con successo</li>
+  <li>Un quadro economico dettagliato e allineato ai benchmark</li>
+  <li>Un cronoprogramma realistico</li>
+  <li>Una strategia di finanziamento basata su fonti certe</li>
+</ul>
+
+<div class="info-box ok">
+  <strong>✅ Richiesta formale</strong>
+  Si chiede che l'Amministrazione comunale:
+  <ol style="margin-top:4px;">
+    <li><strong>Prenda in carico</strong> la proposta per la valutazione preliminare</li>
+    <li><strong>Attivi un tavolo tecnico</strong> per la verifica di fattibilità</li>
+    <li><strong>Valuti l'inserimento</strong> nel programma triennale OO.PP. 2026–2028</li>
+    <li><strong>Valuti la candidatura</strong> ai bandi di finanziamento indicati</li>
+  </ol>
+</div>
+
+<p style="margin-top:16px;">Si rimane a disposizione per ogni chiarimento e per un eventuale incontro di approfondimento.</p>
+
+<div class="signature">
+  <div class="signature-name">Andrea Maggi</div>
+  <div class="signature-role">Cittadino di Martina Franca</div>
+  <div style="font-size:8pt; color:#aaa; margin-top:4px;">Martina Franca, 3 giugno 2026 · Prot. 2026/PL9/001</div>
+</div>
+
+<p style="margin-top:30px; padding-top:12px; border-top:1px solid #e0ddd5; font-size:8pt; color:#aaa; text-align:center;">
+  Andrea Maggi — Cittadino di Martina Franca<br>
+  Proposta PL9 · Sottopasso Rotatoria Europa · Giugno 2026
+</p>
+
+</div><!-- /completa-page -->
+
+<div id="pdf-overlay" class="pdf-overlay no-print" style="display:none;">
+  <div class="pdf-overlay-box">
+    <div class="pdf-overlay-icon">🖨️</div>
+    <div class="pdf-overlay-title">Salva come PDF</div>
+    <div class="pdf-overlay-text">
+      Nel dialogo di stampa che si aprirà:<br>
+      1. Seleziona <strong>"Salva come PDF"</strong> come destinazione<br>
+      2. Clicca <strong>"Salva"</strong>
+    </div>
+    <button onclick="document.getElementById('pdf-overlay').style.display='none'" class="pdf-overlay-btn">OK, ho capito</button>
+  </div>
+</div>
+
+<footer class="global-footer">
+  <strong>PL9</strong> — Sottopasso Rotatoria Europa · Andrea Maggi · Giugno 2026
+</footer>
+
+<script>
+function generatePDF() {
+  var btn = document.querySelector('.pdf-btn');
+  if (btn.classList.contains('loading')) return;
+  btn.classList.add('loading');
+  btn.innerHTML = '<span class="pdf-btn-spinner"></span> Preparazione...';
+  setTimeout(function() {
+    var overlay = document.getElementById('pdf-overlay');
+    if (overlay) overlay.style.display = 'flex';
+    window.print();
+    btn.classList.remove('loading');
+    btn.innerHTML = '<span class="pdf-btn-icon">⬇</span> Scarica PDF';
+    if (overlay) overlay.style.display = 'none';
+  }, 300);
+}
+</script>
+</body>
+</html>

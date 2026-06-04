@@ -1,0 +1,1671 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biblioteca di Riferimento | PL9 — Sottopasso e riqualificazione Martina Franca</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+/* ===== PASSWORD GATE ===== */
+.pw-gate {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(ellipse at 30% 20%, #0f1f3a 0%, transparent 50%),
+              radial-gradient(ellipse at 70% 80%, #0d1a30 0%, transparent 50%),
+              linear-gradient(135deg, #080f1e 0%, #060b16 50%, #0a0f1a 100%);
+  z-index: 999999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+.pw-gate.unlocked { opacity: 0; visibility: hidden; pointer-events: none; }
+.pw-gate-card {
+  width: 400px; max-width: 90vw;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(212,168,67,0.12);
+  border-radius: 20px;
+  padding: 48px 36px 36px;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.pw-gate-icon {
+  width: 72px; height: 72px;
+  margin: 0 auto 20px;
+  background: rgba(212,168,67,0.08);
+  border: 1px solid rgba(212,168,67,0.15);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+}
+.pw-gate-title { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px; letter-spacing: -0.3px; }
+.pw-gate-title .accent { color: #d4a843; }
+.pw-gate-sub { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 28px; line-height: 1.5; }
+.pw-gate-input-group { position: relative; width: 100%; }
+.pw-gate-input {
+  width: 100%; padding: 14px 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px; color: #fff; font-size: 15px;
+  outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box; font-family: inherit;
+}
+.pw-gate-input::placeholder { color: rgba(255,255,255,0.2); }
+.pw-gate-input:focus { border-color: #d4a843; box-shadow: 0 0 0 3px rgba(212,168,67,0.08); }
+.pw-gate-input.error { border-color: #e74c3c; box-shadow: 0 0 0 3px rgba(231,76,60,0.1); animation: pw-shake 0.4s ease; }
+@keyframes pw-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-5px); }
+  80% { transform: translateX(5px); }
+}
+.pw-gate-btn {
+  width: 100%; margin-top: 14px; padding: 14px;
+  background: #d4a843; border: none; border-radius: 12px;
+  color: #0a1628; font-size: 15px; font-weight: 700;
+  cursor: pointer; transition: all 0.2s; font-family: inherit;
+}
+.pw-gate-btn:hover { background: #c49a3a; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(212,168,67,0.25); }
+.pw-gate-btn:active { transform: translateY(0); }
+.pw-gate-error { font-size: 12px; color: #e74c3c; margin-top: 10px; min-height: 20px; transition: opacity 0.2s; opacity: 0; }
+.pw-gate-error.visible { opacity: 1; }
+.pw-gate-lock { font-size: 11px; color: rgba(255,255,255,0.15); margin-top: 20px; letter-spacing: 0.5px; }
+.pw-gate-lock span { color: rgba(212,168,67,0.3); }
+.pw-content { display: none; }
+.pw-content.unlocked { display: block; }
+@media (max-width: 640px) {
+  .pw-gate-card { padding: 36px 24px 28px; }
+  .pw-gate-icon { width: 60px; height: 60px; font-size: 26px; }
+  .pw-gate-title { font-size: 17px; }
+}
+.biblio-page { max-width: 210mm; margin: 0 auto; padding: 48px 32px; }
+.cover-page {
+  position: relative; min-height: 80vh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 60px 48px; margin: -48px -32px 48px;
+  background: linear-gradient(135deg, #0a1628 0%, #0d1b30 50%, #0a1628 100%);
+  color: #fff; page-break-after: always;
+}
+.cover-page .label { font-size: 10px; font-weight: 500; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 8px; }
+.cover-page h1 { font-size: 32pt; font-weight: 900; color: #fff; letter-spacing: -1px; margin-bottom: 12px; }
+.cover-page h1 .accent { color: #d4a843; }
+.cover-page .sub { font-size: 13pt; font-weight: 300; color: rgba(255,255,255,0.5); margin-bottom: 24px; }
+.cover-page .divider { width: 60px; height: 3px; background: #d4a843; margin-bottom: 20px; border-radius: 2px; }
+h1 { font-size: 22pt; font-weight: 800; color: var(--text-primary); letter-spacing: -0.3px; margin: 28px 0 14px; padding-bottom: 6px; border-bottom: 2px solid var(--border-accent); }
+h1 .accent { color: var(--accent); }
+h2 { font-size: 13pt; font-weight: 700; color: var(--text-primary); margin-top: 24px; margin-bottom: 8px; padding-left: 10px; border-left: 2px solid var(--accent); }
+h3 { font-size: 10.5pt; font-weight: 700; color: var(--text-primary); margin-top: 16px; margin-bottom: 6px; }
+h4 { font-size: 9.5pt; font-weight: 700; color: var(--accent); margin-top: 12px; margin-bottom: 4px; }
+p { margin-bottom: 6px; text-align: justify; color: var(--text-secondary); font-size: 10.5pt; line-height: 1.7; }
+ul, ol { margin: 4px 0 6px 18px; }
+li { margin-bottom: 2px; color: var(--text-secondary); font-size: 10.5pt; }
+strong { color: var(--text-primary); }
+table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9.5pt; }
+th { background: var(--bg-secondary); color: var(--text-muted); font-weight: 600; text-align: left; padding: 6px 8px; font-size: 7.5pt; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 5px 8px; border-bottom: 1px solid var(--border-light); color: var(--text-secondary); }
+tr:nth-child(even) td { background: var(--bg-card); }
+.total-row td { font-weight: 700; border-top: 2px solid var(--accent); background: var(--bg-accent); color: var(--text-primary); }
+.info-box { background: var(--bg-card); border-left: 3px solid var(--accent); padding: 10px 14px; margin: 10px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.info-box strong:first-child { display: block; margin-bottom: 3px; color: var(--accent); font-size: 10pt; }
+.warn-box { background: var(--amber-bg); border-left: 3px solid var(--amber); padding: 10px 14px; margin: 10px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.warn-box strong:first-child { display: block; margin-bottom: 3px; color: var(--amber); }
+.good-box { background: var(--green-bg); border-left: 3px solid var(--green); padding: 10px 14px; margin: 10px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.good-box strong:first-child { display: block; margin-bottom: 3px; color: var(--green); }
+blockquote { border-left: 3px solid var(--accent); background: var(--bg-card); padding: 12px 16px; margin: 12px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; font-style: italic; color: var(--text-secondary); font-size: 10pt; }
+code, pre { font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 4px; font-size: 9pt; color: var(--accent); }
+code { padding: 1px 5px; }
+pre { padding: 10px 14px; overflow-x: auto; line-height: 1.5; margin: 8px 0; }
+pre code { background: none; border: none; padding: 0; color: var(--accent); }
+.data-row { display: flex; gap: 10px; margin: 10px 0; flex-wrap: wrap; }
+.data-card { flex: 1; min-width: 120px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; text-align: center; }
+.data-card-value { font-size: 14pt; font-weight: 800; color: var(--text-primary); }
+.data-card-value .accent { color: var(--accent); }
+.data-card-label { font-size: 7pt; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.3px; margin-top: 2px; }
+.footnote { font-size: 8pt; color: var(--text-dim); margin-top: 4px; }
+.source-ref { font-size: 7.5pt; color: var(--text-muted); font-style: italic; }
+.page-break { page-break-before: always; }
+.tag { display: inline-block; font-size: 7pt; font-weight: 600; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; }
+.tag-norm { background: rgba(212,168,67,0.15); color: var(--accent); }
+.tag-fin { background: rgba(74,158,46,0.15); color: var(--green); }
+.tag-tech { background: rgba(52,152,219,0.15); color: var(--blue); }
+.term-list { margin: 8px 0; }
+.term-item { padding: 6px 0; border-bottom: 1px solid var(--border-light); }
+.term-item:last-child { border-bottom: none; }
+.term-name { font-weight: 700; color: var(--accent); font-size: 10pt; }
+.term-def { font-size: 9.5pt; color: var(--text-secondary); line-height: 1.6; }
+.ref-list { margin: 6px 0; }
+.ref-item { padding: 8px 0; border-bottom: 1px solid var(--border-light); display: flex; gap: 10px; align-items: flex-start; }
+.ref-item:last-child { border-bottom: none; }
+.ref-icon { flex-shrink: 0; font-size: 16px; width: 24px; text-align: center; margin-top: 2px; }
+.ref-text { flex: 1; }
+.ref-title { font-weight: 600; color: var(--text-primary); font-size: 10pt; }
+.ref-url { font-size: 7.5pt; color: var(--accent); word-break: break-all; }
+.ref-desc { font-size: 8.5pt; color: var(--text-muted); margin-top: 2px; line-height: 1.5; }
+.esempio-box { background: var(--bg-card); border: 1px solid var(--border-accent); border-radius: 8px; padding: 14px 16px; margin: 12px 0; }
+.esempio-title { font-weight: 700; color: var(--accent); font-size: 10.5pt; margin-bottom: 6px; }
+.esempio-meta { font-size: 8pt; color: var(--text-muted); margin-bottom: 4px; }
+.esempio-meta span { display: inline-block; margin-right: 14px; }
+.esempio-desc { font-size: 9.5pt; color: var(--text-secondary); line-height: 1.6; }
+.esempio-link { font-size: 8pt; color: var(--accent); word-break: break-all; margin-top: 4px; }
+@media (max-width: 640px) {
+  .biblio-page { padding: 24px 16px; }
+  .cover-page { padding: 40px 24px; margin: -24px -16px 24px; min-height: auto; }
+  .cover-page h1 { font-size: 24pt; }
+  table { font-size: 8pt; }
+}
+@media print {
+  .biblio-page { padding: 0; max-width: 190mm; }
+  .cover-page { min-height: 297mm; margin: 0; padding: 40mm 30mm; }
+  h1, h2, h3, .cover-page h1, .cover-page h1 .accent, h1 .accent { color: #0a1628 !important; }
+  p, li, td, th, .cover-page .sub, .cover-page .label, .source-ref, .footnote { color: #1a1a1a !important; }
+  th { background: #0a1628 !important; color: #fff !important; }
+  td { border-bottom: 1px solid #e0ddd5 !important; }
+  tr:nth-child(even) td { background: #f9f8f6 !important; }
+  .total-row td { background: #f8f6f0 !important; border-top: 2px solid #d4a843 !important; }
+  .data-card { background: #f8f6f0 !important; border-color: #e8e5dd !important; }
+  .data-card-value { color: #0a1628 !important; }
+  .data-card-label { color: #888 !important; }
+  .esempio-box { background: #f9f8f6 !important; border-color: #d4a843 !important; }
+  .term-item { border-bottom-color: #e0ddd5 !important; }
+  .ref-item { border-bottom-color: #e0ddd5 !important; }
+  blockquote { background: #f9f8f6 !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== PASSWORD GATE ===== -->
+<div class="pw-gate" id="pwGate">
+  <div class="pw-gate-card">
+    <div class="pw-gate-icon">&#x1F4DA;</div>
+    <div class="pw-gate-title">Accesso riservato</div>
+    <div class="pw-gate-sub">
+      Documento ad accesso protetto.<br>
+      Inserisci la password per visualizzare i contenuti.
+    </div>
+    <div class="pw-gate-input-group" style="position:relative">
+      <input class="pw-gate-input" id="pwInput" type="password" placeholder="Password" autocomplete="off" spellcheck="false" onkeydown="if(event.key==='Enter')unlock()" style="padding-right:46px">
+      <span onclick="var i=document.getElementById('pwInput'); i.type=i.type==='password'?'text':'password'; this.textContent=i.type==='password'?'&#x1F441;&#xFE0F;':'&#x1F441;&#x200D;&#x1F5E8;&#xFE0F;'" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);cursor:pointer;font-size:18px;opacity:0.3;transition:opacity 0.2s;user-select:none" onmouseenter="this.style.opacity='0.6'" onmouseleave="this.style.opacity='0.3'">&#x1F441;&#xFE0F;</span>
+      <div class="pw-gate-error" id="pwError">Password errata. Riprova.</div>
+    </div>
+    <button class="pw-gate-btn" id="pwBtn" onclick="unlock()">Accedi</button>
+    <div class="pw-gate-lock">&#x1F512; <span>PL9</span> &middot; Sottopasso Rotatoria Europa</div>
+  </div>
+</div>
+
+<!-- ===== CONTENUTO PROTETTO ===== -->
+<div class="pw-content" id="pwContent">
+
+<nav class="global-nav">
+  <div class="global-nav-inner">
+    <a href="index.html" class="global-nav-back">
+      <span class="arrow">&larr;</span> Home
+    </a>
+    <div style="flex:1"></div>
+    <div class="global-nav-links">
+      <a href="05_Biblioteca_Riferimenti.html" class="active">Biblioteca rif.</a>
+      <a href="COMPLETA.html">Documento completo</a>
+    </div>
+  </div>
+</nav>
+
+<div class="biblio-page">
+
+<!-- ========== COPERTINA ========== -->
+<div class="cover-page">
+  <div class="label">Allegato E &middot; PL9</div>
+  <h1>Biblioteca di <span class="accent">Riferimento</span><br>per Opere Pubbliche</h1>
+  <div class="sub">Quadro normativo completo, esempi reali,<br>mappatura documentale, fonti di finanziamento<br>e glossario tecnico-normativo</div>
+  <div class="divider"></div>
+  <p style="color:rgba(255,255,255,0.4); font-size:9pt; margin:0;">
+    Martina Franca &middot; Giugno 2026<br>
+    Prot. 2026/PL9/002
+  </p>
+</div>
+
+<!-- ================================================================ -->
+<!-- INDICE -->
+<!-- ================================================================ -->
+<h1>Indice <span class="accent">generale</span></h1>
+
+<ol style="font-size:10pt; line-height:2;">
+  <li><a href="#sec1" style="color:var(--accent); text-decoration:none;">Quadro normativo di riferimento</a></li>
+  <li><a href="#sec2" style="color:var(--accent); text-decoration:none;">Documentazione obbligatoria PFTE (Allegato I.7)</a></li>
+  <li><a href="#sec3" style="color:var(--accent); text-decoration:none;">Esempi reali da Comuni italiani</a></li>
+  <li><a href="#sec4" style="color:var(--accent); text-decoration:none;">Mappatura documenti PL9 &harr; requisiti normativi</a></li>
+  <li><a href="#sec5" style="color:var(--accent); text-decoration:none;">Fonti di finanziamento</a></li>
+  <li><a href="#sec6" style="color:var(--accent); text-decoration:none;">Glossario tecnico-normativo</a></li>
+  <li><a href="#sec7" style="color:var(--accent); text-decoration:none;">Riferimenti e link utili</a></li>
+</ol>
+
+<hr style="border:none; border-top:1px solid var(--border); margin:24px 0;">
+
+<!-- ================================================================ -->
+<!-- SEZIONE 1: QUADRO NORMATIVO -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1 id="sec1">1. <span class="accent">Quadro normativo</span> di riferimento</h1>
+
+<p>Il presente paragrafo raccoglie e illustra il complesso delle disposizioni normative che regolano la progettazione, l'affidamento e la realizzazione delle opere pubbliche in Italia, con particolare riferimento al <strong>Progetto di Fattibilit&agrave; Tecnico-Economica (PFTE)</strong> e agli interventi di mobilit&agrave; sostenibile. Il quadro &egrave; aggiornato alle pi&ugrave; recenti novit&agrave; legislative, tra cui il <strong>D.Lgs 36/2023</strong> (Nuovo Codice degli Appalti) e il <strong>D.M. 7 gennaio 2026</strong> (Investimenti per la mobilit&agrave; sostenibile).</p>
+
+<h2>1.1 D.Lgs 36/2023 &mdash; Nuovo Codice degli Appalti</h2>
+
+<p>Il <strong>Decreto Legislativo 31 marzo 2023, n. 36</strong> (Codice dei contratti pubblici, in attuazione dell'articolo 1 della legge 21 giugno 2022, n. 78) ha profondamente innovato la disciplina dei contratti pubblici, abrogando e sostituendo il previgente D.Lgs 50/2016. Entrato in vigore il <strong>1&deg; luglio 2023</strong> e divenuto pienamente efficace dal <strong>1&deg; gennaio 2024</strong>, il Codice introduce un nuovo approccio alla progettazione basato sulla centralit&agrave; del PFTE.</p>
+
+<div class="info-box">
+  <strong>&#x1F4CC; Art. 41 &mdash; Livelli della progettazione</strong>
+  Il nuovo Codice ha ridotto i livelli di progettazione da tre a <strong>due</strong>:
+  <ul style="margin:4px 0 0 18px;">
+    <li><strong>Progetto di Fattibilit&agrave; Tecnico-Economica (PFTE)</strong> &mdash; unico livello obbligatorio, sostituisce il vecchio progetto di fattibilit&agrave; (art. 23, c. 5-8 D.Lgs 50/2016) e il progetto definitivo;</li>
+    <li><strong>Progetto Esecutivo</strong> &mdash; redatto sulla base del PFTE approvato, completa i dettagli costruttivi.</li>
+  </ul>
+  L'art. 41 del D.Lgs 36/2023 stabilisce che il PFTE individua, tra pi&ugrave; soluzioni, quella che presenta il miglior rapporto tra costi e benefici per la collettivit&agrave;, in relazione alle specifiche esigenze da soddisfare e prestazioni da fornire.
+</div>
+
+<p>Le principali novit&agrave; introdotte dal D.Lgs 36/2023 rilevanti per il PL9 sono:</p>
+<ul>
+  <li><strong>Digitalizzazione obbligatoria</strong> (art. 19-30) &mdash; uso di piattaforme digitali per tutte le fasi di gara, documenti nativi digitali, BIM come metodologia preferenziale;</li>
+  <li><strong>Qualificazione delle stazioni appaltanti</strong> (art. 62-63) &mdash; requisiti di capacit&agrave; tecnica e organizzativa per gli enti aggiudicatori;</li>
+  <li><strong>Subappalto a cascata</strong> liberalizzato (art. 119) &mdash; eliminazione del tetto del 30% previgente;</li>
+  <li><strong>Equo compenso</strong> (art. 8) &mdash; riconoscimento del compenso proporzionato alla prestazione professionale;</li>
+  <li><strong>Collegio consultivo tecnico</strong> (art. 215) &mdash; organismo obbligatorio per opere sopra 1M&euro; per prevenire le controversie;</li>
+  <li><strong>Incentivi per la progettazione</strong> (art. 45) &mdash; fino al 2% dell'importo posto a base di gara per il personale interno.</li>
+</ul>
+
+<h2>1.2 Allegato I.7 &mdash; Contenuti minimi del PFTE</h2>
+
+<p>L'<strong>Allegato I.7</strong> al D.Lgs 36/2023 (articolo 41, comma 3) costituisce il riferimento centrale per la redazione del PFTE. Esso definisce in modo analitico e prescrittivo l'elenco degli elaborati e dei contenuti minimi che devono essere presenti in ogni PFTE, a pena di illegittimit&agrave; della procedura.</p>
+
+<blockquote>
+  &laquo;Il progetto di fattibilit&agrave; tecnico-economica individua, tra pi&ugrave; soluzioni, quella che presenta il miglior rapporto tra costi e benefici per la collettivit&agrave;, in relazione alle specifiche esigenze da soddisfare e prestazioni da fornire, e contiene tutti gli elementi necessari per la definizione delle caratteristiche dimensionali, tipologiche, funzionali e tecnologiche dell'intervento, nonch&eacute; i connessi aspetti economici e finanziari.&raquo;
+  &mdash; <em>Allegato I.7, comma 1</em>
+</blockquote>
+
+<p>L'Allegato I.7 si compone di <strong>16 articoli</strong> che definiscono altrettanti elaborati minimi. La tabella che segue ne riassume la struttura:</p>
+
+<table>
+  <tr><th>Art.</th><th>Elaborato</th><th>Contenuti essenziali</th></tr>
+  <tr><td>1</td><td>Relazione illustrativa</td><td>Descrizione del contesto, esigenze, obiettivi, alternative, scelta motivata</td></tr>
+  <tr><td>2</td><td>Relazione tecnica</td><td>Soluzione progettuale, dimensionamento, normative tecniche, specifiche prestazionali</td></tr>
+  <tr><td>3</td><td>Studio di prefattibilit&agrave; ambientale</td><td>Verifica preventiva dei potenziali impatti ambientali, screening VIA</td></tr>
+  <tr><td>4</td><td>Studio di inserimento urbanistico</td><td>Verifica conformit&agrave; urbanistica, destinazioni d'uso, vincoli</td></tr>
+  <tr><td>5</td><td>Computo metrico estimativo</td><td>Elenco delle lavorazioni, quantit&agrave;, prezzi unitari, importo lavori</td></tr>
+  <tr><td>6</td><td>Quadro economico</td><td>Importo lavori, somme a disposizione, IVA, imprevisti, oneri</td></tr>
+  <tr><td>7</td><td>Capitolato speciale descrittivo e prestazionale</td><td>Condizioni contrattuali, specifiche tecniche, standard prestazionali</td></tr>
+  <tr><td>8</td><td>Schema di contratto</td><td>Bozza del contratto d'appalto, clausole, termini, garanzie</td></tr>
+  <tr><td>9</td><td>Piano particellare di esproprio</td><td>Individuazione aree da espropriare, propriet&agrave;, stima indennit&agrave;</td></tr>
+  <tr><td>10</td><td>Piano di sicurezza e coordinamento (PSC)</td><td>Misure preventive e protettive, stima costi sicurezza</td></tr>
+  <tr><td>11</td><td>Cronoprogramma</td><td>Diagramma temporale delle fasi progettuali e realizzative</td></tr>
+  <tr><td>12</td><td>Piano di manutenzione dell'opera</td><td>Programma manutentivo, frequenze, costi ciclo di vita</td></tr>
+  <tr><td>13</td><td>Relazione di sostenibilit&agrave; dell'opera</td><td>Impatto sociale, economico, ambientale; Life Cycle Costing</td></tr>
+  <tr><td>14</td><td>Documento di fattibilit&agrave; delle alternative progettuali (DocFAP)</td><td>Analisi comparativa multi-criterio delle opzioni</td></tr>
+  <tr><td>15</td><td>Relazione geologica, idrogeologica, geotecnica</td><td>Caratterizzazione del sito, modellazione geotecnica</td></tr>
+  <tr><td>16</td><td>Indagini e studi specialistici</td><td>Rilievi, sondaggi, prove di laboratorio, analisi specifiche</td></tr>
+</table>
+
+<div class="info-box">
+  <strong>&#x26A0;&#xFE0F; Nota per il PL9</strong><br>
+  Per un sottopasso ciclopedonale di importo &euro;1.242.000 (sotto la soglia UE di 5.382.000&euro; per lavori), si applica l'Allegato I.7 in forma <strong>proporzionata alla complessit&agrave;</strong> dell'opera (art. 41, c. 3). Non tutti gli elaborati sono richiesti con il medesimo livello di approfondimento. In particolare, per opere puntuali su suolo pubblico, il piano particellare di esproprio (<strong>art. 9</strong>) potrebbe non essere necessario, mentre lo studio di prefattibilit&agrave; ambientale (<strong>art. 3</strong>) va redatto in forma semplificata.
+</div>
+
+<h2>1.3 D.P.R. 207/2010 &mdash; Regolamento attuativo (abrogato ma ancora riferimento)</h2>
+
+<p>Il <strong>D.P.R. 5 ottobre 2010, n. 207</strong> (Regolamento di esecuzione ed attuazione del D.Lgs 163/2006), sebbene formalmente abrogato dal D.Lgs 36/2023, costituisce ancora un <strong>riferimento tecnico-metodologico</strong> importante. In particolare:</p>
+<ul>
+  <li>Il <strong>D.P.R. 207/2010, art. 17-21</strong> definiva i contenuti del progetto preliminare, molte delle cui previsioni sono confluite nell'Allegato I.7;</li>
+  <li>Le <strong>tabelle prezzi</strong> e le metodologie di computo metrico previste dal D.P.R. 207/2010 (art. 32-35) rimangono prassi consolidata;</li>
+  <li>La disciplina del <strong>cronoprogramma</strong> (art. 40) e del <strong>piano di manutenzione</strong> (art. 38) costituisce ancora un valido riferimento tecnico;</li>
+  <li>Il <strong>quadro economico</strong> secondo lo schema tipo di cui all'art. 16, comma 2, lettera d) del D.P.R. 207/2010 &egrave; ancora diffusamente utilizzato nelle stazioni appaltanti.</li>
+</ul>
+
+<div class="warn-box">
+  <strong>&#x26A0;&#xFE0F; Attenzione</strong><br>
+  Il D.P.R. 207/2010 &egrave; abrogato ai sensi dell'art. 226 del D.Lgs 36/2023. Tuttavia, la giurisprudenza amministrativa e il MIT hanno chiarito che le disposizioni tecniche del regolamento possono essere utilizzate come <strong>riferimento integrativo</strong> ove non in contrasto con il nuovo Codice. Si consiglia di verificare caso per caso la compatibilit&agrave; con l'impianto del D.Lgs 36/2023.
+</div>
+
+<h2>1.4 DM Infrastrutture 2022 &mdash; Linee Guida PFTE per il PNRR</h2>
+
+<p>Il <strong>Decreto del Ministero delle Infrastrutture e della Mobilit&agrave; Sostenibili del 2022</strong> (pubblicato in attuazione del DPCM 15 settembre 2021) ha emanato le <strong>Linee Guida per la redazione del Progetto di Fattibilit&agrave; Tecnico-Economica</strong> specificamente dedicate agli interventi finanziati con risorse del <strong>PNRR</strong>.</p>
+
+<p>Le Linee Guida introducono criteri di qualit&agrave; e standard metodologici rafforzati, con particolare enfasi su:</p>
+<ul>
+  <li><strong>Analisi costi-benefici (CBA)</strong> obbligatoria per opere sopra 5M&euro;, raccomandata per quelle inferiori;</li>
+  <li><strong>Life Cycle Costing (LCC)</strong> esteso all'intero ciclo di vita dell'opera (progettazione, costruzione, esercizio, manutenzione, dismissione);</li>
+  <li><strong>Analisi di resilienza climatica</strong> degli interventi infrastrutturali;</li>
+  <li><strong>Digitalizzazione</strong> &mdash; uso di metodologie BIM e formati aperti per la condivisione dei dati;</li>
+  <li><strong>Monitoraggio in itinere</strong> attraverso la piattaforma REGIS (sistema di monitoraggio PNRR).</li>
+</ul>
+
+<div class="info-box">
+  <strong>&#x1F4CE; Link alle Linee Guida PFTE PNRR</strong><br>
+  <a href="https://www.mit.gov.it/nfsmitgov/files/media/notizia/2022-01/1.%20Linee_Guida_PFTE.pdf" target="_blank" style="color:var(--accent);">mit.gov.it &mdash; Linee Guida PFTE PNRR</a>
+</div>
+
+<h2>1.5 D.Lgs 152/2006 &mdash; Codice dell'Ambiente (VIA/VAS)</h2>
+
+<p>Il <strong>Decreto Legislativo 3 aprile 2006, n. 152</strong> (Norme in materia ambientale) costituisce il quadro di riferimento per la <strong>Valutazione di Impatto Ambientale (VIA)</strong>, la <strong>Valutazione Ambientale Strategica (VAS)</strong> e l'<strong>Autorizzazione Integrata Ambientale (AIA)</strong>.</p>
+
+<p>Per il PL9, le disposizioni rilevanti sono:</p>
+<ul>
+  <li><strong>Art. 6, comma 7</strong> &mdash; Verifica di assoggettabilit&agrave; a VIA (screening) per opere minori di sottopassi ciclopedonali;</li>
+  <li><strong>Allegato IV, punto 7, lett. l)</strong> &mdash; Sottopassi rientranti tra le opere per cui &egrave; prevista la verifica di assoggettabilit&agrave; regionale;</li>
+  <li><strong>Art. 18-28</strong> &mdash; Procedura di VIA applicabile per progetti su aree sottoposte a vincolo paesaggistico (D.Lgs 42/2004);</li>
+  <li><strong>Art. 33-42</strong> &mdash; VAS per piani e programmi (PUMS, PUG, Piani della mobilit&agrave; ciclistica).</li>
+</ul>
+
+<p>Trattandosi di un'opera di modesta entit&agrave; in area gi&agrave; urbanizzata, il PL9 potrebbe beneficiare dell'<strong>esclusione dalla VIA</strong> (art. 6, comma 7-bis) per opere di adeguamento di infrastrutture esistenti senza aumento di capacit&agrave;. Tuttavia, la verifica di assoggettabilit&agrave; va comunque effettuata presso l'<strong>Autorit&agrave; Competente Regionale</strong> (Regione Puglia &mdash; Servizio VIA/VAS).</p>
+
+<h2>1.6 D.Lgs 50/2016 &mdash; Previgente Codice Appalti (differenze)</h2>
+
+<p>Il <strong>D.Lgs 18 aprile 2016, n. 50</strong> (previgente Codice), abrogato dal D.Lgs 36/2023, presentava differenze significative rispetto all'attuale assetto. La tabella seguente evidenzia le principali discrepanze:</p>
+
+<table>
+  <tr><th>Profili</th><th>D.Lgs 50/2016 (previgente)</th><th>D.Lgs 36/2023 (attuale)</th></tr>
+  <tr><td><strong>Livelli di progettazione</strong></td><td>3 livelli: Fattibilit&agrave;, Definitivo, Esecutivo</td><td>2 livelli: PFTE, Esecutivo</td></tr>
+  <tr><td><strong>Contenuti PFTE</strong></td><td>Art. 23, commi 5-8</td><td>Art. 41 + Allegato I.7 (16 elaborati)</td></tr>
+  <tr><td><strong>Procedura di gara</strong></td><td>Appalto integrato limitato</td><td>Appalto integrato generalizzato (art. 52)</td></tr>
+  <tr><td><strong>Subappalto</strong></td><td>Tetto 30%</td><td>Liberalizzato (art. 119)</td></tr>
+  <tr><td><strong>Qualificazione SA</strong></td><td>Solo centrale di committenza</td><td>Tutte le SA devono qualificarsi (art. 63)</td></tr>
+  <tr><td><strong>Digitalizzazione</strong></td><td>Facoltativa</td><td>Obbligatoria (art. 19-30)</td></tr>
+  <tr><td><strong>Equo compenso</strong></td><td>Non previsto</td><td>Obbligatorio (art. 8)</td></tr>
+  <tr><td><strong>Collegio consultivo tecnico</strong></td><td>Facoltativo</td><td>Obbligatorio sopra 1M&euro; (art. 215)</td></tr>
+  <tr><td><strong>BIM</strong></td><td>Sperimentale (DM 560/2017)</td><td>Obbligatorio progressivo (art. 21)</td></tr>
+</table>
+
+<h2>1.7 Normativa antisismica &mdash; NTC 2018</h2>
+
+<p>Le <strong>Norme Tecniche per le Costruzioni 2018</strong> (D.M. 17 gennaio 2018 &mdash; Aggiornamento delle &laquo;Norme tecniche per le costruzioni&raquo;) costituiscono il riferimento tecnico per la progettazione strutturale in Italia. Per il PL9, le disposizioni rilevanti sono:</p>
+<ul>
+  <li><strong>Capitolo 3</strong> &mdash; Azioni sulle costruzioni (carichi variabili, neve, vento, temperatura);</li>
+  <li><strong>Capitolo 7</strong> &mdash; Costruzioni in zona sismica (categoria di sottosuolo, spettri di risposta, fattore di struttura);</li>
+  <li><strong>Capitolo 6</strong> &mdash; Progettazione geotecnica (capacit&agrave; portante, cedimenti, spinte);</li>
+  <li><strong>Capitolo 11</strong> &mdash; Materiali e prodotti per uso strutturale (calcestruzzo, acciaio);</li>
+  <li><strong>Allegato A</strong> &mdash; Pericolosit&agrave; sismica di base del sito di Martina Franca.</li>
+</ul>
+
+<div class="info-box">
+  <strong>&#x1F4CD; Parametri sismici del sito &mdash; Martina Franca (TA)</strong><br>
+  Coordinate: 40&deg;42'05"N 17&deg;19'58"E.<br>
+  Zona sismica: <strong>Zona 4</strong> (pericolosit&agrave; molto bassa) secondo OPCM 3274/2003 e successiva riclassificazione regionale (D.G.R. Puglia n. 1578/2006).<br>
+  Categoria di sottosuolo: da determinarsi mediante indagini geotecniche (previste nel PL9).<br>
+  Accelerazione di picco (PGA): a<sub>g</sub> = 0,053 g (valore di riferimento per SLV, su suolo A, Tr = 475 anni).
+</div>
+
+<h2>1.8 CAM &mdash; Criteri Ambientali Minimi (DM 2023)</h2>
+
+<p>Il <strong>Decreto Ministeriale 23 giugno 2022</strong> (Criteri Ambientali Minimi per l'affidamento di servizi di progettazione e lavori per interventi edilizi) &mdash; aggiornato con <strong>D.M. 16 dicembre 2023</strong> &mdash; stabilisce i requisiti ambientali che le stazioni appaltanti sono tenute a inserire nei bandi di gara per la progettazione e realizzazione delle opere pubbliche.</p>
+
+<p>Per il PL9, i CAM rilevanti riguardano:</p>
+<ul>
+  <li><strong>&sect; 2.3.1</strong> &mdash; Specifiche tecniche per i materiali da costruzione (calcestruzzo sostenibile, acciaio riciclato);</li>
+  <li><strong>&sect; 2.3.6</strong> &mdash; Illuminazione a LED ad alta efficienza per il sottopasso;</li>
+  <li><strong>&sect; 2.4.1</strong> &mdash; Gestione delle terre e rocce da scavo (recupero in situ);</li>
+  <li><strong>&sect; 2.5.1</strong> &mdash; Sistemi di drenaggio urbano sostenibile (SUDS) per le acque meteoriche;</li>
+  <li><strong>&sect; 2.6.2</strong> &mdash; Verde e arredo urbano (specie autoctone, materiali riciclabili).</li>
+</ul>
+
+<hr style="border:none; border-top:1px solid var(--border); margin:24px 0;">
+
+</div></div></body></html>
+
+<!-- ================================================================ -->
+<!-- SEZIONE 2: DOCUMENTAZIONE OBBLIGATORIA PFTE -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1 id="sec2">2. <span class="accent">Documentazione obbligatoria</span> PFTE</h1>
+
+<p>L'<strong>Allegato I.7</strong> del D.Lgs 36/2023 elenca analiticamente gli elaborati minimi che devono comporre il Progetto di Fattibilit&agrave; Tecnico-Economica. Ciascuno dei 16 elaborati &egrave; descritto in dettaglio nei paragrafi seguenti, con indicazione dei contenuti minimi richiesti e della loro applicabilit&agrave; al caso PL9.</p>
+
+<h2>2.a &mdash; Relazione illustrativa (Art. 1)</h2>
+<p>La relazione illustrativa descrive il <strong>quadro delle esigenze</strong> da soddisfare, le <strong>criticit&agrave;</strong> esistenti e le <strong>motivazioni</strong> alla base della scelta progettuale. Deve contenere:</p>
+<ul>
+  <li>Analisi del contesto territoriale, sociale, economico e ambientale;</li>
+  <li>Individuazione degli obiettivi generali e specifici dell'intervento;</li>
+  <li>Descrizione delle alternative progettuali esaminate e motivazione della soluzione prescelta;</li>
+  <li>Quadro dei soggetti coinvolti e del processo partecipativo;</li>
+  <li>Coerenza con gli strumenti di pianificazione (PUG, PUMS, Biciplan, etc.).</li>
+</ul>
+<p><strong>Nel PL9:</strong> Corrisponde alla <code>01_Relazione_Tecnica.html</code> e alla <code>00_Lettera_accompagnamento.html</code>.</p>
+
+<h2>2.b &mdash; Relazione tecnica (Art. 2)</h2>
+<p>Illustra la <strong>soluzione progettuale</strong> in termini dimensionali, funzionali, tipologici e tecnologici. Deve contenere:</p>
+<ul>
+  <li>Descrizione dell'opera con riferimento a norme tecniche (NTC 2018, CNR, UNI);</li>
+  <li>Dimensionamento di massima degli elementi strutturali e impiantistici;</li>
+  <li>Specifiche prestazionali dei materiali e dei componenti;</li>
+  <li>Verifica del rispetto della normativa sull'accessibilit&agrave; (D.M. 236/89, L. 13/89);</li>
+  <li>Criteri di sicurezza antincendio (se applicabili).</li>
+</ul>
+<p><strong>Nel PL9:</strong> Corrisponde alla <code>01_Relazione_Tecnica.html</code>.</p>
+
+<h2>2.c &mdash; Studio di prefattibilit&agrave; ambientale (Art. 3)</h2>
+<p>Valuta i <strong>potenziali impatti ambientali</strong> dell'opera nelle fasi di cantiere e di esercizio. Contiene:</p>
+<ul>
+  <li>Verifica preventiva dei potenziali effetti significativi sull'ambiente;</li>
+  <li>Individuazione delle misure di mitigazione e compensazione;</li>
+  <li>Verifica di assoggettabilit&agrave; a VIA (screening) ex D.Lgs 152/2006;</li>
+  <li>Analisi della compatibilit&agrave; con i vincoli paesaggistici e ambientali (D.Lgs 42/2004).</li>
+</ul>
+<p><strong>Nel PL9:</strong> Da redigere in forma semplificata (opera in area gi&agrave; urbanizzata).</p>
+
+<h2>2.d &mdash; Studio di inserimento urbanistico (Art. 4)</h2>
+<p>Verifica la <strong>conformit&agrave; urbanistica</strong> dell'opera e il suo inserimento nel contesto edificato. Contiene:</p>
+<ul>
+  <li>Estratti del PUG (Piano Urbanistico Generale) con individuazione dell'area;</li>
+  <li>Verifica delle destinazioni d'uso e degli indici urbanistici;</li>
+  <li>Mappatura dei vincoli (paesaggistici, idrogeologici, archeologici, cimiteriali);</li>
+  <li>Documentazione fotografica dello stato dei luoghi;</li>
+  <li>Rendering e simulazioni di inserimento urbano.</li>
+</ul>
+<p><strong>Nel PL9:</strong> Corrisponde alla <code>04_Visione_Territoriale.html</code>.</p>
+
+<h2>2.e &mdash; Computo metrico estimativo (Art. 5)</h2>
+<p>Elenca tutte le <strong>lavorazioni</strong> necessarie con le relative quantit&agrave; e i prezzi unitari, determinando l'importo complessivo dei lavori. Deve:</p>
+<ul>
+  <li>Essere redatto applicando i prezzari regionali (Prezzario Regione Puglia 2025);</li>
+  <li>Distinguere tra lavorazioni a corpo e a misura;</li>
+  <li>Includere gli oneri per la sicurezza (non soggetti a ribasso);</li>
+  <li>Riportare le analisi dei prezzi per le voci non coperte dal prezzario.</li>
+</ul>
+<p><strong>Nel PL9:</strong> Corrisponde al <code>02_Quadro_Economico.html</code>.</p>
+
+<h2>2.f &mdash; Quadro economico (Art. 6)</h2>
+<p>Il quadro economico finanziario riassume l'<strong>intero fabbisogno</strong> dell'opera, suddiviso in:</p>
+<ul>
+  <li><strong>Lavori</strong> (importo a base d'appalto, oneri sicurezza);</li>
+  <li><strong>Somme a disposizione dell'amministrazione</strong> (progettazione, D.L., collaudi, IVA, imprevisti, acquisizione aree, allacciamenti, spese tecniche);</li>
+  <li><strong>Copertura finanziaria</strong> (fonti di finanziamento, cofinanziamenti).</li>
+</ul>
+<p><strong>Nel PL9:</strong> Corrisponde al <code>02_Quadro_Economico.html</code>.</p>
+
+<h2>2.g &mdash; Capitolato speciale descrittivo e prestazionale (Art. 7)</h2>
+<p>Definisce le <strong>condizioni contrattuali</strong> e le <strong>specifiche tecniche</strong> che l'appaltatore deve rispettare. Si compone di:</p>
+<ul>
+  <li>Parte descrittiva: norme generali del contratto, termini, penali, garanzie;</li>
+  <li>Parte prestazionale: specifiche tecniche dei materiali, delle lavorazioni e delle forniture;</li>
+  <li>Elenco delle norme tecniche di riferimento (UNI, EN, ISO);</li>
+  <li>Criteri di misurazione e contabilizzazione delle lavorazioni.</li>
+</ul>
+<p><strong>Nel PL9:</strong> Da redigere in fase esecutiva.</p>
+
+<h2>2.h &mdash; Schema di contratto (Art. 8)</h2>
+<p>Bozza del <strong>contratto d'appalto</strong> che verr&agrave; stipulato tra la stazione appaltante e l'operatore economico aggiudicatario. Deve contenere:</p>
+<ul>
+  <li>Oggetto e importo del contratto;</li>
+  <li>Termini di esecuzione e penali per ritardo;</li>
+  <li>Garanzie definitive e provvisorie;</li>
+  <li>Modalit&agrave; di pagamento e tracciabilit&agrave; finanziaria;</li>
+  <li>Clausole risolutive e di recesso;</li>
+  <li>Subappalto e avvalimento (ove previsti);</li>
+  <li>Foro competente e modalit&agrave; di risoluzione controversie.</li>
+</ul>
+<p><strong>Nel PL9:</strong> Da redigere in fase esecutiva.</p>
+
+<h2>2.i &mdash; Piano particellare di esproprio (Art. 9)</h2>
+<p>Individua le <strong>aree da espropriare</strong> o asservire per la realizzazione dell'opera. Contiene:</p>
+<ul>
+  <li>Elenco dei mappali catastali interessati con intestazione delle propriet&agrave;;</li>
+  <li>Planimetria catastale con individuazione delle aree;</li>
+  <li>Stima dell'indennit&agrave; di esproprio (ex D.P.R. 327/2001);</li>
+  <li>Cronoprogramma delle procedure espropriative.</li>
+</ul>
+<p><strong>Nel PL9:</strong> Probabilmente non necessario (opera su suolo pubblico, in rotatoria esistente). Da verificare eventuali occupazioni temporanee per cantieri.</p>
+
+<h2>2.j &mdash; Piano di sicurezza e coordinamento (PSC) (Art. 10)</h2>
+<p>Il PSC, redatto ai sensi del <strong>D.Lgs 81/2008, Titolo IV</strong>, individua i rischi specifici delle lavorazioni e le misure di prevenzione. Contiene:</p>
+<ul>
+  <li>Schede dei rischi per ogni fase lavorativa;</li>
+  <li>Misure di coordinamento tra le imprese presenti in cantiere;</li>
+  <li>Stima dei costi della sicurezza (non soggetti a ribasso);</li>
+  <li>Planimetria di cantiere con viabilit&agrave;, depositi, servizi;</li>
+  <li>Piano di emergenza e gestione del traffico durante i lavori.</li>
+</ul>
+<p><strong>Nel PL9:</strong> Obbligatorio per la presenza di pi&ugrave; imprese o per lavori in prossimit&agrave; di traffico veicolare. Include il piano di gestione del traffico durante il varo del sottopasso.</p>
+
+<h2>2.k &mdash; Cronoprogramma (Art. 11)</h2>
+<p>Diagramma temporale delle fasi progettuali e realizzative. Deve includere:</p>
+<ul>
+  <li>Fasi di approvazione, affidamento, esecuzione e collaudo;</li>
+  <li>Diagramma di Gantt con durata e interdipendenze delle attivit&agrave;;</li>
+  <li>Percorso critico (critical path) e margini di scorrimento;</li>
+  <li>Milestone e punti di controllo intermedi.</li>
+</ul>
+<p><strong>Nel PL9:</strong> Cronoprogramma indicativo: mesi 1-3 progettazione esecutiva, mese 4 gara, mesi 5-11 realizzazione (varo in notte, completamento opere accessorie).</p>
+
+<h2>2.l &mdash; Piano di manutenzione dell'opera (Art. 12)</h2>
+<p>Definisce il <strong>programma manutentivo</strong> per l'intero ciclo di vita dell'opera. Si articola in:</p>
+<ul>
+  <li><strong>Manuale d'uso</strong> &mdash; istruzioni per l'uso corretto dell'opera;</li>
+  <li><strong>Manuale di manutenzione</strong> &mdash; interventi programmati, frequenze, modalit&agrave;;</li>
+  <li><strong>Programma di manutenzione</strong> &mdash; cronoprogramma degli interventi con stima dei costi;</li>
+  <li>Life Cycle Cost Analysis (LCCA) delle principali componenti.</li>
+</ul>
+<p><strong>Nel PL9:</strong> Include manutenzione delle rampe, dell'illuminazione, dei sistemi di drenaggio e della segnaletica.</p>
+
+<h2>2.m &mdash; Relazione di sostenibilit&agrave; dell'opera (Art. 13)</h2>
+<p>Valuta l'<strong>impatto complessivo</strong> dell'opera sotto il profilo economico, sociale e ambientale. Contiene:</p>
+<ul>
+  <li><strong>Analisi Costi-Benefici (CBA)</strong> estesa all'intero ciclo di vita;</li>
+  <li><strong>Valutazione degli impatti sociali</strong> (miglioramento sicurezza, accessibilit&agrave;, qualit&agrave; urbana);</li>
+  <li><strong>Benchmarking</strong> con opere similari (costi, performance, impatti);</li>
+  <li><strong>Analisi multicriterio</strong> per la selezione dell'alternativa migliore;</li>
+  <li><strong>Obiettivi di sviluppo sostenibile</strong> (SDGs) dell'Agenda 2030 pertinenti.</li>
+</ul>
+<p><strong>Nel PL9:</strong> Corrisponde alla relazione CBA contenuta nel <code>02_Quadro_Economico.html</code> e alla <code>03_Formule_Matematiche.html</code> per i calcoli.</p>
+
+<h2>2.n &mdash; Documento di Fattibilit&agrave; delle Alternative Progettuali (DocFAP) (Art. 14)</h2>
+<p>Il DocFAP costituisce la <strong>memoria tecnica</strong> del processo di selezione tra pi&ugrave; alternative progettuali. Deve contenere:</p>
+<ul>
+  <li>Elenco e descrizione delle alternative considerate (minimo 3);</li>
+  <li>Criteri di valutazione (tecnici, economici, ambientali, sociali);</li>
+  <li>Matrice di valutazione multi-criterio (punteggi e pesi);</li>
+  <li>Analisi di sensitivit&agrave; per verificare la robustezza della scelta;</li>
+  <li>Motivazione della soluzione prescelta.</li>
+</ul>
+<p><strong>Nel PL9:</strong> Le alternative considerate includono: A) sottopasso a elementi scatolari prefabbricati (soluzione prescelta), B) passerella sopraelevata, C) attraversamento semaforizzato potenziato, D) rotatoria a raso con isola spartitraffico rialzata.</p>
+
+<h2>2.o &mdash; Relazione geologica, idrogeologica, geotecnica (Art. 15)</h2>
+<p>Caratterizza il <strong>sito di intervento</strong> dal punto di vista geologico, idrogeologico e geotecnico. Contiene:</p>
+<ul>
+  <li>Inquadramento geologico regionale e locale (Foglio 201 "Mottola" &mdash; ISPRA);</li>
+  <li>Indagini geognostiche (sondaggi, prove penetrometriche, stendimenti sismici);</li>
+  <li>Modellazione geotecnica del sottosuolo (parametri di resistenza e deformabilit&agrave;);</li>
+  <li>Verifica della compatibilit&agrave; idrogeologica (soggiacenza falda, permeabilit&agrave;);</li>
+  <li>Indicazioni per il dimensionamento delle fondazioni e delle strutture interrate.</li>
+</ul>
+<p><strong>Nel PL9:</strong> Da redigere. Per un sottopasso di 24m in area urbana, si prevedono indagini geofisiche con sismica a rifrazione e prove penetrometriche dinamiche (DPH).</p>
+
+<h2>2.p &mdash; Indagini e studi specialistici (Art. 16)</h2>
+<p>Raccoglie tutte le <strong>indagini integrative</strong> necessarie per la definizione del progetto. Possono includere:</p>
+<ul>
+  <li>Rilievo topografico e fotogrammetrico (anche con drone) dello stato dei luoghi;</li>
+  <li>Sondaggi geognostici e prove geotecniche di laboratorio;</li>
+  <li>Indagini ambientali (qualit&agrave; dell'aria, rumore, vibrazioni);</li>
+  <li>Rilievo delle sottoservizi (gas, acqua, elettricit&agrave;, fibra, fognature);</li>
+  <li>Studi di traffico e mobilit&agrave; (conteggi veicolari, pedonali, ciclabili);</li>
+  <li>Analisi strutturale e verifiche sismiche con modelli FEM.</li>
+</ul>
+<p><strong>Nel PL9:</strong> Include rilievo topografico, censimento sottoservizi, conteggi di traffico e indagini geotecniche.</p>
+
+<hr style="border:none; border-top:1px solid var(--border); margin:24px 0;">
+
+
+<!-- ================================================================ -->
+<!-- SEZIONE 3: ESEMPI REALI DA COMUNI ITALIANI -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1 id="sec3">3. <span class="accent">Esempi reali</span> da Comuni italiani</h1>
+
+<p>Questa sezione raccoglie <strong>documentazione tecnica reale</strong> di opere pubbliche italiane consultabile online. Per ogni esempio vengono indicati: ente appaltante, oggetto dell'intervento, importo, anno, link e contenuti del documento. Gli esempi sono suddivisi per tipologia: <strong>sottopassi</strong>, <strong>piste ciclabili</strong>, <strong>documenti normativi/guide</strong>.</p>
+
+<div class="info-box">
+  <strong>&#x1F4A1; Come utilizzare questi esempi</strong><br>
+  I documenti elencati costituiscono <strong>riferimenti tecnici</strong> per la redazione del PFTE PL9. Si raccomanda di scaricarli e analizzarli per:
+  <ul style="margin:4px 0 0 18px;">
+    <li>Verificare la struttura e i contenuti di PFTE di opere similari;</li>
+    <li>Confrontare stime economiche e computi metrici;</li>
+    <li>Trarre spunto per l'impostazione di relazioni e studi;</li>
+    <li>Identificare criticit&agrave; ricorrenti e best practice.</li>
+  </ul>
+</div>
+
+<h2>3.1 Sottopassi ciclopedonali</h2>
+
+<div class="esempio-box">
+  <div class="esempio-title">&#x1F4CD; Sottopasso ciclopedonale Summaga &mdash; Viale Cadorna</div>
+  <div class="esempio-meta">
+    <span><strong>Comune:</strong> Portogruaro (VE)</span>
+    <span><strong>Importo:</strong> &euro;2.050.000</span>
+    <span><strong>Anno:</strong> 2025</span>
+    <span class="tag tag-norm">Sottopasso</span>
+  </div>
+  <div class="esempio-desc">
+    Intervento di realizzazione di un sottopasso ciclopedonale in localit&agrave; Summaga, finalizzato al collegamento sicuro tra la frazione e Viale Cadorna. Opera inserita nel programma triennale OO.PP. 2025-2027 del Comune di Portogruaro. Prevede la separazione dei flussi veicolari dalla mobilit&agrave; dolce con struttura scatolare prefabbricata in c.a., analogamente alla soluzione prevista per il PL9.
+  </div>
+  <div class="esempio-link">
+    &#x1F517; <a href="https://www.comune.portogruaro.ve.it/index.php/it/news/sottopasso-ciclopedonale-di-summaga-e-viale-cadorna" target="_blank" style="color:var(--accent);">comune.portogruaro.ve.it &mdash; News sottopasso Summaga</a>
+  </div>
+</div>
+
+<div class="esempio-box">
+  <div class="esempio-title">&#x1F4CD; Sottopasso del Soccorso (Prato)</div>
+  <div class="esempio-meta">
+    <span><strong>Comune:</strong> Prato (PO)</span>
+    <span><strong>Ente:</strong> ANAS / Comune di Prato</span>
+    <span><strong>Anno:</strong> 2023</span>
+    <span class="tag tag-norm">Sottopasso</span>
+    <span class="tag tag-tech">VIA</span>
+  </div>
+  <div class="esempio-desc">
+    Realizzazione del sottopasso veicolare e ciclopedonale "del Soccorso" lungo la viabilit&agrave; di interesse ANAS. Il progetto comprende la verifica di assoggettabilit&agrave; a VIA, gli elaborati progettuali e gli studi specialistici. Documentazione completa consultabile online con tutti gli elaborati tecnici del PFTE. Riferimento per la qualit&agrave; della documentazione tecnica pubblicata.
+  </div>
+  <div class="esempio-link">
+    &#x1F517; <a href="https://www.comune.prato.it/it/muoversi/viabilita/sottopasso-soccorso/verifica-via-sottopasso/elaborati/pagina1308.html" target="_blank" style="color:var(--accent);">comune.prato.it &mdash; Elaborati sottopasso Soccorso</a>
+  </div>
+</div>
+
+<div class="esempio-box">
+  <div class="esempio-title">&#x1F4CD; Variante in galleria SS 163 &mdash; Minori-Maiori (Costiera Amalfitana)</div>
+  <div class="esempio-meta">
+    <span><strong>Comune:</strong> Minori / Maiori (SA)</span>
+    <span><strong>Ente:</strong> Provincia di Salerno</span>
+    <span><strong>Anno:</strong> 2022</span>
+    <span class="tag tag-norm">Variante</span>
+    <span class="tag tag-tech">VIA</span>
+  </div>
+  <div class="esempio-desc">
+    Variante in galleria della SS 163 Amalfitana nel tratto tra Minori e Maiori, con pedonalizzazione del tracciato costiero. Il progetto, sottoposto a procedura di VIA nazionale, comprende elaborati di straordinaria qualit&agrave; tecnica: relazione illustrativa, studio di impatto ambientale, analisi costi-benefici, rendering fotorealistici. Documento di riferimento per opere in contesti urbani sensibili.
+  </div>
+  <div class="esempio-link">
+    &#x1F517; <a href="https://va.mite.gov.it/File/Documento/339535" target="_blank" style="color:var(--accent);">va.mite.gov.it &mdash; Documento VIA Minori-Maiori</a>
+  </div>
+</div>
+
+<h2>3.2 Piste ciclabili e mobilit&agrave; dolce</h2>
+
+<div class="esempio-box">
+  <div class="esempio-title">&#x1F6B2; Recupero pista ciclabile Acquafredda &mdash; Benevento</div>
+  <div class="esempio-meta">
+    <span><strong>Comune:</strong> Benevento</span>
+    <span><strong>Provincia:</strong> Benevento</span>
+    <span><strong>Anno:</strong> 2021</span>
+    <span class="tag tag-fin">PFTE</span>
+  </div>
+  <div class="esempio-desc">
+    Progetto di fattibilit&agrave; tecnico-economica per il recupero e la valorizzazione della pista ciclabile di Acquafredda. Include relazione illustrativa dettagliata con inquadramento territoriale, analisi dello stato di fatto, soluzioni progettuali e quadro economico. Documento PDF liberamente scaricabile dall'Albo Pretorio.
+  </div>
+  <div class="esempio-link">
+    &#x1F517; <a href="https://www.provincia.benevento.it/system/files/field/allegati/2021/10/01-Relazione%20illustrativa.pdf" target="_blank" style="color:var(--accent);">provincia.benevento.it &mdash; Relazione illustrativa</a>
+  </div>
+</div>
+
+<div class="esempio-box">
+  <div class="esempio-title">&#x1F6B2; Pista ciclo-pedonale Via delle Industrie &mdash; Striano (NA)</div>
+  <div class="esempio-meta">
+    <span><strong>Comune:</strong> Striano (NA)</span>
+    <span><strong>Importo:</strong> &asymp; &euro;500.000</span>
+    <span><strong>Anno:</strong> 2023</span>
+    <span class="tag tag-fin">PFTE</span>
+  </div>
+  <div class="esempio-desc">
+    PFTE completo per la realizzazione di una pista ciclo-pedonale lungo Via delle Industrie. Il file comprende la relazione tecnica illustrativa firmata digitalmente, con computo metrico, piano di sicurezza e cronoprogramma. Documento con firma digitale PAdES visibile. Utile come riferimento formale per la struttura di un PFTE di mobilit&agrave; dolce.
+  </div>
+  <div class="esempio-link">
+    &#x1F517; <a href="https://www.comune.striano.na.it/sites/default/files/PFTE.ED_.02%20Relazione%20tecnica_signed_compressed.pdf" target="_blank" style="color:var(--accent);">comune.striano.na.it &mdash; PFTE relazione tecnica</a>
+  </div>
+</div>
+
+<div class="esempio-box">
+  <div class="esempio-title">&#x1F6B2; Rete ciclabile Isola &mdash; Bottanuco (BG)</div>
+  <div class="esempio-meta">
+    <span><strong>Comune:</strong> Bottanuco (BG)</span>
+    <span><strong>Importo:</strong> &asymp; &euro;800.000</span>
+    <span><strong>Anno:</strong> 2024</span>
+    <span class="tag tag-tech">Relazione</span>
+  </div>
+  <div class="esempio-desc">
+    Progetto per la realizzazione della rete ciclabile "Isola" con collegamento intercomunale. Relazione generale dettagliata con analisi del contesto, descrizione della soluzione progettuale (pista in sede propria, promiscua, corsia ciclabile), computo estimativo e cronoprogramma. Documento depositato e pubblicato all'Albo Pretorio online.
+  </div>
+  <div class="esempio-link">
+    &#x1F517; <a href="https://www.comune.bottanuco.bg.it/sites/default/files/2024-04/relazione_generale.pdf" target="_blank" style="color:var(--accent);">comune.bottanuco.bg.it &mdash; Relazione generale</a>
+  </div>
+</div>
+
+<div class="esempio-box">
+  <div class="esempio-title">&#x1F6B2; Progetto fattibilit&agrave; tecnica &mdash; Vicenza</div>
+  <div class="esempio-meta">
+    <span><strong>Comune:</strong> Vicenza</span>
+    <span><strong>Anno:</strong> 2023</span>
+    <span class="tag tag-fin">Parere</span>
+  </div>
+  <div class="esempio-desc">
+    Parere contabile con copertura finanziaria per un progetto di fattibilit&agrave; tecnica del Comune di Vicenza. Documento che illustra l'iter amministrativo di approvazione del PFTE e la relativa copertura finanziaria. Riferimento utile per comprendere la procedura di approvazione di un PFTE e i pareri obbligatori del collegio dei revisori.
+  </div>
+  <div class="esempio-link">
+    &#x1F517; <a href="https://servizi2.comune.vicenza.it/docalbo/d302885-302887-DIGITALE_-_parere_contabile_con_copertura_fin.pdf" target="_blank" style="color:var(--accent);">comune.vicenza.it &mdash; Parere contabile</a>
+  </div>
+</div>
+
+<div class="esempio-box">
+  <div class="esempio-title">&#x1F6B2; Pista ciclopedonale &mdash; Suisio (BG) &mdash; Capitolato</div>
+  <div class="esempio-meta">
+    <span><strong>Comune:</strong> Suisio (BG)</span>
+    <span><strong>Anno:</strong> 2024</span>
+    <span class="tag tag-norm">Capitolato</span>
+  </div>
+  <div class="esempio-desc">
+    Capitolato speciale d'appalto per la realizzazione di una pista ciclopedonale. Documento di circa 60 pagine che definisce le condizioni contrattuali, le specifiche tecniche dei materiali (conglomerati bituminosi, cordonature, segnaletica), le modalit&agrave; di contabilizzazione e le norme per la sicurezza in cantiere. Riferimento per la redazione del capitolato PL9.
+  </div>
+  <div class="esempio-link">
+    &#x1F517; <a href="https://www.comune.suisio.bg.it/sites/default/files/2024-08/all_f_capitolato_speciale_dappalto_1.pdf" target="_blank" style="color:var(--accent);">comune.suisio.bg.it &mdash; Capitolato d'appalto</a>
+  </div>
+</div>
+
+<h2>3.3 Documenti normativi e guide tecniche</h2>
+
+<div class="esempio-box">
+  <div class="esempio-title">&#x1F4D8; Linee Guida PFTE PNRR &mdash; MIT</div>
+  <div class="esempio-meta">
+    <span><strong>Ente:</strong> Ministero Infrastrutture e Mobilit&agrave; Sostenibili</span>
+    <span><strong>Anno:</strong> 2022</span>
+    <span class="tag tag-norm">Linee Guida</span>
+  </div>
+  <div class="esempio-desc">
+    Le Linee Guida per la redazione del PFTE costituiscono il riferimento metodologico principale per la progettazione degli interventi finanziati dal PNRR. Il documento (circa 100 pagine) fornisce indicazioni dettagliate su struttura del PFTE, analisi costi-benefici, Life Cycle Costing, analisi multicriterio e criteri di sostenibilit&agrave; ambientale. Rappresenta il documento tecnico pi&ugrave; autorevole per la redazione del PFTE PL9.
+  </div>
+  <div class="esempio-link">
+    &#x1F517; <a href="https://www.mit.gov.it/nfsmitgov/files/media/notizia/2022-01/1.%20Linee_Guida_PFTE.pdf" target="_blank" style="color:var(--accent);">mit.gov.it &mdash; Linee Guida PFTE PNRR (PDF)</a>
+  </div>
+</div>
+
+<div class="esempio-box">
+  <div class="esempio-title">&#x1F4D8; Indice strutturato studio di fattibilit&agrave; &mdash; AGID</div>
+  <div class="esempio-meta">
+    <span><strong>Ente:</strong> Agenzia per l'Italia Digitale</span>
+    <span><strong>Anno:</strong> 2018</span>
+    <span class="tag tag-norm">Guida</span>
+  </div>
+  <div class="esempio-desc">
+    Documento che definisce l'indice strutturato dello studio di fattibilit&agrave; per progetti ICT della Pubblica Amministrazione. Sebbene focalizzato sul digitale, fornisce una metodologia generale per la redazione degli studi di fattibilit&agrave; applicabile anche a opere infrastrutturali, con indicazioni su struttura, contenuti e criteri di valutazione.
+  </div>
+  <div class="esempio-link">
+    &#x1F517; <a href="https://agid.gov.it/sites/default/files/repository_files/documentazione/indice_strutturato_dello_studio_di_fatibilita.pdf" target="_blank" style="color:var(--accent);">agid.gov.it &mdash; Indice studio fattibilit&agrave;</a>
+  </div>
+</div>
+
+<div class="esempio-box">
+  <div class="esempio-title">&#x1F4D8; Guida allo studio di fattibilit&agrave; per PPP &mdash; DIPE/UVAL/CDP</div>
+  <div class="esempio-meta">
+    <span><strong>Ente:</strong> DIPE / UVAL / Cassa Depositi e Prestiti</span>
+    <span><strong>Anno:</strong> 2014</span>
+    <span class="tag tag-norm">Guida</span>
+    <span class="tag tag-fin">PPP</span>
+  </div>
+  <div class="esempio-desc">
+    Guida metodologica per la redazione degli studi di fattibilit&agrave; per progetti in Partenariato Pubblico-Privato (PPP). Il documento (Metodi n. 30) fornisce criteri per l'analisi della domanda, la valutazione finanziaria ed economica, l'analisi dei rischi e la strutturazione del PPP. Riferimento per possibili formule di finanziamento innovative del PL9.
+  </div>
+  <div class="esempio-link">
+    &#x1F517; <a href="https://politichecoesione.governo.it/media/2306/numero-30_metodi_2014_guida_studio_fatibilita.pdf" target="_blank" style="color:var(--accent);">politichecoesione.governo.it &mdash; Guida studio fattibilit&agrave; PPP</a>
+  </div>
+</div>
+
+<div class="esempio-box">
+  <div class="esempio-title">&#x1F4D8; PFTE esempio &mdash; Relazione tecnica illustrativa (Regione Calabria)</div>
+  <div class="esempio-meta">
+    <span><strong>Ente:</strong> Regione Calabria</span>
+    <span><strong>Anno:</strong> 2022</span>
+    <span class="tag tag-tech">Relazione</span>
+  </div>
+  <div class="esempio-desc">
+    Relazione tecnica illustrativa redatta nell'ambito di un PFTE per un'opera pubblica finanziata con fondi regionali. Il documento rappresenta un esempio concreto di come viene strutturata una relazione tecnica secondo l'Allegato I.7, con sezioni dedicate all'inquadramento, alla descrizione della soluzione, al dimensionamento e agli aspetti economici. Modello di riferimento per la forma e la sostanza di un PFTE.
+  </div>
+  <div class="esempio-link">
+    &#x1F517; <a href="https://www.regione.calabria.it/wp-content/uploads/2022/06/RELAZIONE-TECNICA-ILLUSTRATIVA.pdf" target="_blank" style="color:var(--accent);">regione.calabria.it &mdash; Relazione tecnica illustrativa</a>
+  </div>
+</div>
+
+<hr style="border:none; border-top:1px solid var(--border); margin:24px 0;">
+
+
+<!-- ================================================================ -->
+<!-- SEZIONE 4: MAPPATURA PL9 ↔ REQUISITI -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1 id="sec4">4. <span class="accent">Mappatura</span> documenti PL9 &harr; requisiti normativi</h1>
+
+<p>La tabella seguente mette in corrispondenza ogni file/documento del progetto PL9 con i corrispondenti requisiti dell'<strong>Allegato I.7</strong> del D.Lgs 36/2023, indicando il livello di copertura normativa raggiunto e le eventuali integrazioni necessarie.</p>
+
+<table>
+  <tr><th>File / Documento PL9</th><th>Sezione Allegato I.7</th><th>Requisito soddisfatto</th><th>Copertura</th></tr>
+  <tr>
+    <td><code>00_Lettera_accompagnamento.html</code></td>
+    <td>Art. 1 (Relaz. illustrativa) &mdash; parziale</td>
+    <td>Presentazione dell'istanza, sintesi del progetto, finalit&agrave; civiche</td>
+    <td style="color:var(--green);">Parziale</td>
+  </tr>
+  <tr>
+    <td><code>01_Relazione_Tecnica.html</code></td>
+    <td><strong>Art. 2 &mdash; Relazione tecnica</strong></td>
+    <td>Descrizione soluzione progettuale, dimensionamento, specifiche tecniche, soluzione strutturale (elementi scatolari prefabbricati), rampe, drenaggio, illuminazione, arredo</td>
+    <td style="color:var(--green);"><strong>Sostanziale</strong></td>
+  </tr>
+  <tr>
+    <td><code>01_Relazione_Tecnica.html</code></td>
+    <td>Art. 4 (Inserimento urbanistico) &mdash; parziale</td>
+    <td>Inquadramento del nodo Rotatoria Europa</td>
+    <td style="color:var(--amber);">Parziale</td>
+  </tr>
+  <tr>
+    <td><code>02_Quadro_Economico.html</code></td>
+    <td><strong>Art. 5 &mdash; Computo metrico estimativo</strong></td>
+    <td>Elenco lavorazioni, quantit&agrave;, prezzi; computo metrico per elementi scatolari, scavo, ripristini, illuminazione, arredo</td>
+    <td style="color:var(--green);"><strong>Sostanziale</strong></td>
+  </tr>
+  <tr>
+    <td><code>02_Quadro_Economico.html</code></td>
+    <td><strong>Art. 6 &mdash; Quadro economico</strong></td>
+    <td>Importo lavori, somme a disposizione, IVA, imprevisti, spese tecniche; copertura finanziaria</td>
+    <td style="color:var(--green);"><strong>Sostanziale</strong></td>
+  </tr>
+  <tr>
+    <td><code>02_Quadro_Economico.html</code></td>
+    <td>Art. 13 (Sostenibilit&agrave;) &mdash; parziale</td>
+    <td>Analisi Costi-Benefici (CBA): VAN, TIR, B/C, VDS</td>
+    <td style="color:var(--green);">Buona (CBA completa)</td>
+  </tr>
+  <tr>
+    <td><code>03_Formule_Matematiche.html</code></td>
+    <td>&mdash;</td>
+    <td>Appendice di calcolo: formule CBA, VAN, TIR, B/C, rendicontazione finanziaria</td>
+    <td style="color:var(--text-muted);">Complementare</td>
+  </tr>
+  <tr>
+    <td><code>04_Visione_Territoriale.html</code></td>
+    <td><strong>Art. 4 &mdash; Studio inserimento urbanistico</strong></td>
+    <td>Analisi del contesto urbano, mappa delle opportunit&agrave; (P1-P6), soggetti coinvolgibili, cronoprogramma della visione integrata</td>
+    <td style="color:var(--green);"><strong>Sostanziale</strong></td>
+  </tr>
+  <tr>
+    <td><code>04_Visione_Territoriale.html</code></td>
+    <td>Art. 1 (Relaz. illustrativa) &mdash; parziale</td>
+    <td>Quadro delle esigenze, criticit&agrave; rilevate (C1-C3), obiettivi strategici</td>
+    <td style="color:var(--green);">Buona</td>
+  </tr>
+  <tr>
+    <td><code>04_Visione_Territoriale.html</code></td>
+    <td>Art. 11 (Cronoprogramma)</td>
+    <td>Cronoprogramma fasi 1-3 (2026-2030)</td>
+    <td style="color:var(--amber);">Parziale (da dettagliare)</td>
+  </tr>
+  <tr>
+    <td><code>04_Visione_Territoriale.html</code></td>
+    <td>Art. 14 (DocFAP)</td>
+    <td>Alternative progettuali P1-P6, analisi multicriterio implicita</td>
+    <td style="color:var(--amber);">Parziale (manca matrice formale)</td>
+  </tr>
+  <tr>
+    <td><code>05_Biblioteca_Riferimenti.html</code></td>
+    <td>Trasversale a tutti gli articoli</td>
+    <td>Biblioteca normativa, esempi reali, mappatura PL9&harr;I.7, fonti finanziamento, glossario, riferimenti</td>
+    <td style="color:var(--green);"><strong>Supporto completo</strong></td>
+  </tr>
+  <tr>
+    <td><code>COMPLETA.html</code></td>
+    <td>Documento unificato</td>
+    <td>Versione integrale di tutti i documenti PL9 in unico file</td>
+    <td style="color:var(--green);">Totale</td>
+  </tr>
+  <tr>
+    <td><code>theme.css</code></td>
+    <td>&mdash;</td>
+    <td>Design system: palette #0a1628 + #d4a843, responsive, print-ready</td>
+    <td style="color:var(--text-muted);">Trasversale</td>
+  </tr>
+  <tr>
+    <td><strong>Kit Instagram</strong> (6 post)</td>
+    <td>&mdash;</td>
+    <td>Comunicazione e sensibilizzazione: lancio, criticit&agrave;, soluzione, confronto, piano</td>
+    <td style="color:var(--text-muted);">Comunicazione sociale</td>
+  </tr>
+</table>
+
+<div class="info-box">
+  <strong>&#x1F4CB; Analisi di copertura normativa</strong><br>
+  Allo stato attuale, i documenti PL9 coprono <strong>sostanzialmente</strong> gli articoli 1, 2, 4, 5, 6, 11, 13 e 14 dell'Allegato I.7. Risultano da integrare o approfondire:
+  <ul style="margin:4px 0 0 18px;">
+    <li><strong>Art. 3</strong> &mdash; Studio di prefattibilit&agrave; ambientale (da redigere in forma semplificata);</li>
+    <li><strong>Art. 7</strong> &mdash; Capitolato speciale descrittivo e prestazionale (fase esecutiva);</li>
+    <li><strong>Art. 8</strong> &mdash; Schema di contratto (fase esecutiva);</li>
+    <li><strong>Art. 9</strong> &mdash; Piano particellare di esproprio (solo se necessario);</li>
+    <li><strong>Art. 10</strong> &mdash; PSC (fase esecutiva, con piano di gestione traffico);</li>
+    <li><strong>Art. 12</strong> &mdash; Piano di manutenzione ordinaria e straordinaria (da redigere);</li>
+    <li><strong>Art. 15</strong> &mdash; Relazione geologica e geotecnica (da redigere);</li>
+    <li><strong>Art. 16</strong> &mdash; Indagini specialistiche (rilievi, sondaggi &mdash; da redigere).</li>
+  </ul>
+</div>
+
+<hr style="border:none; border-top:1px solid var(--border); margin:24px 0;">
+
+<!-- ================================================================ -->
+<!-- SEZIONE 5: FONTI DI FINANZIAMENTO -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1 id="sec5">5. <span class="accent">Fonti di finanziamento</span></h1>
+
+<p>Il presente capitolo mappa le <strong>principali fonti di finanziamento</strong> attivabili per la realizzazione del PL9 "Sottopasso Rotatoria Europa" e per le proposte complementari P2-P6 della visione integrata. Per ogni fonte vengono indicati: importo disponibile, scadenze, criteri di ammissibilit&agrave; e pertinenza con il progetto.</p>
+
+<div class="data-row">
+  <div class="data-card">
+    <div class="data-card-value"><span class="accent">&asymp; 1,24</span> M&euro;</div>
+    <div class="data-card-label">Costo PL9 (P1)</div>
+  </div>
+  <div class="data-card">
+    <div class="data-card-value"><span class="accent">2,0&ndash;3,3</span> M&euro;</div>
+    <div class="data-card-label">Visione integrata P1-P6</div>
+  </div>
+  <div class="data-card">
+    <div class="data-card-value"><span class="accent">6+</span></div>
+    <div class="data-card-label">Fonti attivabili</div>
+  </div>
+</div>
+
+<h2>5.1 PNRR M2C4 &mdash; Tutela del territorio e della risorsa idrica</h2>
+
+<table>
+  <tr><th>Campo</th><th>Dettaglio</th></tr>
+  <tr><td><strong>Missione / Componente</strong></td><td>M2 &mdash; Rivoluzione Verde e Transizione Ecologica / C4 &mdash; Tutela del territorio e della risorsa idrica</td></tr>
+  <tr><td><strong>Investimento</strong></td><td>I.2.3 &mdash; Interventi per la mobilit&agrave; sostenibile e la messa in sicurezza delle infrastrutture viarie</td></tr>
+  <tr><td><strong>Dotazione</strong></td><td>&asymp; 5,5 miliardi di euro (totale M2C4)</td></tr>
+  <tr><td><strong>Scadenza</strong></td><td>30 giugno 2026 (milestone PNRR) &mdash; possibile estensione con REPowerEU</td></tr>
+  <tr><td><strong>Criteri</strong></td><td>Messa in sicurezza, riduzione rischio idrogeologico, tutela risorse idriche, mobilit&agrave; sostenibile</td></tr>
+  <tr><td><strong>Pertinenza PL9</strong></td><td><span class="tag tag-fin">ALTA</span> &mdash; Il sottopasso separa i flussi veicolari dalla mobilit&agrave; dolce, riducendo il rischio di incidentalit&agrave; e migliorando la sicurezza idraulica dell'area (drenaggio)</td></tr>
+  <tr><td><strong>Note</strong></td><td>Finestra di candidatura 2026 &mdash; tempistiche stringenti. Verificare se la misura &egrave; ancora attiva o in fase di chiusura</td></tr>
+</table>
+
+<h2>5.2 PNRR M5C2 &mdash; Rigenerazione urbana</h2>
+
+<table>
+  <tr><th>Campo</th><th>Dettaglio</th></tr>
+  <tr><td><strong>Missione / Componente</strong></td><td>M5 &mdash; Inclusione e Coesione / C2 &mdash; Rigenerazione urbana e housing sociale</td></tr>
+  <tr><td><strong>Investimento</strong></td><td>I.2.2 &mdash; Piani Urbani Integrati (PUI) / Interventi di rigenerazione urbana</td></tr>
+  <tr><td><strong>Dotazione</strong></td><td>&asymp; 2,2 miliardi di euro</td></tr>
+  <tr><td><strong>Scadenza</strong></td><td>2026 (milestone PNRR)</td></tr>
+  <tr><td><strong>Criteri</strong></td><td>Riqualificazione aree urbane, miglioramento qualit&agrave; della vita, inclusione sociale, sostenibilit&agrave; ambientale</td></tr>
+  <tr><td><strong>Pertinenza PL9</strong></td><td><span class="tag tag-fin">MEDIA</span> &mdash; Pertinente per le proposte P3 (parcheggio di interscambio), P4 (riqualificazione urbana del nodo) e P5 (nodo intermodale)</td></tr>
+</table>
+
+<h2>5.3 FSC &mdash; Fondo per lo Sviluppo e la Coesione (Puglia 2021-2027)</h2>
+
+<table>
+  <tr><th>Campo</th><th>Dettaglio</th></tr>
+  <tr><td><strong>Programma</strong></td><td>FSC Puglia 2021-2027 (Accordo per la Coesione)</td></tr>
+  <tr><td><strong>Dotazione regionale</strong></td><td>&asymp; 6,5 miliardi di euro (FSC nazionale)</td></tr>
+  <tr><td><strong>Ambiti</strong></td><td>Infrastrutture, ambiente, mobilit&agrave; sostenibile, sviluppo urbano</td></tr>
+  <tr><td><strong>Modalit&agrave;</strong></td><td>Accordi istituzionali, programmi regionali, bandi comunali</td></tr>
+  <tr><td><strong>Pertinenza PL9</strong></td><td><span class="tag tag-fin">ALTA</span> &mdash; Il FSC Puglia 2021-2027 finanzia interventi di mobilit&agrave; sostenibile e rigenerazione urbana. Il PL9 &egrave; coerente con gli obiettivi del programma</td></tr>
+  <tr><td><strong>Note</strong></td><td>Risorsa meno vincolata del PNRR. Tempistiche pi&ugrave; flessibili. Necessario inserimento nel Programma Triennale OO.PP. del Comune</td></tr>
+</table>
+
+<h2>5.4 D.M. 7 gennaio 2026 &mdash; 500 milioni per la mobilit&agrave; sostenibile</h2>
+
+<table>
+  <tr><th>Campo</th><th>Dettaglio</th></tr>
+  <tr><td><strong>Decreto</strong></td><td>D.M. 7 gennaio 2026 &mdash; "Investimenti per la mobilit&agrave; sostenibile"</td></tr>
+  <tr><td><strong>Dotazione</strong></td><td><strong>500 milioni di euro</strong></td></tr>
+  <tr><td><strong>Beneficiari</strong></td><td>Citt&agrave; metropolitane, Comuni capoluogo, Unioni di Comuni, Province</td></tr>
+  <tr><td><strong>Interventi</strong></td><td>Piste ciclabili, Zone 30, attraversamenti pedonali protetti, nodi intermodali, mobilit&agrave; dolce</td></tr>
+  <tr><td><strong>Cofinanziamento</strong></td><td>50-80% a seconda della tipologia di intervento</td></tr>
+  <tr><td><strong>Scadenza</strong></td><td>Bando 2026 (scadenza presumibile entro 60-90 giorni dalla pubblicazione)</td></tr>
+  <tr><td><strong>Pertinenza PL9</strong></td><td><span class="tag tag-fin">ALTISSIMA</span> &mdash; Il DM finanzia espressamente sottopassi ciclopedonali e piste ciclabili. Il PL9 &egrave; perfettamente allineato. Candidatura possibile tramite Citt&agrave; Metropolitana di Taranto o in forma singola</td></tr>
+  <tr><td><strong>Note</strong></td><td>Fonte <strong>prioritaria</strong> per il PL9. Verificare i termini di presentazione e l'ammissibilit&agrave; del Comune di Martina Franca</td></tr>
+</table>
+
+<div class="good-box">
+  <strong>&#x2705; Fonte candidabile prioritariamente</strong><br>
+  Il D.M. 7 gennaio 2026 (500M per mobilit&agrave; sostenibile) rappresenta la <strong>migliore opportunit&agrave; di finanziamento</strong> per il PL9. Si raccomanda di preparare la documentazione necessaria per la candidatura immediatamente dopo la pubblicazione del bando attuativo.
+</div>
+
+<h2>5.5 Bici in Comune &mdash; MIT</h2>
+
+<table>
+  <tr><th>Campo</th><th>Dettaglio</th></tr>
+  <tr><td><strong>Programma</strong></td><td>"Bici in Comune" &mdash; Ministero delle Infrastrutture e dei Trasporti</td></tr>
+  <tr><td><strong>Dotazione</strong></td><td>Variabile per annualit&agrave; (&asymp; 50-100 M&euro;/anno)</td></tr>
+  <tr><td><strong>Interventi</strong></td><td>Ciclovie urbane, piste ciclabili, postazioni bike sharing, cicloposteggi, nodi di interscambio bici-treno</td></tr>
+  <tr><td><strong>Cofinanziamento</strong></td><td>Fino all'80% per comuni sotto 50.000 abitanti</td></tr>
+  <tr><td><strong>Pertinenza PL9</strong></td><td><span class="tag tag-fin">MEDIA</span> &mdash; Pertinente per P2 (rete ciclabile), P3 (parcheggio con rastrelliere), P5 (nodo interscambio)</td></tr>
+  <tr><td><strong>Note</strong></td><td>Programma storico del MIT (ex Legge 366/1998). Verificare le finestre temporali dei bandi annuali</td></tr>
+</table>
+
+<h2>5.6 POR FESR Puglia 2021-2027</h2>
+
+<table>
+  <tr><th>Campo</th><th>Dettaglio</th></tr>
+  <tr><td><strong>Programma</strong></td><td>POR FESR FSE+ Puglia 2021-2027</td></tr>
+  <tr><td><strong>Asse</strong></td><td>Asse IV &mdash; Sviluppo urbano sostenibile / Asse VI &mdash; Mobilit&agrave; sostenibile</td></tr>
+  <tr><td><strong>Dotazione</strong></td><td>&asymp; 4,8 miliardi di euro (totale programma)</td></tr>
+  <tr><td><strong>Obiettivi specifici</strong></td><td>OS 5.2 &mdash; Mobilit&agrave; urbana multimodale sostenibile; OS 8.1 &mdash; Rigenerazione urbana</td></tr>
+  <tr><td><strong>Pertinenza PL9</strong></td><td><span class="tag tag-fin">MEDIA</span> &mdash; Il POR FESR finanzia interventi di mobilit&agrave; sostenibile e rigenerazione urbana. Il PL9 &egrave; coerente con gli OS 5.2 e 8.1</td></tr>
+  <tr><td><strong>Note</strong></td><td>Programmazione in corso. Verificare l'apertura di bandi specifici per la mobilit&agrave; ciclistica</td></tr>
+</table>
+
+<h2>5.7 Programma regionale per la mobilit&agrave; ciclistica (L.R. Puglia 1/2023)</h2>
+
+<table>
+  <tr><th>Campo</th><th>Dettaglio</th></tr>
+  <tr><td><strong>Riferimento</strong></td><td>L.R. Puglia 1/2023 &mdash; "Norme per la promozione e lo sviluppo della mobilit&agrave; ciclistica"</td></tr>
+  <tr><td><strong>Strumento</strong></td><td>Biciplan regionale + Programma triennale degli interventi</td></tr>
+  <tr><td><strong>Dotazione</strong></td><td>Da definire con la legge di bilancio regionale</td></tr>
+  <tr><td><strong>Interventi</strong></td><td>Ciclovie di interesse regionale, reti ciclabili locali, nodi di interscambio, promozione della ciclabilit&agrave;</td></tr>
+  <tr><td><strong>Pertinenza PL9</strong></td><td><span class="tag tag-fin">ALTA</span> &mdash; Il PL9 si inserisce nel Biciplan regionale come nodo della Ciclovia dell'Acqua (LLP11). Potenziale finanziamento regionale diretto</td></tr>
+  <tr><td><strong>Note</strong></td><td>Il Biciplan regionale &egrave; in fase di attuazione. Verificare la programmazione triennale 2026-2028</td></tr>
+</table>
+
+<h2>5.8 Tabella sinottica delle fonti di finanziamento</h2>
+
+<table>
+  <tr><th>Fonte</th><th>Dotazione</th><th>Scadenza</th><th>Cofin.</th><th>Pertinenza PL9</th><th>Priorit&agrave;</th></tr>
+  <tr>
+    <td><strong>DM 7/01/2026</strong></td>
+    <td>500 M&euro;</td>
+    <td>2026</td>
+    <td>50-80%</td>
+    <td>Sottopassi, piste, Z30</td>
+    <td style="color:var(--green);font-weight:700;">&#x1F534; 1</td>
+  </tr>
+  <tr>
+    <td><strong>PNRR M2C4</strong></td>
+    <td>5,5 Mld&euro;</td>
+    <td>Giu 2026</td>
+    <td>100%</td>
+    <td>Sicurezza infrastrutture</td>
+    <td style="color:var(--amber);font-weight:700;">&#x1F7E1; 2</td>
+  </tr>
+  <tr>
+    <td><strong>FSC Puglia</strong></td>
+    <td>&asymp; 6,5 Mld&euro;</td>
+    <td>2027</td>
+    <td>Variabile</td>
+    <td>Infrastrutture, ambiente</td>
+    <td style="color:var(--amber);font-weight:700;">&#x1F7E1; 3</td>
+  </tr>
+  <tr>
+    <td><strong>Bici in Comune</strong></td>
+    <td>50-100 M&euro;/a</td>
+    <td>Annuale</td>
+    <td>Fino 80%</td>
+    <td>Piste, rastrelliere</td>
+    <td style="color:var(--amber);font-weight:700;">&#x1F7E1; 4</td>
+  </tr>
+  <tr>
+    <td><strong>POR FESR Puglia</strong></td>
+    <td>4,8 Mld&euro;</td>
+    <td>2027</td>
+    <td>Variabile</td>
+    <td>Mobilit&agrave; sostenibile</td>
+    <td style="color:var(--amber);font-weight:700;">&#x1F7E1; 5</td>
+  </tr>
+  <tr>
+    <td><strong>L.R. 1/2023</strong></td>
+    <td>Da definire</td>
+    <td>2026-2028</td>
+    <td>Variabile</td>
+    <td>Biciplan, ciclovie</td>
+    <td style="color:var(--text-muted);font-weight:700;">&#x1F7E2; 6</td>
+  </tr>
+  <tr>
+    <td><strong>PNRR M5C2</strong></td>
+    <td>2,2 Mld&euro;</td>
+    <td>2026</td>
+    <td>100%</td>
+    <td>Rigenerazione urbana</td>
+    <td style="color:var(--text-muted);font-weight:700;">&#x1F7E2; 7</td>
+  </tr>
+</table>
+
+<div class="info-box">
+  <strong>&#x1F4A1; Strategia di finanziamento consigliata</strong><br>
+  <strong>Obiettivo primario:</strong> Candidatura PL9 al <strong>D.M. 7 gennaio 2026</strong> (500 M&euro; mobilit&agrave; sostenibile) &mdash; costo &euro;1.242.000, cofinanziamento 50-80%.<br>
+  <strong>Alternativa/Complemento:</strong> PNRR M2C4 (finestra 2026) &mdash; se ancora aperta.<br>
+  <strong>Fase 2 (P2+P3):</strong> Bici in Comune + FSC Puglia.<br>
+  <strong>Fase 3 (P4+P5+P6):</strong> FSC Puglia + POR FESR + eventuale DM 7/01/2026 secondaria.<br>
+  <strong>Riserva strategica:</strong> FSC Puglia 2021-2027 come fonte flessibile per coperture residuali.
+</div>
+
+<hr style="border:none; border-top:1px solid var(--border); margin:24px 0;">
+
+
+<!-- ================================================================ -->
+<!-- SEZIONE 6: GLOSSARIO -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1 id="sec6">6. <span class="accent">Glossario</span> tecnico-normativo</h1>
+
+<p>Il presente glossario raccoglie e definisce <strong>oltre 45 termini</strong> tecnici, normativi e finanziari utilizzati nella documentazione del progetto PL9. I termini sono organizzati in ordine alfabetico e corredati, ove necessario, da riferimenti normativi e note esplicative.</p>
+
+<h2>A&ndash;C</h2>
+
+<div class="term-list">
+  <div class="term-item">
+    <div class="term-name">AIV &mdash; Analisi di Impatto della Viabilit&agrave;</div>
+    <div class="term-def">Studio volto a valutare gli effetti di un'opera sulla circolazione veicolare, pedonale e ciclabile. Per il PL9, l'AIV analizza l'impatto del cantiere sulla rotatoria e i benefici attesi in esercizio.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">B/C &mdash; Rapporto Benefici/Costi</div>
+    <div class="term-def">Indicatore sintetico dell'Analisi Costi-Benefici (CBA): rapporto tra valore attuale dei benefici e valore attuale dei costi. Un B/C &gt; 1 indica convenienza economica. Per il PL9: B/C = 17,02 (estremamente favorevole).</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">Biciplan</div>
+    <div class="term-def">Piano regionale o comunale per la mobilit&agrave; ciclistica. La Regione Puglia ha adottato il Biciplan regionale ai sensi della L.R. 1/2023, che individua la rete ciclabile di interesse regionale (tra cui la LLP11 &mdash; Ciclovia dell'Acqua).</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">BIM &mdash; Building Information Modeling</div>
+    <div class="term-def">Metodologia di progettazione digitale basata su modelli informativi multidimensionali (3D, 4D tempo, 5D costo, 6D gestione). Il D.Lgs 36/2023 (art. 21) ne introduce l'obbligatoriet&agrave; progressiva per i contratti pubblici.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">CAM &mdash; Criteri Ambientali Minimi</div>
+    <div class="term-def">Requisiti ambientali obbligatori fissati dal Ministero dell'Ambiente per gli appalti pubblici (D.M. 23 giugno 2022, aggiornato D.M. 16 dicembre 2023). Per il PL9 i CAM riguardano materiali sostenibili, illuminazione LED, drenaggio urbano sostenibile.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">CBA &mdash; Cost-Benefit Analysis</div>
+    <div class="term-def">Analisi Costi-Benefici: metodologia di valutazione economica che confronta costi e benefici di un progetto lungo l'intero ciclo di vita. Il PL9 ha prodotto una CBA completa con VAN = &euro;600.893, B/C = 17,02, TIR = 8,04%.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">CIG &mdash; Codice Identificativo Gara</div>
+    <div class="term-def">Codice alfanumerico univoco attribuito da ANAC a ogni procedura di affidamento di contratti pubblici. Obbligatorio per tutte le gare sopra &euro;5.000 e per quelle sottosoglia con procedura negoziata.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">CME &mdash; Computo Metrico Estimativo</div>
+    <div class="term-def">Elaborato tecnico che elenca tutte le lavorazioni previste con le relative quantit&agrave;, i prezzi unitari (da prezzario regionale) e l'importo complessivo. &Egrave; l'elaborato base per la determinazione dell'importo a base di gara.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">CSE &mdash; Coordinatore per la Sicurezza in fase di Esecuzione</div>
+    <div class="term-def">Figura professionale prevista dal D.Lgs 81/2008 (Titolo IV) responsabile della verifica dell'applicazione del PSC durante la realizzazione dell'opera. Obbligatorio per cantieri con pi&ugrave; imprese o con rischi particolari.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">CUP &mdash; Codice Unico di Progetto</div>
+    <div class="term-def">Codice identificativo obbligatorio per tutti i progetti di investimento pubblico (Legge 208/2015). Rilasciato dal CIPE tramite il sistema CUP. Necessario per candidare il PL9 a qualsiasi fonte di finanziamento pubblica.</div>
+  </div>
+</div>
+
+<h2>D&ndash;L</h2>
+
+<div class="term-list">
+  <div class="term-item">
+    <div class="term-name">DIP &mdash; Documento di Indirizzo alla Progettazione</div>
+    <div class="term-def">Atto deliberativo del RUP che definisce gli obiettivi, i requisiti, i vincoli e le risorse per la progettazione. Costituisce il punto di partenza del processo progettuale (art. 41, c. 2 D.Lgs 36/2023).</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">DL &mdash; Direttore dei Lavori</div>
+    <div class="term-def">Professionista incaricato dalla stazione appaltante della direzione tecnica e contabile dei lavori. Verifica la corretta esecuzione delle lavorazioni secondo il progetto approvato e il capitolato.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">DocFAP &mdash; Documento di Fattibilit&agrave; delle Alternative Progettuali</div>
+    <div class="term-def">Elaborato del PFTE (Allegato I.7, Art. 14) che documenta il processo di selezione tra pi&ugrave; soluzioni progettuali mediante analisi multicriterio. Per il PL9 le alternative considerate includono: sottopasso prefabbricato (scelta), passerella sopraelevata, semaforo potenziato, isola rialzata.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">FESR &mdash; Fondo Europeo di Sviluppo Regionale</div>
+    <div class="term-def">Fondo strutturale europeo destinato a rafforzare la coesione economica, sociale e territoriale. Il POR FESR Puglia 2021-2027 (&asymp; 4,8 Mld&euro;) finanzia mobilit&agrave; sostenibile (OS 5.2) e rigenerazione urbana (OS 8.1).</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">FSC &mdash; Fondo per lo Sviluppo e la Coesione</div>
+    <div class="term-def">Fondo nazionale per lo sviluppo economico e la coesione territoriale, destinato alle aree del Mezzogiorno e alle aree svantaggiate. La dotazione FSC Puglia 2021-2027 &egrave; di circa 6,5 miliardi di euro.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">GIS &mdash; Geographic Information System</div>
+    <div class="term-def">Sistema informativo geografico per l'acquisizione, l'elaborazione e l'analisi di dati territoriali. Utilizzato nel PL9 per l'analisi del contesto urbano, la mappatura dei vincoli e l'individuazione delle aree di intervento.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">LCC &mdash; Life Cycle Costing</div>
+    <div class="term-def">Metodologia di valutazione dei costi di un'opera lungo l'intero ciclo di vita: progettazione, costruzione, esercizio, manutenzione e dismissione. Prevista dalle Linee Guida PFTE PNRR 2022.</div>
+  </div>
+</div>
+
+<h2>M&ndash;P</h2>
+
+<div class="term-list">
+  <div class="term-item">
+    <div class="term-name">MCA &mdash; Multi-Criteria Analysis</div>
+    <div class="term-def">Analisi Multi-Criterio: metodologia decisionale che valuta pi&ugrave; alternative sulla base di molteplici criteri (tecnici, economici, ambientali, sociali). Applicata nel DocFAP per confrontare le soluzioni progettuali.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">NTC &mdash; Norme Tecniche per le Costruzioni</div>
+    <div class="term-def">D.M. 17 gennaio 2018 (Aggiornamento delle Norme tecniche per le costruzioni). Costituiscono il riferimento per la progettazione strutturale in zona sismica. Per Martina Franca (Zona 4), PGA a<sub>g</sub> = 0,053g su suolo A.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">PAI &mdash; Piano di Assetto Idrogeologico</div>
+    <div class="term-def">Piano stralcio di bacino per la difesa del suolo e la mitigazione del rischio idrogeologico. Riferimento per la verifica della compatibilit&agrave; idraulica del sottopasso PL9.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">PEF &mdash; Piano Economico-Finanziario</div>
+    <div class="term-def">Documento che illustra la sostenibilit&agrave; economico-finanziaria di un progetto, con particolare riferimento ai progetti in PPP e alle concessioni. Contiene conto economico, stato patrimoniale e flussi di cassa previsionali.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">PFTE &mdash; Progetto di Fattibilit&agrave; Tecnico-Economica</div>
+    <div class="term-def">Livello progettuale centrale del D.Lgs 36/2023 (art. 41), sostituisce il progetto preliminare e quello definitivo del previgente Codice. Individua, tra pi&ugrave; soluzioni, quella col miglior rapporto costi-benefici. Contiene 16 elaborati minimi (Allegato I.7).</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">PGTU &mdash; Piano Generale del Traffico Urbano</div>
+    <div class="term-def">Strumento di pianificazione della circolazione stradale urbana (D.M. Lavori Pubblici 12/04/1995). Definisce le modalit&agrave; di regolamentazione del traffico, la gerarchia delle strade e le priorit&agrave; per la mobilit&agrave; sostenibile.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">PNRR &mdash; Piano Nazionale di Ripresa e Resilienza</div>
+    <div class="term-def">Programma di investimenti da 191,5 miliardi di euro finanziato dall'Unione Europea tramite il programma Next Generation EU (Reg. UE 2021/241). Articolato in 6 Missioni e 16 Componenti. Per il PL9 rilevano M2C4 e M5C2.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">POF &mdash; Piano Operativo di Fattibilit&agrave;</div>
+    <div class="term-def">Documento di programmazione operativa che definisce le attivit&agrave;, le risorse e i tempi per la realizzazione di un progetto. Pu&ograve; essere richiesto in fase di candidatura a fonti di finanziamento pubbliche.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">POS &mdash; Piano Operativo di Sicurezza</div>
+    <div class="term-def">Documento redatto da ogni impresa esecutrice ai sensi del D.Lgs 81/2008, art. 89-96, che valuta i rischi specifici delle proprie lavorazioni e indica le misure di prevenzione adottate. Integra il PSC a livello di singola impresa.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">PPP &mdash; Partenariato Pubblico-Privato</div>
+    <div class="term-def">Forma di collaborazione tra ente pubblico e soggetto privato per progettazione, realizzazione, finanziamento e gestione di un'opera pubblica. Disciplinato dal D.Lgs 36/2023, art. 174-200.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">PSC &mdash; Piano di Sicurezza e Coordinamento</div>
+    <div class="term-def">Documento obbligatorio redatto dal CSE per cantieri in cui operano pi&ugrave; imprese (art. 100 D.Lgs 81/2008). Contiene l'identificazione dei rischi, le misure di prevenzione e la stima dei costi della sicurezza.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">PTR &mdash; Piano Territoriale Regionale</div>
+    <div class="term-def">Strumento di pianificazione territoriale della Regione Puglia (L.R. 20/2001). Definisce gli indirizzi strategici per lo sviluppo del territorio, le tutele e le reti ecologiche.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">PUG &mdash; Piano Urbanistico Generale</div>
+    <div class="term-def">Strumento di pianificazione territoriale introdotto dalla L.R. Puglia 20/2001 (nuovo nome del PRG). Il Comune di Martina Franca ha in corso l'elaborazione del PUGS (Piano Urbanistico Generale Strutturale).</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">PUMS &mdash; Piano Urbano della Mobilit&agrave; Sostenibile</div>
+    <div class="term-def">Piano strategico di medio-lungo periodo per la mobilit&agrave; urbana (D.M. 4/08/2017). Il Comune di Martina Franca ha redatto il PUMS nel 2018-2019 con TRT Trasporti e Territorio.</div>
+  </div>
+</div>
+
+<h2>Q&ndash;Z</h2>
+
+<div class="term-list">
+  <div class="term-item">
+    <div class="term-name">REI &mdash; Resa Economica dell'Investimento</div>
+    <div class="term-def">Indicatore di redditivit&agrave; di un progetto, calcolato come rapporto tra il risultato economico netto e il capitale investito. Nel PL9, la VDS (Valore della Vita Statistica) contribuisce alla REI complessiva.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">RUP &mdash; Responsabile Unico del Procedimento</div>
+    <div class="term-def">Figura centrale della stazione appaltante (art. 15 D.Lgs 36/2023), responsabile dell'intero procedimento di realizzazione dell'opera pubblica: dalla programmazione all'affidamento, dall'esecuzione al collaudo.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">SdF &mdash; Studio di Fattibilit&agrave;</div>
+    <div class="term-def">Termine generico per indicare l'analisi preliminare di un progetto (oggi sostituito dal PFTE). Nel D.Lgs 50/2016 costituiva il primo livello progettuale.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">SIA &mdash; Studio di Impatto Ambientale</div>
+    <div class="term-def">Documento tecnico che valuta gli effetti di un'opera sull'ambiente (D.Lgs 152/2006, art. 22). Per il PL9, lo studio di prefattibilit&agrave; ambientale (Allegato I.7, Art. 3) ne costituisce la versione semplificata.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">TIR &mdash; Tasso Interno di Rendimento</div>
+    <div class="term-def">Indicatore finanziario che rappresenta il tasso di attualizzazione per cui il VAN &egrave; pari a zero. Per il PL9: TIR = 8,04%, superiore al tasso di sconto sociale di riferimento (3-5%).</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">VAN &mdash; Valore Attuale Netto</div>
+    <div class="term-def">Indicatore finanziario che esprime la differenza tra il valore attuale dei benefici e il valore attuale dei costi di un progetto. Per il PL9: VAN = &euro;600.893 (positivo, indica convenienza economica).</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">VAS &mdash; Valutazione Ambientale Strategica</div>
+    <div class="term-def">Procedura di valutazione degli effetti ambientali di piani e programmi (D.Lgs 152/2006, art. 33-42). Applicabile al PUMS, al PUG e al Biciplan regionale, non direttamente al singolo progetto come il PL9.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">VIA &mdash; Valutazione di Impatto Ambientale</div>
+    <div class="term-def">Procedura di valutazione preventiva degli effetti ambientali di un progetto (D.Lgs 152/2006, art. 18-28). Per il PL9 potrebbe essere necessario un procedimento di verifica di assoggettabilit&agrave; (screening) regionale.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">WBS &mdash; Work Breakdown Structure</div>
+    <div class="term-def">Struttura di scomposizione del lavoro: rappresentazione gerarchica di tutte le attivit&agrave; necessarie alla realizzazione del progetto. Utilizzata per il computo metrico, il cronoprogramma e il PSC.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">cc &mdash; competenza</div>
+    <div class="term-def">Abbreviazione di <strong>competenza</strong>: insieme delle attribuzioni e delle responsabilit&agrave; di un soggetto nell'ambito del procedimento amministrativo.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">dd &mdash; decreto</div>
+    <div class="term-def">Abbreviazione di <strong>decreto</strong> (es. D.Lgs, D.P.R., D.M.). Precede il numero e l'anno del provvedimento normativo.</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">ll &mdash; lavori</div>
+    <div class="term-def">Abbreviazione di <strong>lavori</strong> nelle voci del quadro economico (es. "importo ll" = importo dei lavori a base d'appalto).</div>
+  </div>
+  <div class="term-item">
+    <div class="term-name">mm &mdash; manutenzione / millimetri</div>
+    <div class="term-def">Abbreviazione di <strong>manutenzione</strong> o <strong>millimetri</strong> a seconda del contesto. Nei documenti tecnici indica generalmente la quota di manutenzione nel quadro economico.</div>
+  </div>
+</div>
+
+<hr style="border:none; border-top:1px solid var(--border); margin:24px 0;">
+
+
+<!-- ================================================================ -->
+<!-- SEZIONE 7: RIFERIMENTI E LINK UTILI -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1 id="sec7">7. <span class="accent">Riferimenti</span> e link utili</h1>
+
+<p>Elenco dei principali enti, istituzioni, piattaforme e risorse online utili per la redazione del PFTE, la candidatura a finanziamenti e l'approfondimento normativo per il progetto PL9.</p>
+
+<h2>7.1 Ministeri e Amministrazioni centrali</h2>
+
+<div class="ref-list">
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F3DB;&#xFE0F;</div>
+    <div class="ref-text">
+      <div class="ref-title">Ministero delle Infrastrutture e dei Trasporti (MIT)</div>
+      <div class="ref-url">https://www.mit.gov.it/</div>
+      <div class="ref-desc">Elaborazione normativa appalti, linee guida PFTE, programmi Bici in Comune, DM mobilit&agrave; sostenibile. Riferimento centrale per la normativa tecnica delle opere pubbliche e la programmazione infrastrutturale.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F3DB;&#xFE0F;</div>
+    <div class="ref-text">
+      <div class="ref-title">Ministero dell'Ambiente e della Sicurezza Energetica (MASE)</div>
+      <div class="ref-url">https://www.mase.gov.it/</div>
+      <div class="ref-desc">VIA/VAS, CAM, normative ambientali. Gestisce la piattaforma VIA-VAS nazionale e il registro delle valutazioni ambientali. Riferimento per lo studio di prefattibilit&agrave; ambientale del PFTE.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F3DB;&#xFE0F;</div>
+    <div class="ref-text">
+      <div class="ref-title">Presidenza del Consiglio dei Ministri &mdash; DIPE</div>
+      <div class="ref-url">https://www.programmazionegoverno.gov.it/</div>
+      <div class="ref-desc">Dipartimento per la programmazione e il coordinamento della politica economica. Gestisce il FSC, il CUP e le procedure di valutazione degli investimenti pubblici.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F3DB;&#xFE0F;</div>
+    <div class="ref-text">
+      <div class="ref-title">ANAC &mdash; Autorit&agrave; Nazionale Anticorruzione</div>
+      <div class="ref-url">https://www.anac.it/</div>
+      <div class="ref-desc">Vigilanza sui contratti pubblici, Banca Dati Nazionale dei Contratti Pubblici (BDNCP), CIG, linee guida, pareri e delibere in materia di appalti e concessioni.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F3DB;&#xFE0F;</div>
+    <div class="ref-text">
+      <div class="ref-title">ISPRA &mdash; Istituto Superiore per la Protezione e la Ricerca Ambientale</div>
+      <div class="ref-url">https://www.isprambiente.gov.it/</div>
+      <div class="ref-desc">Cartografia geologica (Foglio 201 "Mottola"), dati ambientali, pericolosit&agrave; sismica, dissesto idrogeologico. Riferimento per la relazione geologica del PFTE.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F3DB;&#xFE0F;</div>
+    <div class="ref-text">
+      <div class="ref-title">Dipartimento per le Politiche di Coesione (DPCoe)</div>
+      <div class="ref-url">https://politichecoesione.governo.it/</div>
+      <div class="ref-desc">Gestione fondi strutturali europei e FSC. Pubblica guide metodologiche per studi di fattibilit&agrave; (Metodi n. 30), valutazione investimenti e analisi costi-benefici.</div>
+    </div>
+  </div>
+</div>
+
+<h2>7.2 Regione Puglia</h2>
+
+<div class="ref-list">
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F3DB;&#xFE0F;</div>
+    <div class="ref-text">
+      <div class="ref-title">Regione Puglia &mdash; Portale istituzionale</div>
+      <div class="ref-url">https://www.regione.puglia.it/</div>
+      <div class="ref-desc">Normativa regionale, bandi, programmazione fondi FSC e FESR, autorizzazioni ambientali, Biciplan regionale, L.R. 1/2023 mobilit&agrave; ciclistica.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F3DB;&#xFE0F;</div>
+    <div class="ref-text">
+      <div class="ref-title">Regione Puglia &mdash; Servizio VIA/VAS</div>
+      <div class="ref-url">https://www.regione.puglia.it/web/ambiente/valutazioni-ambientali</div>
+      <div class="ref-desc">Autorit&agrave; competente per le procedure di VIA, VAS e verifica di assoggettabilit&agrave; regionale. Per il PL9 &egrave; l'ente a cui rivolgersi per lo screening ambientale.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F3DB;&#xFE0F;</div>
+    <div class="ref-text">
+      <div class="ref-title">Regione Puglia &mdash; Sezione Mobilit&agrave; Sostenibile</div>
+      <div class="ref-url">https://www.regione.puglia.it/web/mobilita-sostenibile</div>
+      <div class="ref-desc">Attuazione Biciplan regionale, programmazione ciclovie, bandi per la mobilit&agrave; dolce, promozione del trasporto pubblico locale integrato con la mobilit&agrave; ciclistica.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F3DB;&#xFE0F;</div>
+    <div class="ref-text">
+      <div class="ref-title">Regione Puglia &mdash; Prezzario Regionale dei Lavori Pubblici</div>
+      <div class="ref-url">https://www.regione.puglia.it/web/lavori-pubblici/prezzario-regionale</div>
+      <div class="ref-desc">Elenco prezzi unitari per lavori pubblici in Puglia. Riferimento obbligatorio per il computo metrico estimativo del PL9. Aggiornamento annuale.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F3DB;&#xFE0F;</div>
+    <div class="ref-text">
+      <div class="ref-title">Regione Puglia &mdash; BURP (Bollettino Ufficiale)</div>
+      <div class="ref-url">https://burp.regione.puglia.it/</div>
+      <div class="ref-desc">Pubblicazione di leggi, regolamenti, delibere e bandi regionali. Fonte ufficiale per la normativa regionale sulla mobilit&agrave; ciclistica e i bandi FESR/FSC.</div>
+    </div>
+  </div>
+</div>
+
+<h2>7.3 Enti locali e territoriali</h2>
+
+<div class="ref-list">
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F3DB;&#xFE0F;</div>
+    <div class="ref-text">
+      <div class="ref-title">Comune di Martina Franca</div>
+      <div class="ref-url">https://www.comune.martinafranca.ta.it/</div>
+      <div class="ref-desc">Ente attuatore del PL9. Albo Pretorio, delibere, determinazioni, SUAP, piano triennale OO.PP., PUG, regolamenti edilizi e urbanistici, canali di partecipazione civica.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F3DB;&#xFE0F;</div>
+    <div class="ref-text">
+      <div class="ref-title">Citt&agrave; Metropolitana di Taranto</div>
+      <div class="ref-url">https://www.provincia.taranto.it/</div>
+      <div class="ref-desc">Ente intermedio per l'accesso al D.M. 7/01/2026, pianificazione sovracomunale, rete viaria di interesse provinciale, coordinamento PUMS d'area vasta.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F3DB;&#xFE0F;</div>
+    <div class="ref-text">
+      <div class="ref-title">Ferrovie del Sud Est (FSE)</div>
+      <div class="ref-url">https://www.fseonline.it/</div>
+      <div class="ref-desc">Gestore della stazione di Martina Franca e delle linee ferroviarie regionali. Partner strategico per l'integrazione modale PL9 (P5 nodo intermodale treno+bici+bus+pedoni).</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F3DB;&#xFE0F;</div>
+    <div class="ref-text">
+      <div class="ref-title">TRT Trasporti e Territorio</div>
+      <div class="ref-url">https://www.trt.it/</div>
+      <div class="ref-desc">Societ&agrave; di consulenza che ha redatto il PUMS di Martina Franca. Detiene il modello MOMOS e i dati di mobilit&agrave;. Potenziale supporto tecnico per la calibrazione del PL9.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F3DB;&#xFE0F;</div>
+    <div class="ref-text">
+      <div class="ref-title">La Valle Trasporti</div>
+      <div class="ref-url">https://www.lavalleweb.it/</div>
+      <div class="ref-desc">Gestore del trasporto pubblico locale per Martina Franca e la Valle d'Itria. Integrazione fermate bus e orari con il nodo PL5 (nodo di interscambio modale).</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F3DB;&#xFE0F;</div>
+    <div class="ref-text">
+      <div class="ref-title">Unione dei Comuni della Valle d'Itria</div>
+      <div class="ref-desc">Ente sovracomunale che potrebbe coordinare progetti di mobilit&agrave; ciclabile integrata tra Martina Franca, Locorotondo, Cisternino e Alberobello.</div>
+    </div>
+  </div>
+</div>
+
+<h2>7.4 Associazioni e stakeholder</h2>
+
+<div class="ref-list">
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F6B2;</div>
+    <div class="ref-text">
+      <div class="ref-title">FIAB &mdash; Federazione Italiana Ambiente e Bicicletta</div>
+      <div class="ref-url">https://www.fiabitalia.it/</div>
+      <div class="ref-desc">Maggiore associazione italiana di promozione della mobilit&agrave; ciclistica. Gestisce la rete Bicitalia (di cui fa parte la LLP11 Ciclovia dell'Acqua). Supporto tecnico e advocacy.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F6B2;</div>
+    <div class="ref-text">
+      <div class="ref-title">Pro Loco Martina Franca</div>
+      <div class="ref-url">https://www.prolocomartinafranca.it/</div>
+      <div class="ref-desc">Promozione turistica del territorio. Gestisce la Ciclovia dell'Acqua e i percorsi turistici della Valle d'Itria. Partner per la promozione del PL9 come infrastruttura turistica.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F6B2;</div>
+    <div class="ref-text">
+      <div class="ref-title">Legambiente Martina Franca</div>
+      <div class="ref-desc">Associazione ambientalista locale. Potenziale alleato per il supporto alla mobilit&agrave; sostenibile e la partecipazione ai processi decisionali.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F6B2;</div>
+    <div class="ref-text">
+      <div class="ref-title">Associazioni ciclistiche locali</div>
+      <div class="ref-desc">Gruppi e associazioni di ciclisti urbani e sportivi sul territorio. Fonti di segnalazione delle criticit&agrave; e portatori di interesse primari per la mobilit&agrave; dolce.</div>
+    </div>
+  </div>
+</div>
+
+<h2>7.5 Piattaforme e portali di riferimento</h2>
+
+<div class="ref-list">
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F4BB;</div>
+    <div class="ref-text">
+      <div class="ref-title">REGIS &mdash; Sistema di monitoraggio PNRR</div>
+      <div class="ref-url">https://www.regis.gov.it/</div>
+      <div class="ref-desc">Piattaforma nazionale per il monitoraggio degli investimenti PNRR. Obbligatoria per la rendicontazione delle opere finanziate con fondi PNRR.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F4BB;</div>
+    <div class="ref-text">
+      <div class="ref-title">BDNCP &mdash; Banca Dati Nazionale dei Contratti Pubblici</div>
+      <div class="ref-url">https://dati.anticorruzione.it/</div>
+      <div class="ref-desc">Piattaforma ANAC per la pubblicit&agrave; legale dei bandi di gara e la trasparenza dei contratti pubblici. Consultazione bandi, esiti, CIG.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F4BB;</div>
+    <div class="ref-text">
+      <div class="ref-title">OpenCUP &mdash; Registro dei progetti di investimento pubblico</div>
+      <div class="ref-url">https://www.opencup.gov.it/</div>
+      <div class="ref-desc">Portale nazionale del CUP (Codice Unico di Progetto) gestito dal DIPE. Consultazione e registrazione dei progetti di investimento pubblico.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F4BB;</div>
+    <div class="ref-text">
+      <div class="ref-title">OpenCoesione &mdash; Portale delle politiche di coesione</div>
+      <div class="ref-url">https://opencoesione.gov.it/</div>
+      <div class="ref-desc">Dati aperti sulle risorse delle politiche di coesione in Italia (FSC, FESR, FSE). Consultazione degli interventi finanziati per territorio e tipologia.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F4BB;</div>
+    <div class="ref-text">
+      <div class="ref-title">Normattiva &mdash; Portale della normativa italiana</div>
+      <div class="ref-url">https://www.normattiva.it/</div>
+      <div class="ref-desc">Banca dati ufficiale della normativa italiana. Ricerca e consultazione di leggi, decreti e regolamenti in vigore. Fonte primaria per la verifica dei testi normativi.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F4BB;</div>
+    <div class="ref-text">
+      <div class="ref-title">Gazzetta Ufficiale della Repubblica Italiana (G.U.R.I.)</div>
+      <div class="ref-url">https://www.gazzettaufficiale.it/</div>
+      <div class="ref-desc">Pubblicazione ufficiale delle leggi e dei decreti. Ricerca avanzata per data, numero e tipo di atto normativo.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F4BB;</div>
+    <div class="ref-text">
+      <div class="ref-title">SIM &mdash; Sistema Informativo della Mobilit&agrave; (Osservatorio PUMS)</div>
+      <div class="ref-url">https://www.osservatoriopums.it/</div>
+      <div class="ref-desc">Osservatorio nazionale sui PUMS. Banca dati dei Piani Urbani della Mobilit&agrave; Sostenibile approvati. Consultazione dei PUMS italiani per benchmarking.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F4BB;</div>
+    <div class="ref-text">
+      <div class="ref-title">Bicitalia &mdash; Rete ciclabile nazionale FIAB</div>
+      <div class="ref-url">https://www.bicitalia.org/</div>
+      <div class="ref-desc">Rete ciclabile nazionale di interesse turistico promossa da FIAB. La Ciclovia dell'Acqua (LLP11) &egrave; parte integrante di questa rete.</div>
+    </div>
+  </div>
+  <div class="ref-item">
+    <div class="ref-icon">&#x1F4BB;</div>
+    <div class="ref-text">
+      <div class="ref-title">EuroVelo &mdash; Rete ciclabile europea</div>
+      <div class="ref-url">https://en.eurovelo.com/</div>
+      <div class="ref-desc">Rete ciclabile europea che attraversa il continente con 17 itinerari. La Ciclovia dell'Acqua &egrave; collegata alla rete EuroVelo.</div>
+    </div>
+  </div>
+</div>
+
+<h2>7.6 Riferimenti normativi essenziali</h2>
+
+<table>
+  <tr><th>Norma</th><th>Oggetto</th><th>Rilevanza per PL9</th></tr>
+  <tr><td><strong>D.Lgs 36/2023</strong></td><td>Nuovo Codice dei contratti pubblici</td><td>Alta &mdash; Disciplina l'intero procedimento</td></tr>
+  <tr><td><strong>Allegato I.7</strong></td><td>Contenuti del PFTE</td><td>Alta &mdash; Definisce i 16 elaborati</td></tr>
+  <tr><td><strong>D.Lgs 152/2006</strong></td><td>Codice dell'Ambiente</td><td>Media &mdash; VIA/VAS, CAM</td></tr>
+  <tr><td><strong>D.Lgs 81/2008</strong></td><td>Testo Unico Sicurezza sul Lavoro</td><td>Alta &mdash; PSC, POS, CSE</td></tr>
+  <tr><td><strong>NTC 2018 (D.M. 17/01/2018)</strong></td><td>Norme Tecniche Costruzioni</td><td>Alta &mdash; Progettazione strutturale</td></tr>
+  <tr><td><strong>D.P.R. 327/2001</strong></td><td>Testo Unico Espropri</td><td>Bassa &mdash; Solo per espropri</td></tr>
+  <tr><td><strong>D.Lgs 42/2004</strong></td><td>Codice dei Beni Culturali e Paesaggio</td><td>Media &mdash; Vincoli paesaggistici</td></tr>
+  <tr><td><strong>D.M. 236/1989</strong></td><td>Accessibilit&agrave; e superamento barriere architett.</td><td>Media &mdash; Rampe e percorsi</td></tr>
+  <tr><td><strong>L.R. Puglia 1/2023</strong></td><td>Mobilit&agrave; ciclistica regionale</td><td>Alta &mdash; Biciplan, finanziamenti</td></tr>
+  <tr><td><strong>D.M. 7 gennaio 2026</strong></td><td>500M mobilit&agrave; sostenibile</td><td>Altissima &mdash; Fonte prioritaria</td></tr>
+</table>
+
+<p>&nbsp;</p>
+
+<div class="footnote">
+  <em>Documento redatto con dati aggiornati a giugno 2026. I link e i riferimenti sono stati verificati alla data di redazione. Si raccomanda di verificare la persistenza e l'aggiornamento delle fonti prima dell'utilizzo.</em><br><br>
+  <strong>PL9 &mdash; Biblioteca di Riferimento per Opere Pubbliche</strong> &middot; Martina Franca (TA) &middot; Giugno 2026 &middot; Prot. 2026/PL9/002<br>
+  Proponente: <strong>Andrea Maggi</strong> &mdash; Cittadino di Martina Franca<br>
+  Licenza: Creative Commons Attribution 4.0 International (CC BY 4.0)
+</div>
+
+</div><!-- /biblio-page -->
+
+<footer class="global-footer">
+  <strong>PL9</strong> &mdash; Sottopasso Rotatoria Europa &middot; Andrea Maggi &middot; Giugno 2026 &middot; Biblioteca di Riferimento
+</footer>
+
+</div><!-- /pw-content -->
+
+<script>
+const CORRECT_PW = "martinafranca26";
+
+function unlock() {
+  const input = document.getElementById("pwInput");
+  const error = document.getElementById("pwError");
+  const gate = document.getElementById("pwGate");
+  const content = document.getElementById("pwContent");
+
+  if (input.value === CORRECT_PW) {
+    error.classList.remove("visible");
+    input.classList.remove("error");
+    gate.classList.add("unlocked");
+    content.classList.add("unlocked");
+    document.querySelector('link[href="theme.css"]').sheet && setTimeout(function() { window.dispatchEvent(new Event('resize')); }, 100);
+    setTimeout(function() {
+      var h = content.querySelector('h1, h2, h3');
+      if (h) h.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 800);
+  } else {
+    input.classList.add("error");
+    error.classList.add("visible");
+    input.focus();
+    input.select();
+    setTimeout(function() { input.classList.remove("error"); }, 500);
+  }
+}
+</script>
+
+</body>
+</html>

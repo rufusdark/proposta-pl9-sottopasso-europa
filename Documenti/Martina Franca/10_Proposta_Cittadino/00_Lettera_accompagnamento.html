@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lettera di accompagnamento — PL9 Sottopasso Rotatoria Europa</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+/* Lettera - page-specific styles */
+.lettera-page {
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+.letterhead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid var(--border-accent);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand-dot {
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 16px var(--accent-glow);
+}
+
+.brand-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+.brand-sub {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: -2px;
+}
+
+.ref {
+  text-align: right;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.ref strong {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.doc-date {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 28px;
+}
+
+.destinatario {
+  margin-bottom: 20px;
+}
+
+.destinatario .label {
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 4px;
+}
+
+.destinatario .nome {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.destinatario .indirizzo {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.oggetto {
+  margin-bottom: 28px;
+  padding: 16px 20px;
+  background: var(--bg-accent);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+.corpo p {
+  margin-bottom: 14px;
+  text-align: justify;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.corpo ul, .corpo ol {
+  margin: 10px 0 14px 24px;
+}
+
+.corpo li {
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.saluti {
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.saluti p {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+
+.firma {
+  margin-top: 28px;
+}
+
+.firma .nome {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.firma .ruolo {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.firma .recapito {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-top: 6px;
+}
+
+.doc-footer {
+  margin-top: 40px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+  font-size: 11px;
+  color: var(--text-dim);
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 640px) {
+  .lettera-page { padding: 24px 16px; }
+  .letterhead { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .ref { text-align: left; }
+  .oggetto { font-size: 13px; padding: 12px 16px; }
+  .corpo p, .corpo li { font-size: 13px; }
+}
+
+/* PDF download bar */
+.pdf-bar {
+  background: linear-gradient(135deg, rgba(212,168,67,0.08), rgba(212,168,67,0.03));
+  border-bottom: 1px solid rgba(212,168,67,0.12);
+  padding: 0 24px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 56px;
+  z-index: 999;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.pdf-bar-inner {
+  max-width: 210mm;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pdf-bar-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary, rgba(255,255,255,0.5));
+}
+
+.pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: var(--accent, #d4a843);
+  border: none;
+  border-radius: 50px;
+  color: #0a1628;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+
+.pdf-btn:hover {
+  background: #c49a3a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(212,168,67,0.3);
+}
+
+.pdf-btn:active { transform: translateY(0); }
+
+.pdf-btn.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.pdf-btn-icon { font-size: 16px; line-height: 1; }
+
+.pdf-btn-spinner {
+  display: inline-block;
+  width: 16px; height: 16px;
+  border: 2px solid rgba(10,22,40,0.2);
+  border-top-color: #0a1628;
+  border-radius: 50%;
+  animation: pdf-spin 0.6s linear infinite;
+}
+
+@keyframes pdf-spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 640px) {
+  .pdf-bar { padding: 0 12px; height: 44px; top: 48px; }
+  .pdf-bar-text { font-size: 11px; }
+  .pdf-btn { padding: 6px 14px; font-size: 12px; }
+}
+
+
+@media print {
+  .lettera-page { padding: 0; }
+  .letterhead { border-bottom-color: #d4a843; }
+  .brand-name { color: #0a1628; }
+  .destinatario .nome { color: #0a1628; }
+  .oggetto { background: #f8f6f0; border-left-color: #d4a843; color: #0a1628; }
+  .corpo p, .corpo li { color: #1a1a1a; }
+  .firma .nome { color: #0a1628; }
+  .firma .ruolo { color: #666; }
+  .saluti { border-top-color: #e0ddd5; }
+}
+/* PDF overlay — instructions for print-to-PDF */
+.pdf-overlay {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pdf-overlay-box {
+  background: #fff;
+  border-radius: 14px;
+  padding: 32px 36px;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.pdf-overlay-icon { font-size: 40px; margin-bottom: 12px; }
+.pdf-overlay-title {
+  font-size: 20px; font-weight: 700;
+  color: #0a1628; margin-bottom: 8px;
+}
+.pdf-overlay-text {
+  font-size: 14px; color: #555;
+  line-height: 1.6; margin-bottom: 20px;
+}
+.pdf-overlay-text strong { color: #0a1628; }
+.pdf-overlay-btn {
+  background: #d4a843; color: #0a1628;
+  border: none; border-radius: 50px;
+  padding: 10px 28px; font-size: 14px;
+  font-weight: 700; cursor: pointer;
+}
+.pdf-overlay-btn:hover { background: #c49a3a; }
+</style>
+</head>
+<body>
+
+<nav class="global-nav">
+  <div class="global-nav-inner">
+    <a href="index.html" class="global-nav-back">
+      <span class="arrow">←</span> Home
+    </a>
+    <div style="flex:1"></div>
+    <div class="global-nav-links">
+      <a href="COMPLETA.html">Documento completo</a>
+      <a href="01_Relazione_Tecnica.html">Relazione tecnica</a>
+      <a href="02_Quadro_Economico.html">Quadro economico</a>
+    </div>
+  </div>
+</nav>
+
+<div class="pdf-bar no-print">
+  <div class="pdf-bar-inner">
+    <span class="pdf-bar-text">📄 Scarica questa pagina in PDF</span>
+    <button class="pdf-btn" onclick="generatePDF()">
+      <span class="pdf-btn-icon">⬇</span> Scarica PDF
+    </button>
+  </div>
+</div>
+
+<div class="lettera-page">
+
+<div class="letterhead">
+  <div class="brand">
+    <div class="brand-dot"></div>
+    <div>
+      <div class="brand-name">Andrea Maggi</div>
+      <div class="brand-sub">Cittadino di Martina Franca</div>
+    </div>
+  </div>
+  <div class="ref">
+    <strong>Prot.</strong> 2026/PL9/001<br>
+    <strong>Class.</strong> 6.1 — Infrastrutture<br>
+    <strong>Allegati</strong>: 3
+  </div>
+</div>
+
+<div class="doc-date">Martina Franca, 3 giugno 2026</div>
+
+<div class="destinatario">
+  <div class="label">Al Signor Sindaco del Comune di Martina Franca</div>
+  <div class="nome">Dott. Gianfranco Palmisano</div>
+  <div class="indirizzo">Palazzo Ducale · Piazza Roma · 74015 Martina Franca TA</div>
+</div>
+
+<div class="destinatario" style="margin-top:12px;">
+  <div class="label">e p.c.</div>
+  <div class="nome">Assessorato ai Lavori Pubblici e Mobilità</div>
+  <div class="indirizzo">Ufficio Tecnico Comunale · Martina Franca</div>
+</div>
+
+<div class="destinatario" style="margin-top:12px;">
+  <div class="label">e p.c.</div>
+  <div class="nome">Consiglio Comunale di Martina Franca</div>
+  <div class="indirizzo">Sede</div>
+</div>
+
+<div class="oggetto">
+  Oggetto: Proposta di fattibilità per la realizzazione di un sottopasso ciclopedonale presso la Rotatoria Europa (Viale Europa / Viale della Stazione) — Progetto Pilota PL9
+</div>
+
+<div class="corpo">
+
+<p>Illustrissimo Signor Sindaco,</p>
+
+<p>con la presente, il sottoscritto <strong>Andrea Maggi</strong>, cittadino di Martina Franca, intende sottoporre alla cortese attenzione di codesta Amministrazione comunale una proposta tecnico-progettuale per la realizzazione di un <strong>sottopasso ciclopedonale</strong> in corrispondenza della <strong>Rotatoria Europa</strong>, snodo viario strategico tra Viale Europa, Viale della Stazione, Corso Messapia e Via Grappa.</p>
+
+<p>Il progetto, identificato con il codice <strong>PL9 — Sottopasso Rotatoria Europa</strong>, nasce dall'analisi approfondita delle criticità che quotidianamente pedoni, ciclisti e automobilisti affrontano su questo nodo: attraversamento pedonale assente, conflitto bici-auto sulla corona della rotatoria, visibilità ridotta in fase di immissione, code sistematiche nelle ore di punta e condizioni di Marcìa Piedi insufficienti. Otto criticità specifiche sono state identificate e documentate nell'allegato tecnico.</p>
+
+<p>La soluzione proposta prevede la realizzazione di un <strong>sottopasso con elementi scatolari prefabbricati in calcestruzzo armato</strong> (tecnologia "One Night Solution"), con larghezza interna di 4,0 metri e altezza di 2,5 metri, accessibile a pedoni, ciclisti, carrozzine e persone con disabilità motoria. Il costo stimato è compreso tra <strong>€1.200.000 e €1.500.000</strong>, con un cronoprogramma di realizzazione di 8–10 mesi dalla data di aggiudicazione dei lavori.</p>
+
+<p>Questa proposta si inserisce nel quadro delle opportunità di finanziamento offerte dal <strong>PNRR — Missione 2 Componente 4</strong> (Mobilità sostenibile) e dal <strong>Programma nazionale di controllo dell'inquinamento</strong> (D.M. 7 gennaio 2026, dotazione 500 milioni di euro), per i quali il progetto risulta pienamente ammissibile e finanziabile. Io e un gruppo di cittadini che supportano questa iniziativa abbiamo già avviato contatti informali con professionisti del settore per validare la fattibilità tecnica dell'opera.</p>
+
+<p>I punti di forza della proposta sono:</p>
+
+<ul>
+  <li><strong>Benchmark nazionale positivo</strong> — Casi analoghi già realizzati con successo a Castelfranco Veneto (TV), Tradate (VA), Bari e Borgio Verezzi (SV);</li>
+  <li><strong>Tecnologia collaudata</strong> — Elementi prefabbricati con varo in una notte, minima invasione del traffico;</li>
+  <li><strong>Integrazione urbanistica</strong> — Il sottopasso si inserisce nel piano della pista ciclabile provinciale LLP11 e nel sistema della mobilità dolce della Valle d'Itria;</li>
+  <li><strong>Rapporto costo-beneficio</strong> — Vita utile di 50+ anni con manutenzione annua irrisoria (€2.000–5.000);</li>
+  <li><strong>Riqualificazione urbana</strong> — Possibilità di abbinare pavimentazione fotocatalitica e illuminazione LED intelligente.</li>
+</ul>
+
+<p>Alla presente si allegano i seguenti documenti:</p>
+
+<ol style="margin:8px 0 10px 24px;">
+  <li><strong>Allegato A — Relazione tecnico-illustrativa</strong>: descrizione dettagliata del progetto, analisi delle criticità, soluzioni progettuali confrontate e benchmark nazionali;</li>
+  <li><strong>Allegato B — Quadro economico e cronoprogramma</strong>: stima dei costi per macrovoce, piano finanziario e tempistiche di realizzazione;</li>
+  <li><strong>Allegato C — Documentazione fotografica e riferimenti</strong>: casi studio, riferimenti normativi e documentazione tecnica di supporto.</li>
+</ol>
+
+<p>Nella convinzione che questa proposta possa rappresentare un primo concreto passo verso una mobilità più sicura, sostenibile e moderna per la città di Martina Franca, si chiede un incontro con i competenti uffici comunali per illustrare nel dettaglio i contenuti del progetto.</p>
+
+<p>Ringraziando per l'attenzione, si porgono distinti saluti.</p>
+
+</div>
+
+<div class="saluti">
+  <p>Con osservanza,</p>
+
+  <div class="firma">
+    <div class="nome">Andrea Maggi</div>
+    <div class="ruolo">Cittadino di Martina Franca</div>
+    <div class="recapito">
+      Recapito: [da inserire] · Email: [da inserire] · PEC: [da inserire]
+    </div>
+  </div>
+</div>
+
+<div class="doc-footer">
+  <span>Andrea Maggi · Martina Franca</span>
+  <span>Prot. 2026/PL9/001 · Giugno 2026</span>
+</div>
+
+</div>
+
+<div id="pdf-overlay" class="pdf-overlay no-print" style="display:none;">
+  <div class="pdf-overlay-box">
+    <div class="pdf-overlay-icon">🖨️</div>
+    <div class="pdf-overlay-title">Salva come PDF</div>
+    <div class="pdf-overlay-text">
+      Nel dialogo di stampa che si aprirà:<br>
+      1. Seleziona <strong>"Salva come PDF"</strong> come destinazione<br>
+      2. Clicca <strong>"Salva"</strong>
+    </div>
+    <button onclick="document.getElementById('pdf-overlay').style.display='none'" class="pdf-overlay-btn">OK, ho capito</button>
+  </div>
+</div>
+
+<footer class="global-footer">
+  <strong>PL9</strong> — Sottopasso Rotatoria Europa · Andrea Maggi · Giugno 2026
+</footer>
+
+<script>
+function generatePDF() {
+  var btn = document.querySelector('.pdf-btn');
+  if (btn.classList.contains('loading')) return;
+  btn.classList.add('loading');
+  btn.innerHTML = '<span class="pdf-btn-spinner"></span> Preparazione...';
+  setTimeout(function() {
+    var overlay = document.getElementById('pdf-overlay');
+    if (overlay) overlay.style.display = 'flex';
+    window.print();
+    btn.classList.remove('loading');
+    btn.innerHTML = '<span class="pdf-btn-icon">⬇</span> Scarica PDF';
+    if (overlay) overlay.style.display = 'none';
+  }, 300);
+}
+</script>
+</body>
+</html>

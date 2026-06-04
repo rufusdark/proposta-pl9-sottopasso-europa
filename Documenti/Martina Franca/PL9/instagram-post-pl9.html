@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>PL9 — Sottopasso Rotatoria Europa | Instagram Post</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #f0ebe3;
+    font-family: 'Inter', sans-serif;
+  }
+  .canvas {
+    position: relative;
+    width: 1080px;
+    height: 1080px;
+    overflow: hidden;
+    background: #0a1628;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  }
+
+  /* Sfondo con texture sottile */
+  .bg-grid {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-image:
+      linear-gradient(rgba(212,168,67,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212,168,67,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Sfondo degradé */
+  .bg-gradient {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(ellipse at 70% 30%, rgba(107,33,168,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 30% 70%, rgba(212,168,67,0.08) 0%, transparent 50%);
+  }
+
+  /* Elemento geometrico grande — diagonale tagliente */
+  .diagonal-arrow {
+    position: absolute;
+    top: 0; right: 0;
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 0 540px 540px 0;
+    border-color: transparent rgba(212,168,67,0.06) transparent transparent;
+  }
+
+  .diagonal-arrow-2 {
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 0;
+    border-style: solid;
+    border-width: 540px 0 0 540px;
+    border-color: transparent transparent transparent rgba(212,168,67,0.04);
+  }
+
+  /* Cerchi decorativi */
+  .circle-deco {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(212,168,67,0.08);
+  }
+  .circle-deco-1 { width: 700px; height: 700px; top: -200px; right: -150px; }
+  .circle-deco-2 { width: 500px; height: 500px; bottom: -100px; left: -100px; border-color: rgba(212,168,67,0.05); }
+  .circle-deco-3 { width: 300px; height: 300px; top: 50%; left: 50%; transform: translate(-50%,-50%); border-color: rgba(212,168,67,0.06); }
+
+  /* Linee di flusso (traffico) */
+  .flow-lines {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+  }
+
+  /* Contenuto centrale */
+  .content {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px;
+  }
+
+  /* Badge */
+  .badge {
+    display: inline-block;
+    padding: 8px 24px;
+    border: 1px solid rgba(212,168,67,0.3);
+    border-radius: 50px;
+    color: #d4a843;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+    backdrop-filter: blur(4px);
+    background: rgba(212,168,67,0.05);
+  }
+
+  /* Titolo principale */
+  .headline {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .headline .line-1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    font-weight: 700;
+    color: #ffffff;
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+  }
+  .headline .line-1 em {
+    font-style: italic;
+    color: #d4a843;
+  }
+  .headline .line-2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 64px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.9);
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin-top: 4px;
+  }
+
+  /* Sottotitolo */
+  .subtitle {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+    max-width: 600px;
+    margin-bottom: 50px;
+    letter-spacing: 0.3px;
+  }
+
+  /* Divider */
+  .divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d4a843, transparent);
+    margin-bottom: 50px;
+  }
+
+  /* CTA Button */
+  .cta-button {
+    display: inline-block;
+    padding: 16px 48px;
+    border: 1px solid #d4a843;
+    border-radius: 4px;
+    color: #d4a843;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: default;
+    background: transparent;
+  }
+  .cta-button:hover {
+    background: rgba(212,168,67,0.1);
+  }
+
+  /* Footer info */
+  .footer {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 80px;
+    z-index: 10;
+  }
+  .footer-left {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(212,168,67,0.6);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .footer-right {
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 1px;
+  }
+
+  /* Elemento decorativo: linea verticale */
+  .vline {
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent, rgba(212,168,67,0.06), transparent);
+  }
+  .vline-1 { left: 120px; }
+  .vline-2 { right: 120px; }
+
+  /* Stelle decorative */
+  .star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    animation: twinkle 3s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.8; }
+  }
+
+  /* Progetto PL9 badge */
+  .project-badge {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    font-size: 11px;
+    font-weight: 400;
+    color: rgba(212,168,67,0.4);
+    letter-spacing: 5px;
+    text-transform: uppercase;
+  }
+
+  /* SVG container for flow lines */
+  .flow-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
+<div class="canvas">
+
+  <!-- Elementi decorativi sfondo -->
+  <div class="bg-grid"></div>
+  <div class="bg-gradient"></div>
+  <div class="diagonal-arrow"></div>
+  <div class="diagonal-arrow-2"></div>
+
+  <div class="circle-deco circle-deco-1"></div>
+  <div class="circle-deco circle-deco-2"></div>
+  <div class="circle-deco circle-deco-3"></div>
+
+  <div class="vline vline-1"></div>
+  <div class="vline vline-2"></div>
+
+  <!-- Stelle decoratives -->
+  <div class="star" style="top:8%;left:15%;animation-delay:0s;"></div>
+  <div class="star" style="top:12%;right:20%;animation-delay:1.2s;width:2px;height:2px;"></div>
+  <div class="star" style="top:25%;left:8%;animation-delay:0.6s;width:2px;height:2px;"></div>
+  <div class="star" style="top:20%;right:10%;animation-delay:2s;"></div>
+  <div class="star" style="top:40%;left:5%;animation-delay:0.3s;width:2px;height:2px;"></div>
+  <div class="star" style="top:35%;right:6%;animation-delay:1.5s;"></div>
+  <div class="star" style="top:60%;left:10%;animation-delay:0.8s;width:2px;height:2px;"></div>
+  <div class="star" style="top:70%;right:12%;animation-delay:2.2s;"></div>
+  <div class="star" style="top:85%;left:15%;animation-delay:1.8s;width:2px;height:2px;"></div>
+  <div class="star" style="top:90%;right:8%;animation-delay:0.5s;"></div>
+
+  <!-- Flow lines SVG -->
+  <svg class="flow-svg" viewBox="0 0 1080 1080" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="flowGrad1" x1="0%" y1="100%" x2="100%" y2="0%">
+        <stop offset="0%" stop-color="rgba(212,168,67,0)" />
+        <stop offset="50%" stop-color="rgba(212,168,67,0.12)" />
+        <stop offset="100%" stop-color="rgba(212,168,67,0)" />
+      </linearGradient>
+      <linearGradient id="flowGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="rgba(212,168,67,0)" />
+        <stop offset="50%" stop-color="rgba(212,168,67,0.08)" />
+        <stop offset="100%" stop-color="rgba(212,168,67,0)" />
+      </linearGradient>
+      <linearGradient id="flowGrad3" x1="0%" y1="50%" x2="100%" y2="50%">
+        <stop offset="0%" stop-color="rgba(212,168,67,0)" />
+        <stop offset="50%" stop-color="rgba(212,168,67,0.06)" />
+        <stop offset="100%" stop-color="rgba(212,168,67,0)" />
+      </linearGradient>
+    </defs>
+
+    <!-- Linee di flusso curve -->
+    <path d="M-50,200 C200,300 400,100 600,200 S800,500 1100,400"
+          stroke="url(#flowGrad1)" stroke-width="1.5" fill="none" opacity="0.6"/>
+    <path d="M-50,400 C300,500 350,200 700,350 S900,600 1100,550"
+          stroke="url(#flowGrad2)" stroke-width="1" fill="none" opacity="0.4"/>
+    <path d="M-50,600 C250,700 500,400 750,500 S950,700 1100,650"
+          stroke="url(#flowGrad3)" stroke-width="0.8" fill="none" opacity="0.3"/>
+    <path d="M-50,350 C350,450 450,150 800,300 S1000,450 1100,450"
+          stroke="url(#flowGrad1)" stroke-width="0.6" fill="none" opacity="0.2"/>
+
+    <!-- Orbita ellittica (richiamo Barocco Cosmico) -->
+    <ellipse cx="540" cy="540" rx="420" ry="180"
+             fill="none" stroke="rgba(212,168,67,0.06)" stroke-width="0.8"
+             transform="rotate(-12 540 540)" />
+    <ellipse cx="540" cy="540" rx="350" ry="140"
+             fill="none" stroke="rgba(212,168,67,0.04)" stroke-width="0.5"
+             transform="rotate(8 540 540)" />
+  </svg>
+
+  <!-- Project badge -->
+  <div class="project-badge">Progetto PL9 · Sottopasso Rotatoria Europa</div>
+
+  <!-- Contenuto principale -->
+  <div class="content">
+    <div class="badge">✦ Piano Mobilità Urbana</div>
+
+    <div class="headline">
+      <div class="line-1">Sblocchiamo <em>il traffico</em></div>
+      <div class="line-2">Più tempo per te</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="subtitle">
+      Il nuovo sottopasso alla Rotatoria Europa elimina incroci e semafori.<br>
+      Flusso continuo, sicurezza totale, città più moderna.
+    </div>
+
+    <div class="cta-button">Scopri il progetto</div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-left">Andrea Maggi</div>
+    <div class="footer-right">#MartinaFranca #Mobilità #PL9</div>
+  </div>
+
+</div>
+</body>
+</html>

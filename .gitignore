@@ -1,0 +1,35 @@
+# ============================================
+# Ignore EVERYTHING except the project folder
+# ============================================
+/*
+!/Documenti
+!/Documenti/Martina Franca
+!/Documenti/Martina Franca/**
+!/Documenti/Martina Franca/**/*
+
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.venv
+venv/
+
+# Node
+node_modules/
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+.env
+*.key
+*.pem
+*.crt
+credentials*
+token*
+secret*

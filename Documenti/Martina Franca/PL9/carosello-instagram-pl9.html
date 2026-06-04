@@ -1,0 +1,666 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PL9 | Sottopasso Rotatoria Europa - Instagram Carousel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: oklch(15.42% 0.038 261.26); /* #0a1628 */
+            --surface: oklch(20% 0.04 261);
+            --fg: oklch(98% 0.005 261);
+            --muted: oklch(60% 0.02 261);
+            --border: oklch(25% 0.04 261);
+            --accent: oklch(74.45% 0.138 85.12); /* #d4a843 - Gold */
+            --accent-soft: oklch(74.45% 0.138 85.12 / 0.1);
+            
+            --carousel-width: 1080px;
+            --carousel-height: 1350px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background: #111;
+            color: var(--fg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* Preview Container */
+        .preview-header {
+            margin-bottom: 24px;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .preview-header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--accent);
+        }
+
+        .preview-header p {
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        /* Carousel Framework */
+        .carousel-viewport {
+            width: 100%;
+            max-width: 432px; /* Scale down for desktop viewing (40% of 1080px) */
+            aspect-ratio: 1080 / 1350;
+            background: var(--bg);
+            border-radius: 16px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            overflow: hidden;
+            position: relative;
+            cursor: grab;
+        }
+
+        .carousel-viewport:active {
+            cursor: grabbing;
+        }
+
+        .carousel-track {
+            display: flex;
+            width: 800%; /* 8 slides */
+            height: 100%;
+            transition: transform 0.5s cubic-bezier(0.2, 0, 0.2, 1);
+        }
+
+        .slide {
+            width: 12.5%; /* 1/8 of track */
+            height: 100%;
+            position: relative;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Slide Content Styles */
+        .slide-bg-decoration {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .circle-blur {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            filter: blur(150px);
+            opacity: 0.15;
+            border-radius: 50%;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Typography */
+        .label {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        h2 {
+            font-size: 48px;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        p.description {
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--muted);
+            margin-bottom: 32px;
+        }
+
+        /* UI Elements */
+        .dots-nav {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--accent);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .controls {
+            margin-top: 32px;
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--fg);
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Slide Specifics */
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .budget-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .budget-bar-container {
+            width: 100%;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .budget-bar {
+            height: 100%;
+            background: var(--accent);
+        }
+
+        /* Profile Slide */
+        .profile-img {
+            width: 100%;
+            aspect-ratio: 1;
+            background: var(--surface);
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--muted);
+        }
+
+        /* Slide 1 - Cover */
+        #slide-1 {
+            justify-content: center;
+            text-align: center;
+        }
+
+        #slide-1 h2 {
+            font-size: 64px;
+            letter-spacing: -0.02em;
+        }
+
+        .gold-line {
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            margin: 24px auto;
+        }
+
+        /* Export Helper */
+        .hidden-canvas {
+            position: fixed;
+            top: -9999px;
+            left: -9999px;
+            width: 1080px;
+            height: 1350px;
+        }
+
+        @media (max-width: 480px) {
+            .carousel-viewport {
+                max-width: 100%;
+            }
+            .slide {
+                padding: 40px;
+            }
+            h2 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="preview-header">
+        <h1>Campagna PL9: Sottopasso Rotatoria Europa</h1>
+        <p>Instagram Carousel Prototype (1080×1350) • Tema: Dark & Gold</p>
+    </div>
+
+    <div class="carousel-viewport" id="carousel">
+        <div class="carousel-track" id="track">
+            
+            <!-- SLIDE 1: COVER -->
+            <section class="slide" id="slide-1">
+                <div class="slide-bg-decoration">
+                    <div class="circle-blur" style="top: -100px; right: -100px;"></div>
+                    <div class="circle-blur" style="bottom: -100px; left: -100px; opacity: 0.1;"></div>
+                </div>
+                <div class="slide-content">
+                    <div class="label">Progetto Infrastrutturale</div>
+                    <h2>PL9<br><span style="color: var(--accent)">Sottopasso</span><br>Rotatoria Europa</h2>
+                    <div class="gold-line"></div>
+                    <p style="font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase;">Un'opera necessaria per Martina Franca</p>
+                </div>
+            </section>
+
+            <!-- SLIDE 2: IL PROBLEMA -->
+            <section class="slide" id="slide-2">
+                <div class="slide-content">
+                    <div class="label">Il Problema</div>
+                    <h2>Congestione Insostenibile</h2>
+                    <p class="description">La Rotatoria Europa è attualmente il principale punto critico della nostra viabilità cittadina.</p>
+                    
+                    <div class="stat-card">
+                        <div class="stat-value">25.000+</div>
+                        <div class="stat-label">Veicoli al giorno</div>
+                    </div>
+                    
+                    <div class="stat-card" style="border-color: rgba(212, 168, 67, 0.3)">
+                        <div class="stat-value" style="color: #ff4d4d">Livello F</div>
+                        <div class="stat-label">Grado di saturazione nelle ore di punta</div>
+                    </div>
+
+                    <p style="margin-top: auto; color: var(--accent); font-weight: 600;">È tempo di cambiare.</p>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: LA SOLUZIONE -->
+            <section class="slide" id="slide-3">
+                <div class="slide-content">
+                    <div class="label">La Soluzione</div>
+                    <h2>Il Sottopasso PL9</h2>
+                    <p class="description">Un intervento ingegneristico d'avanguardia per bypassare il nodo critico senza impattare l'estetica urbana.</p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div class="stat-card">
+                            <div class="stat-value" style="font-size: 24px;">200m</div>
+                            <div class="stat-label">Lunghezza Tunnel</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" style="font-size: 24px;">12 Mesi</div>
+                            <div class="stat-label">Tempo Esecuzione</div>
+                        </div>
+                    </div>
+
+                    <div class="stat-card" style="margin-top: 16px;">
+                        <div class="stat-label" style="margin-bottom: 8px;">Tecnologia utilizzata</div>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <span style="background: var(--accent-soft); padding: 4px 12px; border-radius: 20px; font-size: 12px; color: var(--accent)">Scavo Smart</span>
+                            <span style="background: var(--accent-soft); padding: 4px 12px; border-radius: 20px; font-size: 12px; color: var(--accent)">Prefabbricazione</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 4: BUDGET -->
+            <section class="slide" id="slide-4">
+                <div class="slide-content">
+                    <div class="label">Investimento</div>
+                    <h2>Trasparenza dei Costi</h2>
+                    <p class="description">Un piano finanziario solido e dettagliato per la realizzazione dell'opera.</p>
+                    
+                    <div class="stat-card" style="background: var(--accent); color: var(--bg); margin-bottom: 24px;">
+                        <div class="stat-label" style="color: rgba(10, 22, 40, 0.7)">Budget Totale</div>
+                        <div class="stat-value" style="color: var(--bg); font-size: 40px;">€ 2.500.000</div>
+                    </div>
+
+                    <div class="budget-item">
+                        <div class="budget-row">
+                            <span>Costruzione (60%)</span>
+                            <span>€ 1.5M</span>
+                        </div>
+                        <div class="budget-bar-container"><div class="budget-bar" style="width: 60%"></div></div>
+                    </div>
+
+                    <div class="budget-item" style="margin-top: 12px;">
+                        <div class="budget-row">
+                            <span>Sottoservizi (15%)</span>
+                            <span>€ 375k</span>
+                        </div>
+                        <div class="budget-bar-container"><div class="budget-bar" style="width: 15%"></div></div>
+                    </div>
+
+                    <div class="budget-item" style="margin-top: 12px;">
+                        <div class="budget-row">
+                            <span>Altro (25%)</span>
+                            <span>€ 625k</span>
+                        </div>
+                        <div class="budget-bar-container"><div class="budget-bar" style="width: 25%"></div></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 5: TIMELINE -->
+            <section class="slide" id="slide-5">
+                <div class="slide-content">
+                    <div class="label">Timeline</div>
+                    <h2>Cronoprogramma</h2>
+                    <p class="description">5 Fasi operative studiate per minimizzare i disagi alla cittadinanza.</p>
+                    
+                    <div style="display: flex; flex-direction: column; gap: 12px; position: relative;">
+                        <div style="position: absolute; left: 7px; top: 10px; bottom: 10px; width: 2px; background: var(--border);"></div>
+                        
+                        <div style="display: flex; gap: 16px; align-items: flex-start; position: relative; z-index: 1;">
+                            <div style="width: 16px; height: 16px; border-radius: 50%; background: var(--accent); margin-top: 4px;"></div>
+                            <div>
+                                <div style="font-weight: 700; color: var(--accent);">Mese 1: Cantierizzazione</div>
+                                <div style="font-size: 14px; color: var(--muted);">Allestimento area e messa in sicurezza.</div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start; position: relative; z-index: 1;">
+                            <div style="width: 16px; height: 16px; border-radius: 50%; background: var(--border); border: 2px solid var(--accent); margin-top: 4px;"></div>
+                            <div>
+                                <div style="font-weight: 700;">Mese 2-3: Sottoservizi</div>
+                                <div style="font-size: 14px; color: var(--muted);">Spostamento reti idriche, gas ed elettriche.</div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start; position: relative; z-index: 1;">
+                            <div style="width: 16px; height: 16px; border-radius: 50%; background: var(--border); border: 2px solid var(--accent); margin-top: 4px;"></div>
+                            <div>
+                                <div style="font-weight: 700;">Mese 4-8: Scavo e Paratie</div>
+                                <div style="font-size: 14px; color: var(--muted);">Realizzazione del tunnel e opere strutturali.</div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start; position: relative; z-index: 1;">
+                            <div style="width: 16px; height: 16px; border-radius: 50%; background: var(--border); border: 2px solid var(--accent); margin-top: 4px;"></div>
+                            <div>
+                                <div style="font-weight: 700;">Mese 9-11: Finiture</div>
+                                <div style="font-size: 14px; color: var(--muted);">Asfaltatura, illuminazione e segnaletica.</div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 16px; align-items: flex-start; position: relative; z-index: 1;">
+                            <div style="width: 16px; height: 16px; border-radius: 50%; background: var(--border); border: 2px solid var(--accent); margin-top: 4px;"></div>
+                            <div>
+                                <div style="font-weight: 700;">Mese 12: Consegna</div>
+                                <div style="font-size: 14px; color: var(--muted);">Collaudo finale e ripristino viabilità totale.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 6: BENEFICI -->
+            <section class="slide" id="slide-6">
+                <div class="slide-content">
+                    <div class="label">Benefici</div>
+                    <h2>Un futuro più vivibile</h2>
+                    <p class="description">Gli impatti positivi del progetto PL9 sulla qualità della vita a Martina Franca.</p>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr; gap: 12px;">
+                        <div class="stat-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
+                            <div style="font-size: 32px; font-weight: 900; color: var(--accent); min-width: 80px;">-40%</div>
+                            <div>
+                                <div style="font-weight: 700;">Traffico Urbano</div>
+                                <div style="font-size: 13px; color: var(--muted);">Riduzione dei tempi di percorrenza.</div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
+                            <div style="font-size: 32px; font-weight: 900; color: var(--accent); min-width: 80px;">Sicuro</div>
+                            <div>
+                                <div style="font-weight: 700;">Zero Incroci Critici</div>
+                                <div style="font-size: 13px; color: var(--muted);">Eliminazione dei punti di conflitto.</div>
+                            </div>
+                        </div>
+
+                        <div class="stat-card" style="display: flex; align-items: center; gap: 20px; padding: 20px;">
+                            <div style="font-size: 32px; font-weight: 900; color: var(--accent); min-width: 80px;">-15%</div>
+                            <div>
+                                <div style="font-weight: 700;">Emissioni CO2</div>
+                                <div style="font-size: 13px; color: var(--muted);">Meno code, aria più pulita per tutti.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 7: ANDREA MAGGI -->
+            <section class="slide" id="slide-7">
+                <div class="slide-content">
+                    <div class="label">Il Candidato</div>
+                    <h2>Andrea Maggi</h2>
+                    
+                    <div class="profile-img">
+                        <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                        <span style="position: absolute; bottom: 10px; right: 10px; font-size: 10px; color: var(--accent);">FOTO CANDIDATO</span>
+                    </div>
+
+                    <p style="font-style: italic; color: var(--fg); margin-bottom: 16px; border-left: 2px solid var(--accent); padding-left: 16px;">
+                        "La politica deve tornare a dare risposte concrete. Il progetto PL9 è il primo passo verso una Martina Franca moderna e funzionale."
+                    </p>
+                    
+                    <p style="font-size: 14px; color: var(--muted); line-height: 1.5;">
+                        Andrea Maggi mette la sua esperienza al servizio della comunità per sbloccare le infrastrutture ferme da anni.
+                    </p>
+                </div>
+            </section>
+
+            <!-- SLIDE 8: CTA -->
+            <section class="slide" id="slide-8">
+                <div class="slide-bg-decoration">
+                    <div class="circle-blur" style="top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.2; width: 400px; height: 400px;"></div>
+                </div>
+                <div class="slide-content" style="text-align: center; justify-content: center;">
+                    <div class="label">Ora tocca a te</div>
+                    <h2 style="font-size: 56px;">Sostieni<br><span style="color: var(--accent)">PL9</span></h2>
+                    <p class="description">Insieme possiamo trasformare la viabilità di Martina Franca. Un voto per il futuro.</p>
+                    
+                    <div style="margin-top: 40px; padding: 24px; border: 1px solid var(--accent); border-radius: 12px; background: var(--accent-soft);">
+                        <div style="font-weight: 900; font-size: 24px; color: var(--accent); margin-bottom: 8px;">VOTA PER PL9</div>
+                        <div style="font-size: 14px; text-transform: uppercase; letter-spacing: 0.2em;">Efficienza • Sicurezza • Futuro</div>
+                    </div>
+
+                    <div style="margin-top: 60px; font-size: 12px; color: var(--muted); text-transform: uppercase;">Campagna Elettorale Andrea Maggi</div>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="dots-nav" id="dots">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="btn btn-outline" id="prev">Indietro</button>
+        <button class="btn btn-primary" id="next">Avanti</button>
+        <button class="btn btn-outline" style="border-color: var(--accent); color: var(--accent);" onclick="downloadCurrent()">Scarica Slide (PNG)</button>
+    </div>
+
+    <!-- Script for interaction -->
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        const track = document.getElementById('track');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+        const totalSlides = 8;
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentSlide * 12.5}%)`;
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+
+        document.getElementById('next').addEventListener('click', () => {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        });
+
+        document.getElementById('prev').addEventListener('click', () => {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        });
+
+        // Swipe support
+        let startX = 0;
+        const carousel = document.getElementById('carousel');
+
+        carousel.addEventListener('mousedown', (e) => startX = e.pageX);
+        carousel.addEventListener('mouseup', (e) => {
+            const diff = startX - e.pageX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) currentSlide = (currentSlide + 1) % totalSlides;
+                else currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+            }
+        });
+
+        // Touch support
+        carousel.addEventListener('touchstart', (e) => startX = e.touches[0].pageX);
+        carousel.addEventListener('touchend', (e) => {
+            const diff = startX - e.changedTouches[0].pageX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) currentSlide = (currentSlide + 1) % totalSlides;
+                else currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+            }
+        });
+
+        async function downloadCurrent() {
+            const slides = document.querySelectorAll('.slide');
+            const target = slides[currentSlide];
+            
+            // Create temporary container for high-res export
+            const container = document.createElement('div');
+            container.style.width = '1080px';
+            container.style.height = '1350px';
+            container.style.position = 'fixed';
+            container.style.top = '-9999px';
+            container.style.left = '-9999px';
+            container.style.background = 'var(--bg)';
+            
+            // Clone the slide and its specific styles
+            const clone = target.cloneNode(true);
+            clone.style.width = '1080px';
+            clone.style.height = '1350px';
+            clone.style.padding = '100px'; // Upscale padding for full size
+            
+            // Adjust header sizes for 1080px
+            const h2 = clone.querySelector('h2');
+            if (h2) h2.style.fontSize = '120px';
+            const labels = clone.querySelectorAll('.label');
+            labels.forEach(l => l.style.fontSize = '24px');
+            const desc = clone.querySelector('.description');
+            if (desc) desc.style.fontSize = '36px';
+            const stats = clone.querySelectorAll('.stat-value');
+            stats.forEach(s => s.style.fontSize = '80px');
+
+            container.appendChild(clone);
+            document.body.appendChild(container);
+
+            try {
+                const canvas = await html2canvas(container, {
+                    width: 1080,
+                    height: 1350,
+                    scale: 1,
+                    backgroundColor: '#0a1628'
+                });
+                
+                const link = document.createElement('a');
+                link.download = `PL9-Slide-${currentSlide + 1}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            } catch (err) {
+                console.error('Export failed', err);
+                alert('Errore durante l\'esportazione. Riprova.');
+            } finally {
+                document.body.removeChild(container);
+            }
+        }
+    </script>
+</body>
+</html>

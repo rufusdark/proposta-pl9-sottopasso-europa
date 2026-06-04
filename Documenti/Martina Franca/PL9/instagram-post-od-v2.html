@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Andrea Maggi — Sblocchiamo il traffico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,600;0,700;1,500&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      display: grid;
+      place-items: center;
+      min-height: 100vh;
+      background: #050d19;
+    }
+
+    .post {
+      position: relative;
+      width: 1080px;
+      height: 1080px;
+      overflow: hidden;
+      background: #0a1628;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    }
+
+    /* --- Stars layer --- */
+    .stars {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    /* --- Flow lines (SVG) --- */
+    .flows {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    /* --- Radial glow behind title --- */
+    .glow {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 700px;
+      height: 700px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 168, 67, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* --- Content --- */
+    .content {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      padding: 80px;
+      text-align: center;
+    }
+
+    /* --- Decorative gold bar above title --- */
+    .ornament {
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #d4a843, transparent);
+      margin-bottom: 40px;
+    }
+
+    .title {
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-weight: 700;
+      font-size: 88px;
+      line-height: 1.1;
+      color: #d4a843;
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+      max-width: 800px;
+    }
+
+    .title i {
+      font-weight: 500;
+      font-style: italic;
+      color: #d4a843;
+    }
+
+    .subtitle {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      font-weight: 300;
+      font-size: 32px;
+      line-height: 1.4;
+      color: rgba(212, 168, 67, 0.8);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 60px;
+    }
+
+    /* --- Decorative divider --- */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .divider .line {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(212, 168, 67, 0.4));
+    }
+    .divider .line.right {
+      background: linear-gradient(90deg, rgba(212, 168, 67, 0.4), transparent);
+    }
+    .divider .diamond {
+      width: 6px;
+      height: 6px;
+      background: #d4a843;
+      transform: rotate(45deg);
+      opacity: 0.6;
+    }
+
+    .name {
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+      font-weight: 600;
+      font-size: 28px;
+      color: #d4a843;
+      letter-spacing: 0.12em;
+    }
+
+    .name small {
+      display: block;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      font-weight: 400;
+      font-size: 14px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(212, 168, 67, 0.5);
+      margin-top: 8px;
+    }
+
+    /* --- Bottom decorative band --- */
+    .bottom-band {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent 5%, #d4a843 25%, #d4a843 50%, rgba(212, 168, 67, 0.3) 75%, transparent 95%);
+      z-index: 10;
+    }
+  </style>
+</head>
+<body>
+  <div class="post">
+
+    <!-- Stars -->
+    <svg class="stars" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Bright stars -->
+      <circle cx="120" cy="180" r="2.5" fill="#d4a843" opacity="0.9" />
+      <circle cx="950" cy="150" r="2" fill="#d4a843" opacity="0.7" />
+      <circle cx="830" cy="850" r="2.5" fill="#d4a843" opacity="0.8" />
+      <circle cx="200" cy="920" r="2" fill="#d4a843" opacity="0.6" />
+      <circle cx="540" cy="60" r="3" fill="#d4a843" opacity="0.9" />
+      <circle cx="60" cy="520" r="1.5" fill="#d4a843" opacity="0.5" />
+      <circle cx="1020" cy="540" r="2" fill="#d4a843" opacity="0.7" />
+      <circle cx="680" cy="120" r="1.5" fill="#fff" opacity="0.6" />
+      <circle cx="350" cy="980" r="1.5" fill="#fff" opacity="0.5" />
+      <circle cx="980" cy="300" r="1.5" fill="#d4a843" opacity="0.6" />
+      <!-- Medium stars -->
+      <circle cx="320" cy="240" r="1" fill="#fff" opacity="0.4" />
+      <circle cx="760" cy="230" r="1" fill="#fff" opacity="0.35" />
+      <circle cx="500" cy="900" r="1" fill="#fff" opacity="0.4" />
+      <circle cx="150" cy="700" r="1" fill="#fff" opacity="0.3" />
+      <circle cx="900" cy="680" r="1" fill="#fff" opacity="0.35" />
+      <circle cx="420" cy="150" r="1" fill="#fff" opacity="0.3" />
+      <circle cx="650" cy="960" r="1" fill="#fff" opacity="0.4" />
+      <circle cx="100" cy="380" r="1" fill="#fff" opacity="0.3" />
+      <circle cx="990" cy="800" r="1" fill="#fff" opacity="0.35" />
+      <!-- Tiny dust stars -->
+      <circle cx="280" cy="450" r="0.8" fill="#fff" opacity="0.25" />
+      <circle cx="800" cy="420" r="0.8" fill="#fff" opacity="0.2" />
+      <circle cx="450" cy="780" r="0.8" fill="#fff" opacity="0.25" />
+      <circle cx="720" cy="580" r="0.8" fill="#fff" opacity="0.2" />
+      <circle cx="340" cy="600" r="0.8" fill="#fff" opacity="0.25" />
+      <circle cx="860" cy="470" r="0.8" fill="#fff" opacity="0.2" />
+      <circle cx="180" cy="820" r="0.8" fill="#fff" opacity="0.25" />
+      <circle cx="920" cy="940" r="0.8" fill="#fff" opacity="0.2" />
+      <circle cx="260" cy="340" r="0.8" fill="#fff" opacity="0.2" />
+      <circle cx="790" cy="190" r="0.8" fill="#fff" opacity="0.25" />
+      <circle cx="480" cy="280" r="0.8" fill="#fff" opacity="0.2" />
+      <circle cx="590" cy="820" r="0.8" fill="#fff" opacity="0.25" />
+    </svg>
+
+    <!-- Flow lines (orbital curves suggesting traffic flow unblocked) -->
+    <svg class="flows" viewBox="0 0 1080 1080" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Upper orbital flow -->
+      <path d="M80 400 C 300 200, 800 200, 1000 400"
+            stroke="url(#goldFade1)" stroke-width="1.2" opacity="0.35" fill="none" />
+      <!-- Lower orbital flow -->
+      <path d="M60 720 C 350 920, 750 920, 1020 720"
+            stroke="url(#goldFade2)" stroke-width="1" opacity="0.25" fill="none" />
+      <!-- Mid left flow -->
+      <path d="M 100 540 C 250 350, 400 400, 500 540"
+            stroke="url(#goldFade3)" stroke-width="0.8" opacity="0.2" fill="none" />
+      <!-- Mid right flow -->
+      <path d="M 580 540 C 700 420, 850 380, 980 540"
+            stroke="url(#goldFade4)" stroke-width="0.8" opacity="0.2" fill="none" />
+      <!-- Sweeping accent curve from bottom-left -->
+      <path d="M -20 1080 C 200 800, 400 700, 600 600"
+            stroke="url(#goldFade5)" stroke-width="1.5" opacity="0.3" fill="none" />
+      <!-- Sweeping accent curve from top-right -->
+      <path d="M 1100 -20 C 900 200, 750 400, 650 540"
+            stroke="url(#goldFade6)" stroke-width="1" opacity="0.2" fill="none" />
+
+      <!-- Definitions for gold gradients -->
+      <defs>
+        <linearGradient id="goldFade1" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#d4a843" stop-opacity="0" />
+          <stop offset="30%" stop-color="#d4a843" stop-opacity="0.5" />
+          <stop offset="70%" stop-color="#d4a843" stop-opacity="0.5" />
+          <stop offset="100%" stop-color="#d4a843" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="goldFade2" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#d4a843" stop-opacity="0" />
+          <stop offset="40%" stop-color="#d4a843" stop-opacity="0.35" />
+          <stop offset="60%" stop-color="#d4a843" stop-opacity="0.35" />
+          <stop offset="100%" stop-color="#d4a843" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="goldFade3" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#d4a843" stop-opacity="0" />
+          <stop offset="50%" stop-color="#d4a843" stop-opacity="0.3" />
+          <stop offset="100%" stop-color="#d4a843" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="goldFade4" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#d4a843" stop-opacity="0" />
+          <stop offset="50%" stop-color="#d4a843" stop-opacity="0.3" />
+          <stop offset="100%" stop-color="#d4a843" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="goldFade5" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0%" stop-color="#d4a843" stop-opacity="0" />
+          <stop offset="50%" stop-color="#d4a843" stop-opacity="0.4" />
+          <stop offset="100%" stop-color="#d4a843" stop-opacity="0" />
+        </linearGradient>
+        <linearGradient id="goldFade6" x1="1" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#d4a843" stop-opacity="0" />
+          <stop offset="50%" stop-color="#d4a843" stop-opacity="0.3" />
+          <stop offset="100%" stop-color="#d4a843" stop-opacity="0" />
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <!-- Glow -->
+    <div class="glow"></div>
+
+    <!-- Content -->
+    <div class="content">
+      <div class="ornament"></div>
+
+      <h1 class="title">
+        Sblocchiamo<br />
+        <i>il traffico</i>
+      </h1>
+
+      <p class="subtitle">Più tempo per te</p>
+
+      <div class="divider">
+        <div class="line"></div>
+        <div class="diamond"></div>
+        <div class="line right"></div>
+      </div>
+
+      <p class="name">
+        Andrea Maggi
+        <small>Urban Mobility · Design &amp; Strategy</small>
+      </p>
+    </div>
+
+    <!-- Bottom band -->
+    <div class="bottom-band"></div>
+  </div>
+</body>
+</html>

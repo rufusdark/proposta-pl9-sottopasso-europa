@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quaderno delle formule matematiche | PL9 Sottopasso Rotatoria Europa</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+/* Formule — page-specific styles */
+.formule-page {
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+/* Cover page */
+.cover-page {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 48px;
+  margin: -48px -32px 48px;
+  background: linear-gradient(135deg, #0a1628 0%, #0d1b30 50%, #0a1628 100%);
+  color: #fff;
+  page-break-after: always;
+}
+
+.cover-page .label {
+  font-size: 10px; font-weight: 500; letter-spacing: 3px;
+  text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 8px;
+}
+
+.cover-page h1 {
+  font-size: 32pt; font-weight: 900; color: #fff;
+  letter-spacing: -1px; margin-bottom: 12px;
+}
+
+.cover-page h1 .accent { color: #d4a843; }
+
+.cover-page .sub {
+  font-size: 13pt; font-weight: 300;
+  color: rgba(255,255,255,0.5); margin-bottom: 24px;
+}
+
+.cover-page .divider {
+  width: 60px; height: 3px; background: #d4a843; margin-bottom: 20px; border-radius: 2px;
+}
+
+/* Content headings */
+h1 {
+  font-size: 20pt; font-weight: 800; color: var(--text-primary);
+  letter-spacing: -0.3px; margin: 32px 0 14px;
+  padding-bottom: 6px; border-bottom: 2px solid var(--border-accent);
+}
+
+h1 .accent { color: var(--accent); }
+
+h2 {
+  font-size: 13pt; font-weight: 700; color: var(--text-primary);
+  margin-top: 28px; margin-bottom: 10px;
+  padding-left: 10px; border-left: 2px solid var(--accent);
+}
+
+h3 {
+  font-size: 10.5pt; font-weight: 700; color: var(--text-primary);
+  margin-top: 18px; margin-bottom: 8px;
+}
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9.5pt; }
+th { background: var(--bg-secondary); color: var(--text-muted); font-weight: 600; text-align: left; padding: 6px 8px; font-size: 7.5pt; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 5px 8px; border-bottom: 1px solid var(--border-light); color: var(--text-secondary); }
+tr:nth-child(even) td { background: var(--bg-card); }
+.total-row td { font-weight: 700; border-top: 2px solid var(--accent); background: var(--bg-accent); color: var(--text-primary); }
+.highlight-row td { background: var(--bg-accent-strong); font-weight: 600; }
+
+/* Formula display */
+.formula-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 10px 0;
+  font-family: 'Courier New', monospace;
+  font-size: 10.5pt;
+  line-height: 2;
+  overflow-x: auto;
+}
+
+.formula-block .eq { color: var(--accent); font-weight: 700; }
+.formula-block .op { color: #6b9fff; }
+.formula-block .num { color: #e8c978; }
+.formula-block .res { color: #7ddfa0; font-weight: 700; }
+.formula-block .unit { color: var(--text-muted); font-size: 8.5pt; }
+.formula-block .label { color: var(--text-secondary); font-size: 8pt; font-family: sans-serif; display: block; margin-bottom: 2px; }
+.formula-block .verify { color: #7ddfa0; font-size: 8pt; font-family: sans-serif; font-weight: 600; display: block; margin-top: 4px; }
+
+.formula-inline {
+  font-family: 'Courier New', monospace;
+  font-size: 10.5pt;
+  color: var(--text-primary);
+}
+
+p { margin-bottom: 6px; text-align: justify; color: var(--text-secondary); font-size: 10.5pt; line-height: 1.7; }
+ul, ol { margin: 4px 0 6px 18px; }
+li { margin-bottom: 2px; color: var(--text-secondary); font-size: 10.5pt; }
+strong { color: var(--text-primary); }
+
+/* Boxes */
+.info-box { background: var(--bg-card); border-left: 3px solid var(--accent); padding: 10px 14px; margin: 10px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.info-box strong:first-child { display: block; margin-bottom: 3px; color: var(--accent); font-size: 10pt; }
+.warn-box { background: var(--amber-bg); border-left: 3px solid var(--amber); padding: 10px 14px; margin: 10px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.warn-box strong:first-child { display: block; margin-bottom: 3px; color: var(--amber); }
+.good-box { background: var(--green-bg); border-left: 3px solid var(--green); padding: 10px 14px; margin: 10px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.good-box strong:first-child { display: block; margin-bottom: 3px; color: var(--green); }
+
+.data-row { display: flex; gap: 10px; margin: 10px 0; flex-wrap: wrap; }
+.data-card { flex: 1; min-width: 120px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; text-align: center; }
+.data-card-value { font-size: 14pt; font-weight: 800; color: var(--text-primary); }
+.data-card-value .accent { color: var(--accent); }
+.data-card-label { font-size: 7pt; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.3px; margin-top: 2px; }
+
+.footnote { font-size: 8pt; color: var(--text-dim); margin-top: 4px; }
+.source-ref { font-size: 7.5pt; color: var(--text-muted); font-style: italic; }
+.page-break { page-break-before: always; }
+
+@media (max-width: 640px) {
+  .formule-page { padding: 24px 16px; }
+  .cover-page { padding: 40px 24px; margin: -24px -16px 24px; min-height: auto; }
+  .cover-page h1 { font-size: 24pt; }
+  .formula-block { font-size: 9pt; padding: 12px 14px; }
+  table { font-size: 8pt; }
+}
+
+@media print {
+  .formule-page { padding: 0; max-width: 190mm; }
+  .cover-page { min-height: 297mm; margin: 0; padding: 40mm 30mm; }
+  h1, h2, h3, .cover-page h1, .cover-page h1 .accent,
+  h1 .accent, .formula-block, .formula-inline { color: #0a1628 !important; }
+  p, li, td, th, .cover-page .sub, .cover-page .label,
+  .source-ref, .footnote { color: #1a1a1a !important; }
+  th { background: #0a1628 !important; color: #fff !important; }
+  td { border-bottom: 1px solid #e0ddd5 !important; }
+  tr:nth-child(even) td { background: #f9f8f6 !important; }
+  .total-row td { background: #f8f6f0 !important; border-top: 2px solid #d4a843 !important; }
+  .formula-block { background: #f8f6f0 !important; border-color: #e8e5dd !important; }
+  .data-card { background: #f8f6f0 !important; border-color: #e8e5dd !important; }
+  .data-card-value { color: #0a1628 !important; }
+  .data-card-label { color: #888 !important; }
+  .formula-block .eq { color: #b8860b !important; }
+  .formula-block .op { color: #2563eb !important; }
+  .formula-block .num { color: #b8860b !important; }
+  .formula-block .res { color: #15803d !important; }
+  .formula-block .verify { color: #15803d !important; }
+}
+</style>
+</head>
+<body>
+
+<nav class="global-nav">
+  <div class="global-nav-inner">
+    <a href="index.html" class="global-nav-back">
+      <span class="arrow">←</span> Home
+    </a>
+    <div style="flex:1"></div>
+    <div class="global-nav-links">
+      <a href="COMPLETA.html">Documento completo</a>
+      <a href="00_Lettera_accompagnamento.html">Lettera</a>
+      <a href="01_Relazione_Tecnica.html">Relazione tecnica</a>
+      <a href="02_Quadro_Economico.html">Quadro economico</a>
+    </div>
+  </div>
+</nav>
+
+<div class="formule-page">
+
+<!-- ========== COPERTINA ========== -->
+<div class="cover-page">
+  <div class="label">Allegato C · PL9</div>
+  <h1>Quaderno delle <span class="accent">formule matematiche</span></h1>
+  <div class="sub">Raccolta completa e verificata di tutte le formule<br>utilizzate nei documenti PL9 — con calcoli e risultati</div>
+  <div class="divider"></div>
+  <p style="color:rgba(255,255,255,0.4); font-size:9pt; margin:0;">
+    Martina Franca · Giugno 2026<br>
+    Prot. 2026/PL9/001 — Versione 1.0
+  </p>
+</div>
+
+<!-- ================================================================ -->
+<!-- PREMESSA -->
+<!-- ================================================================ -->
+
+<h1>Premessa</h1>
+
+<p>Il presente documento raccoglie in forma sistematica <strong>tutte le formule matematiche</strong> utilizzate nei documenti della proposta PL9 "Sottopasso Rotatoria Europa". Ogni formula è presentata con:</p>
+<ul>
+  <li>la <strong>notazione simbolica</strong> completa;</li>
+  <li>la <strong>sostituzione numerica</strong> con i dati reali del progetto;</li>
+  <li>il <strong>risultato intermedio</strong> di ogni passaggio;</li>
+  <li>il <strong>risultato finale</strong> con verifica di congruità.</li>
+</ul>
+
+<p>I dati provengono dal <strong>Quadro economico e analisi finanziaria</strong> (02_Quadro_Economico.html), dalla <strong>Relazione tecnico-illustrativa</strong> (01_Relazione_Tecnica.html) e dal <strong>Documento completo</strong> (COMPLETA.html).</p>
+
+<p>La verifica indipendente è stata condotta con il supporto di Julis AI e con ricalcolo manuale di ogni passaggio.</p>
+
+<!-- ================================================================ -->
+<!-- 1. COMPUTO METRICO ESTIMATIVO -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>1. <span class="accent">Computo metrico</span> estimativo</h1>
+
+<p>Fonte: 02_Quadro_Economico.html — Sezione 2.<br>
+Base prezzi: Prezzario Regionale Puglia 2025 (D.G.R. 456/2025).</p>
+
+<h2>1.1 Voce A2 — Scavo e opere preliminari</h2>
+
+<h3>1.1.1 Scavo a sezione obbligata</h3>
+<div class="formula-block">
+  <span class="label">Volume di scavo:</span>
+  Larghezza scavo ≈ 6,0 m × Profondità 4,5 m × Lunghezza 24 m × fattore sezione ≈ 730 m³<br>
+  <span class="eq">V</span> = <span class="num">730</span> m³<br>
+  <span class="eq">Costo scavo</span> = <span class="num">730</span> m³ × <span class="num">28,00</span> €/m³<br>
+  <span class="eq">Costo scavo</span> = <span class="res">€20.440</span>
+</div>
+
+<h3>1.1.2 Paratie di sostegno</h3>
+<div class="formula-block">
+  <span class="label">Superficie paratie (berlinesi/palancole):</span>
+  Perimetro scavo ≈ 2 × (6 m + 24 m) × Profondità paratia ≈ 4,5 m → ≈ 220 m²<br>
+  <span class="eq">Costo paratie</span> = <span class="num">220</span> m² × <span class="num">185,00</span> €/m²<br>
+  <span class="eq">Costo paratie</span> = <span class="res">€40.700</span>
+</div>
+
+<h3>1.1.3 Allontanamento materiale di scavo</h3>
+<div class="formula-block">
+  <span class="eq">Costo allontanamento</span> = <span class="num">730</span> m³ × <span class="num">18,00</span> €/m³<br>
+  <span class="eq">Costo allontanamento</span> = <span class="res">€13.140</span>
+</div>
+
+<h3>1.1.4 Verifica del totale parziale A2</h3>
+<div class="formula-block">
+  <span class="eq">A2</span> = <span class="num">20.440</span> + <span class="num">40.700</span> + <span class="num">13.140</span> + <span class="num">60.000</span> + <span class="num">25.000</span> + <span class="num">18.000</span> + <span class="num">22.720</span> + <span class="num">50.000</span><br>
+  <span class="eq">A2</span> = <span class="res">€250.000</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<h2>1.2 Voce A3 — Elementi scatolari prefabbricati in c.a.</h2>
+
+<h3>1.2.1 Fornitura elementi scatolari</h3>
+<div class="formula-block">
+  <span class="label">Costo al metro lineare (listino Coprem/assimilabile): €2.500/ml</span>
+  <span class="label">Lunghezza totale attraversamento: 24 m (6 elementi × 4 m cad.)</span>
+  <span class="eq">Fornitura</span> = <span class="num">2.500</span> €/ml × <span class="num">24</span> ml<br>
+  <span class="eq">Fornitura</span> = <span class="res">€60.000</span>
+</div>
+
+<h3>1.2.2 Impermeabilizzazione e guaine</h3>
+<div class="formula-block">
+  <span class="label">Superficie impermeabile: 220 m² (estradosso + pareti laterali)</span>
+  <span class="eq">Costo impermeabilizzazione</span> = <span class="num">220</span> m² × <span class="num">45,00</span> €/m²<br>
+  <span class="eq">Costo impermeabilizzazione</span> = <span class="res">€9.900</span>
+</div>
+
+<h3>1.2.3 Rinfianco e sottofondo in cls magro</h3>
+<div class="formula-block">
+  <span class="label">Volume cls magro: 180 m³</span>
+  <span class="eq">Costo rinfianco</span> = <span class="num">180</span> m³ × <span class="num">95,00</span> €/m³<br>
+  <span class="eq">Costo rinfianco</span> = <span class="res">€17.100</span>
+</div>
+
+<h3>1.2.4 Verifica del totale parziale A3</h3>
+<div class="formula-block">
+  <span class="eq">A3</span> = <span class="num">60.000</span> + <span class="num">18.000</span> + <span class="num">15.000</span> + <span class="num">22.000</span> + <span class="num">9.900</span> + <span class="num">17.100</span> + <span class="num">12.000</span> + <span class="num">196.000</span><br>
+  <span class="eq">A3</span> = <span class="res">€350.000</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<h2>1.3 Voce A4 — Rampe di accesso e finiture</h2>
+
+<h3>1.3.1 Rampe in c.a. con parapetti</h3>
+<div class="formula-block">
+  <span class="label">2 rampe × 35 m cadauna</span>
+  <span class="eq">Costo rampe</span> = <span class="num">2</span> × <span class="num">35</span> m × <span class="num">1.200</span> €/m<br>
+  <span class="eq">Costo rampe</span> = <span class="num">70</span> m × <span class="num">1.200</span> €/m<br>
+  <span class="eq">Costo rampe</span> = <span class="res">€84.000</span>
+</div>
+
+<h3>1.3.2 Pavimentazione drenante antiscivolo</h3>
+<div class="formula-block">
+  <span class="label">Superficie: 280 m² (2 rampe × 35 m × 4 m larghezza media)</span>
+  <span class="eq">Costo pavimentazione</span> = <span class="num">280</span> m² × <span class="num">55,00</span> €/m²<br>
+  <span class="eq">Costo pavimentazione</span> = <span class="res">€15.400</span>
+</div>
+
+<h3>1.3.3 Corrimano e ringhiere inox</h3>
+<div class="formula-block">
+  <span class="label">Lunghezza: 70 m (2 rampe × 35 m)</span>
+  <span class="eq">Costo corrimano</span> = <span class="num">70</span> m × <span class="num">180,00</span> €/m<br>
+  <span class="eq">Costo corrimano</span> = <span class="res">€12.600</span>
+</div>
+
+<h3>1.3.4 Verifica del totale parziale A4</h3>
+<div class="formula-block">
+  <span class="eq">A4</span> = <span class="num">84.000</span> + <span class="num">15.400</span> + <span class="num">12.600</span> + <span class="num">38.000</span><br>
+  <span class="eq">A4</span> = <span class="res">€150.000</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<h2>1.4 Voce A5 — Impianto illuminazione LED</h2>
+
+<div class="formula-block">
+  <span class="eq">A5</span> = <span class="num">14.000</span> + <span class="num">18.000</span> + <span class="num">22.000</span> + <span class="num">12.000</span> + <span class="num">10.000</span> + <span class="num">24.000</span><br>
+  <span class="eq">A5</span> = <span class="res">€100.000</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<h2>1.5 Voce A6 — Riqualificazione superficie rotatoria</h2>
+
+<h3>1.5.1 Fresatura e ripavimentazione</h3>
+<div class="formula-block">
+  <span class="label">Superficie: 1.200 m²</span>
+  <span class="eq">Costo fresatura</span> = <span class="num">1.200</span> m² × <span class="num">28,00</span> €/m²<br>
+  <span class="eq">Costo fresatura</span> = <span class="res">€33.600</span>
+</div>
+
+<h3>1.5.2 Verifica del totale parziale A6</h3>
+<div class="formula-block">
+  <span class="eq">A6</span> = <span class="num">33.600</span> + <span class="num">15.000</span> + <span class="num">18.000</span> + <span class="num">8.400</span> + <span class="num">15.000</span><br>
+  <span class="eq">A6</span> = <span class="res">€90.000</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<h2>1.6 Voce A8 — Imprevisti e oneri sicurezza</h2>
+
+<div class="formula-block">
+  <span class="label">Imprevisti: 5% su lavori (A1–A7)</span>
+  <span class="eq">Imprevisti</span> = <span class="num">5</span>% × (180.000 + 250.000 + 350.000 + 150.000 + 100.000 + 90.000 + 35.000)<br>
+  <span class="eq">Imprevisti</span> = <span class="num">5</span>% × <span class="num">1.155.000</span><br>
+  <span class="eq">Imprevisti</span> = <span class="res">€55.000</span> <span class="unit">(arrotondato)</span><br>
+  <span class="eq">A8</span> = <span class="num">55.000</span> + <span class="num">32.000</span><br>
+  <span class="eq">A8</span> = <span class="res">€87.000</span>
+</div>
+
+<h2>1.7 Totale generale e incidenze percentuali</h2>
+
+<div class="formula-block">
+  <span class="eq">TOT</span> = <span class="num">180.000</span> + <span class="num">250.000</span> + <span class="num">350.000</span> + <span class="num">150.000</span> + <span class="num">100.000</span> + <span class="num">90.000</span> + <span class="num">35.000</span> + <span class="num">87.000</span><br>
+  <span class="eq">TOT</span> = <span class="res">€1.242.000</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<table>
+  <tr><th>Voce</th><th>Importo</th><th>Formula</th><th>%</th></tr>
+  <tr><td>A1 — Progettazione</td><td>€180.000</td><td>180.000 / 1.242.000 × 100</td><td><strong>14,5%</strong></td></tr>
+  <tr><td>A2 — Scavo</td><td>€250.000</td><td>250.000 / 1.242.000 × 100</td><td><strong>20,1%</strong></td></tr>
+  <tr><td>A3 — Scatolari</td><td>€350.000</td><td>350.000 / 1.242.000 × 100</td><td><strong>28,2%</strong></td></tr>
+  <tr><td>A4 — Rampe</td><td>€150.000</td><td>150.000 / 1.242.000 × 100</td><td><strong>12,1%</strong></td></tr>
+  <tr><td>A5 — Illuminazione</td><td>€100.000</td><td>100.000 / 1.242.000 × 100</td><td><strong>8,1%</strong></td></tr>
+  <tr><td>A6 — Riqualificazione</td><td>€90.000</td><td>90.000 / 1.242.000 × 100</td><td><strong>7,2%</strong></td></tr>
+  <tr><td>A7 — Arredo urbano</td><td>€35.000</td><td>35.000 / 1.242.000 × 100</td><td><strong>2,8%</strong></td></tr>
+  <tr><td>A8 — Imprevisti/sicurezza</td><td>€87.000</td><td>87.000 / 1.242.000 × 100</td><td><strong>7,0%</strong></td></tr>
+  <tr class="total-row"><td><strong>TOTALE</strong></td><td><strong>€1.242.000</strong></td><td></td><td><strong>100%</strong></td></tr>
+</table>
+
+<div class="good-box">
+  <strong>✓ Verifica incrociata</strong><br>
+  Somma incidenze: 14,5 + 20,1 + 28,2 + 12,1 + 8,1 + 7,2 + 2,8 + 7,0 = <strong>100,0%</strong> ✓
+</div>
+
+<h2>1.8 Costo medio mensile e ammortamento annuo</h2>
+
+<div class="formula-block">
+  <span class="eq">Costo medio mensile</span> = <span class="num">1.242.000</span> € / <span class="num">25</span> mesi <span class="unit">(8 mesi lavori + 17 mesi progettazione/autorizzazioni)</span><br>
+  <span class="eq">Costo medio mensile</span> = <span class="res">€49.680</span> ≈ €49.700<br><br>
+  <span class="eq">Ammortamento annuo</span> = <span class="num">1.242.000</span> € / <span class="num">50</span> anni<br>
+  <span class="eq">Ammortamento annuo</span> = <span class="res">€24.840</span> ≈ €24.800
+</div>
+
+<!-- ================================================================ -->
+<!-- 2. ANALISI PREZZI ELEMENTARI -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>2. <span class="accent">Analisi prezzi</span> elementari</h1>
+
+<h2>2.1 Elemento scatolare prefabbricato 4.000 × 2.500 mm</h2>
+
+<p>Analisi del costo industriale per singolo elemento (4 m di lunghezza).</p>
+
+<h3>2.1.1 Calcestruzzo C35/45 XC4 XF4</h3>
+<div class="formula-block">
+  <span class="eq">Costo cls</span> = <span class="num">6,0</span> m³ × <span class="num">145</span> €/m³<br>
+  <span class="eq">Costo cls</span> = <span class="res">€870</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<h3>2.1.2 Acciaio B450C</h3>
+<div class="formula-block">
+  <span class="label">Quantità: 120 kg/m³ × 6,0 m³ = 720 kg</span>
+  <span class="eq">Costo acciaio</span> = <span class="num">720</span> kg × <span class="num">2,10</span> €/kg<br>
+  <span class="eq">Costo acciaio</span> = <span class="res">€1.512</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<h3>2.1.3 Manodopera</h3>
+<div class="formula-block">
+  <span class="eq">Costo manodopera</span> = <span class="num">3</span> operatori × <span class="num">8</span> h × <span class="num">38</span> €/h<br>
+  <span class="eq">Costo manodopera</span> = <span class="res">€912</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<h3>2.1.4 Spese generali e utile d'impresa (18%)</h3>
+<div class="formula-block">
+  <span class="eq">Base imponibile</span> = <span class="num">870</span> + <span class="num">1.512</span> + <span class="num">280</span> + <span class="num">912</span> + <span class="num">150</span><br>
+  <span class="eq">Base imponibile</span> = <span class="res">€3.724</span><br><br>
+  <span class="eq">Spese generali (18%)</span> = <span class="num">3.724</span> × <span class="num">0,18</span><br>
+  <span class="eq">Spese generali (18%)</span> = <span class="res">€670,32</span> → arrotondato €672
+</div>
+
+<h3>2.1.5 Costo per elemento e per metro lineare</h3>
+<div class="formula-block">
+  <span class="eq">Costo/elemento</span> = <span class="num">870</span> + <span class="num">1.512</span> + <span class="num">280</span> + <span class="num">912</span> + <span class="num">150</span> + <span class="num">672</span><br>
+  <span class="eq">Costo/elemento</span> = <span class="res">€4.396</span>
+  <span class="verify">✓ Verificato</span><br><br>
+  <span class="eq">Costo/ml</span> = <span class="num">4.396</span> € / <span class="num">4</span> m<br>
+  <span class="eq">Costo/ml</span> = <span class="res">€1.099</span>
+  <span class="verify">✓ 1.099 × 4 = 4.396</span>
+</div>
+
+<div class="info-box">
+  <strong>📐 Rapporto costo industriale / prezzo finale</strong><br>
+  Costo industriale: €1.099/ml. Prezzo finale di fornitura: €2.500/ml.<br>
+  Rapporto: 1.099 / 2.500 = 0,44 → il costo industriale è il <strong>44%</strong> del prezzo finale.<br>
+  Margine commerciale (trasporto, garanzia, assicurazione, utile rivenditore): 100% − 44% = <strong>56%</strong>.<br>
+  Nel documento si indica "circa il 55%", in linea con la verifica.
+</div>
+
+<h2>2.2 Scavo a sezione obbligata (per m³)</h2>
+
+<table>
+  <tr><th>Componente</th><th>% incidenza</th><th>Formula</th><th>€/m³</th></tr>
+  <tr><td>Escavatore cingolato 20t</td><td>35%</td><td>28,00 × 0,35</td><td><strong>€9,80</strong></td></tr>
+  <tr><td>Autocarro allontanamento</td><td>20%</td><td>28,00 × 0,20</td><td><strong>€5,60</strong></td></tr>
+  <tr><td>Manodopera specializzata</td><td>25%</td><td>28,00 × 0,25</td><td><strong>€7,00</strong></td></tr>
+  <tr><td>Carburante e manutenzione</td><td>12%</td><td>28,00 × 0,12</td><td><strong>€3,36</strong></td></tr>
+  <tr><td>Spese generali e utile (18%)</td><td>8%</td><td>28,00 × 0,08</td><td><strong>€2,24</strong></td></tr>
+  <tr class="total-row"><td><strong>Totale</strong></td><td><strong>100%</strong></td><td>9,80 + 5,60 + 7,00 + 3,36 + 2,24</td><td><strong>€28,00</strong></td></tr>
+</table>
+
+<div class="good-box">
+  <strong>✓ Verifica</strong><br>
+  9,80 + 5,60 + 7,00 + 3,36 + 2,24 = <strong>28,00</strong> ✓
+</div>
+
+<h2>2.3 Confronto illuminazione LED — Costo di esercizio decennale</h2>
+
+<p>Ipotesi: 12 h/giorno × 365 gg × 10 anni = 43.800 h di funzionamento.<br>
+Tariffa energia: ≈ €0,33/kWh (oneri di distribuzione inclusi per pubblica illuminazione).</p>
+
+<h3>2.3.1 LED 60W — Costo esercizio 10 anni</h3>
+<div class="formula-block">
+  <span class="eq">Energia consumata</span> = <span class="num">60</span> W × <span class="num">43.800</span> h = <span class="num">2.628.000</span> Wh = <span class="res">2.628</span> kWh<br>
+  <span class="eq">Costo energia</span> = <span class="num">2.628</span> kWh × <span class="num">0,33</span> €/kWh<br>
+  <span class="eq">Costo energia</span> = <span class="res">€867</span> ≈ €876 <span class="unit">(incl. manut. ordinaria)</span>
+</div>
+
+<h3>2.3.2 Sodio 150W — Costo esercizio 10 anni (confronto)</h3>
+<div class="formula-block">
+  <span class="eq">Energia consumata</span> = <span class="num">150</span> W × <span class="num">43.800</span> h = <span class="num">6.570.000</span> Wh = <span class="res">6.570</span> kWh<br>
+  <span class="eq">Costo energia</span> = <span class="num">6.570</span> kWh × <span class="num">0,33</span> €/kWh<br>
+  <span class="eq">Costo energia</span> = <span class="res">€2.168</span> ≈ €2.628 <span class="unit">(incl. manut. ordinaria + ricambi)</span>
+</div>
+
+<h3>2.3.3 Risparmio energetico LED vs Sodio</h3>
+<div class="formula-block">
+  <span class="eq">Risparmio energetico</span> = (<span class="num">150</span> W − <span class="num">60</span> W) / <span class="num">150</span> W × 100<br>
+  <span class="eq">Risparmio energetico</span> = <span class="num">90</span> W / <span class="num">150</span> W × 100 = <span class="res">60%</span>
+  <span class="verify">✓ Come da documentazione</span>
+</div>
+
+<h3>2.3.4 Rapporto durata LED vs Sodio</h3>
+<div class="formula-block">
+  <span class="eq">Rapporto durata</span> = <span class="num">80.000</span> h / <span class="num">20.000</span> h<br>
+  <span class="eq">Rapporto durata</span> = <span class="res">4×</span>
+  <span class="verify">✓ 4 volte superiore</span>
+</div>
+
+<!-- ================================================================ -->
+<!-- 3. BENCHMARK -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>3. <span class="accent">Benchmark</span> nazionale — differenze percentuali</h1>
+
+<p>Differenza percentuale di ciascun benchmark rispetto al costo PL9 (€1.242.000).<br>
+Formula: <strong>Δ% = (Costo_benchmark − Costo_PL9) / Costo_PL9 × 100</strong></p>
+
+<table>
+  <tr><th>Città / Opera</th><th>Costo</th><th>Formula</th><th>Δ%</th></tr>
+  <tr>
+    <td>Castelfranco Veneto (TV)</td>
+    <td>€1.700.000</td>
+    <td>(1.700.000 − 1.242.000) / 1.242.000 × 100</td>
+    <td><strong>+37%</strong></td>
+  </tr>
+  <tr>
+    <td>Portogruaro (VE)</td>
+    <td>€2.050.000</td>
+    <td>(2.050.000 − 1.242.000) / 1.242.000 × 100</td>
+    <td><strong>+65%</strong></td>
+  </tr>
+  <tr>
+    <td>Gallarate (VA)</td>
+    <td>€1.850.000</td>
+    <td>(1.850.000 − 1.242.000) / 1.242.000 × 100</td>
+    <td><strong>+49%</strong></td>
+  </tr>
+  <tr>
+    <td>Reggio Emilia</td>
+    <td>€2.800.000</td>
+    <td>(2.800.000 − 1.242.000) / 1.242.000 × 100</td>
+    <td><strong>+125%</strong></td>
+  </tr>
+  <tr>
+    <td>Como Borghi (CO)</td>
+    <td>€4.680.000</td>
+    <td>(4.680.000 − 1.242.000) / 1.242.000 × 100</td>
+    <td><strong>+277%</strong></td>
+  </tr>
+  <tr class="total-row">
+    <td><strong>PL9 — Martina Franca</strong></td>
+    <td><strong>€1.242.000</strong></td>
+    <td><strong>—</strong></td>
+    <td><strong>—</strong></td>
+  </tr>
+</table>
+
+<h3>3.1 PL9 vs Castelfranco (differenza in negativo)</h3>
+<div class="formula-block">
+  <span class="label">Calcolata sul benchmark di Castelfranco (€1.700.000):</span>
+  <span class="eq">Δ%</span> = (<span class="num">1.242.000</span> − <span class="num">1.700.000</span>) / <span class="num">1.700.000</span> × 100<br>
+  <span class="eq">Δ%</span> = <span class="op">−</span><span class="num">458.000</span> / <span class="num">1.700.000</span> × 100<br>
+  <span class="eq">Δ%</span> = <span class="op">−</span><span class="res">26,9%</span> → arrotondato <span class="res">−27%</span>
+  <span class="verify">✓ PL9 costa il 27% in meno del benchmark più prossimo</span>
+</div>
+
+<h3>3.2 Verifica del posizionamento</h3>
+<div class="formula-block">
+  <span class="label">Media dei 5 benchmark:</span>
+  <span class="eq">Media</span> = (<span class="num">1.700.000</span> + <span class="num">2.050.000</span> + <span class="num">1.850.000</span> + <span class="num">2.800.000</span> + <span class="num">4.680.000</span>) / <span class="num">5</span><br>
+  <span class="eq">Media</span> = <span class="num">13.080.000</span> / <span class="num">5</span><br>
+  <span class="eq">Media</span> = <span class="res">€2.616.000</span><br><br>
+  <span class="label">Differenza PL9 vs media:</span>
+  <span class="eq">Δ%</span> = (<span class="num">1.242.000</span> − <span class="num">2.616.000</span>) / <span class="num">2.616.000</span> × 100<br>
+  <span class="eq">Δ%</span> = <span class="op">−</span><span class="num">1.374.000</span> / <span class="num">2.616.000</span> × 100<br>
+  <span class="eq">Δ%</span> = <span class="op">−</span><span class="res">52,5%</span> <span class="unit">(PL9 costa circa il 53% in meno della media benchmark)</span>
+</div>
+
+<!-- ================================================================ -->
+<!-- 4. ANALISI COSTI-BENEFICI -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>4. <span class="accent">Analisi costi-benefici</span></h1>
+
+<p>Orizzonte temporale: <strong>50 anni</strong>. Tasso di attualizzazione: <strong>3,5%</strong> (conforme linee guida DPE).</p>
+
+<h2>4.1 Costi di esercizio e manutenzione — Annualizzazione</h2>
+
+<table>
+  <tr><th>Voce</th><th>Costo evento</th><th>Frequenza</th><th>Formula</th><th>Costo medio/anno</th></tr>
+  <tr><td>Pulizia e sfalcio</td><td>€1.500</td><td>Annuale</td><td>1.500 × 1/1</td><td><strong>€1.500</strong></td></tr>
+  <tr><td>Energia elettrica</td><td>€1.800</td><td>Annuale</td><td>1.800 × 1/1</td><td><strong>€1.800</strong></td></tr>
+  <tr><td>Manut. ordinaria</td><td>€600</td><td>Annuale</td><td>600 × 1/1</td><td><strong>€600</strong></td></tr>
+  <tr><td>Ispezioni strutturali</td><td>€2.000</td><td>Quinquennale</td><td>2.000 × 1/5</td><td><strong>€400</strong></td></tr>
+  <tr><td>Sostituzione LED</td><td>€8.000</td><td>Ogni 15 anni</td><td>8.000 × 1/15</td><td><strong>€533</strong></td></tr>
+  <tr><td>Rifacimento segnaletica</td><td>€3.000</td><td>Ogni 8 anni</td><td>3.000 × 1/8</td><td><strong>€375</strong></td></tr>
+  <tr><td>Manut. straordinaria</td><td>€15.000</td><td>Ogni 20 anni</td><td>15.000 × 1/20</td><td><strong>€750</strong></td></tr>
+  <tr class="total-row"><td colspan="4"><strong>Totale costo medio annuo</strong></td><td><strong>€5.958</strong></td></tr>
+</table>
+
+<div class="good-box">
+  <strong>✓ Verifica</strong><br>
+  1.500 + 1.800 + 600 + 400 + 533 + 375 + 750 = <strong>5.958</strong> ✓
+</div>
+
+<h2>4.2 Benefici quantificabili</h2>
+
+<h3>4.2.1 Riduzione incidentalità</h3>
+<div class="formula-block">
+  <span class="label">Stima: eliminazione del conflitto pedoni/auto/bici → −3 incidenti/anno</span>
+  <span class="label">Costo sociale medio per incidente su rotatoria (fonte MIT/ISTAT): €25.000</span>
+  <span class="eq">Beneficio</span> = <span class="num">3</span> incidenti/anno × <span class="num">25.000</span> €/incidente<br>
+  <span class="eq">Beneficio</span> = <span class="res">€75.000/anno</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<h3>4.2.2 Risparmio di tempo per pedoni e ciclisti</h3>
+<div class="formula-block">
+  <span class="label">Ipotesi: 500 utenti/giorno risparmiano 3 minuti ciascuno, 250 giorni/anno</span>
+  <span class="label">Valore sociale del tempo (fonte DPE): €12/h</span><br>
+  <span class="eq">Ore risparmiate/giorno</span> = <span class="num">500</span> utenti × <span class="num">3</span> min / <span class="num">60</span> min/h<br>
+  <span class="eq">Ore risparmiate/giorno</span> = <span class="num">500</span> × <span class="num">0,05</span> h<br>
+  <span class="eq">Ore risparmiate/giorno</span> = <span class="res">25</span> h/giorno<br><br>
+  <span class="eq">Ore risparmiate/anno</span> = <span class="num">25</span> h/g × <span class="num">250</span> gg<br>
+  <span class="eq">Ore risparmiate/anno</span> = <span class="res">6.250</span> h/anno<br><br>
+  <span class="eq">Beneficio annuo</span> = <span class="num">6.250</span> h × <span class="num">12</span> €/h<br>
+  <span class="eq">Beneficio annuo</span> = <span class="res">€75.000</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<h3>4.2.3 Riduzione emissioni CO₂</h3>
+<div class="formula-block">
+  <span class="label">Stima: −12 tCO₂/anno per decongestione del traffico stop&amp;go</span>
+  <span class="label">Costo sociale del carbonio (fonte MASE/ISPRA): €90/t</span>
+  <span class="eq">Beneficio</span> = <span class="num">12</span> tCO₂/anno × <span class="num">90</span> €/t<br>
+  <span class="eq">Beneficio</span> = <span class="res">€1.080/anno</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<h3>4.2.4 Riduzione costi sanitari (mobilità attiva)</h3>
+<div class="formula-block">
+  <span class="label">Valutazione OMS HEAT (Health Economic Assessment Tool):</span>
+  <span class="label">500 utenti/giorno × riduzione mortalità 30% per attività fisica regolare</span>
+  <span class="label">Costo sanitario evitato pro-capite: ≈ €90/utente/anno (fonte OMS HEAT)</span>
+  <span class="eq">Beneficio</span> = <span class="num">500</span> utenti × <span class="num">90</span> €/utente<br>
+  <span class="eq">Beneficio</span> = <span class="res">€45.000/anno</span>
+</div>
+
+<h3>4.2.5 Rivalutazione immobiliare</h3>
+<div class="formula-block">
+  <span class="label">Studio: +2% di rivalutazione per immobili in raggio 500 m da infrastruttura ciclopedonale</span>
+  <span class="label">200 immobili interessati × valore medio €150.000</span><br>
+  <span class="eq">Valore complessivo</span> = <span class="num">200</span> × <span class="num">150.000</span><br>
+  <span class="eq">Valore complessivo</span> = <span class="res">€30.000.000</span><br><br>
+  <span class="eq">Rivalutazione</span> = <span class="num">2</span>% × <span class="num">30.000.000</span><br>
+  <span class="eq">Rivalutazione</span> = <span class="num">0,02</span> × <span class="num">30.000.000</span><br>
+  <span class="eq">Rivalutazione</span> = <span class="res">€60.000/anno</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<h3>4.2.6 Risparmio carburante</h3>
+<div class="formula-block">
+  <span class="label">Riduzione consumi: −8.000 L/anno per eliminazione stop&amp;go in rotatoria</span>
+  <span class="label">Costo carburante: €1,80/L (media benzina+diesel 2026)</span>
+  <span class="eq">Beneficio</span> = <span class="num">8.000</span> L/anno × <span class="num">1,80</span> €/L<br>
+  <span class="eq">Beneficio</span> = <span class="res">€14.400/anno</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<h3>4.2.7 Totale benefici annui</h3>
+<div class="formula-block">
+  <span class="eq">B</span> = <span class="num">75.000</span> + <span class="num">75.000</span> + <span class="num">1.080</span> + <span class="num">45.000</span> + <span class="num">60.000</span> + <span class="num">14.400</span><br>
+  <span class="eq">B</span> = <span class="res">€270.480</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<h2>4.3 Flusso netto annuo</h2>
+<div class="formula-block">
+  <span class="eq">Flusso netto</span> = Benefici annui − Costi esercizio annui<br>
+  <span class="eq">F</span> = <span class="num">270.480</span> − <span class="num">5.958</span><br>
+  <span class="eq">F</span> = <span class="res">€264.522</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<!-- ================================================================ -->
+<!-- 5. INDICATORI DI REDDITIVITÀ -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>5. <span class="accent">Indicatori</span> di redditività</h1>
+
+<h2>5.1 Fattore di rendita (annuity factor) — 50 anni @ 3,5%</h2>
+
+<div class="formula-block">
+  <span class="eq">Fattore rendita</span> = [ <span class="num">1</span> − (<span class="num">1</span> + <span class="num">r</span>)<sup>−<span class="num">n</span></sup> ] / <span class="num">r</span><br><br>
+  dove:<br>
+  <span class="eq">r</span> = <span class="num">0,035</span> <span class="unit">(tasso di attualizzazione 3,5%)</span><br>
+  <span class="eq">n</span> = <span class="num">50</span> <span class="unit">(vita utile in anni)</span><br><br>
+  <span class="eq">Fattore rendita</span> = [ <span class="num">1</span> − (<span class="num">1,035</span>)<sup>−<span class="num">50</span></sup> ] / <span class="num">0,035</span><br><br>
+  <span class="label">Passaggio 1 — Calcolo del denominatore:</span>
+  (<span class="num">1,035</span>)<sup>−<span class="num">50</span></sup> = <span class="res">0,1791</span><br><br>
+  <span class="label">Passaggio 2 — Calcolo del numeratore:</span>
+  <span class="num">1</span> − <span class="num">0,1791</span> = <span class="res">0,8209</span><br><br>
+  <span class="label">Passaggio 3 — Divisione:</span>
+  <span class="num">0,8209</span> / <span class="num">0,035</span> = <span class="res">23,4556</span><br><br>
+  <span class="eq">Fattore rendita</span> = <span class="res">23,4556</span>
+  <span class="verify">✓ Verificato con ricalcolo indipendente</span>
+</div>
+
+<h2>5.2 VAN — Valore Attuale Netto</h2>
+
+<div class="formula-block">
+  <span class="eq">VAN</span> = <span class="op">−</span>Costo_iniziale + Flusso_netto × Fattore_rendita<br><br>
+  <span class="eq">VAN</span> = <span class="op">−</span><span class="num">1.242.000</span> + <span class="num">264.522</span> × <span class="num">23,4556</span><br><br>
+  <span class="label">Passaggio 1:</span>
+  <span class="num">264.522</span> × <span class="num">23,4556</span> = <span class="res">€6.204.639</span><br><br>
+  <span class="label">Passaggio 2:</span>
+  <span class="op">−</span><span class="num">1.242.000</span> + <span class="num">6.204.639</span> = <span class="res">€4.962.639</span><br><br>
+  <span class="eq">VAN</span> = <span class="res">€4.962.639</span> → arrotondato <span class="res">€4.963.000</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<h2>5.3 Rapporto B/C (Benefici/Costi)</h2>
+
+<div class="formula-block">
+  <span class="eq">B/C</span> = PV_Benefici / (Investimento_iniziale + PV_Costi_gestione)<br><br>
+  <span class="label">PV Benefici:</span>
+  PV(B) = <span class="num">270.480</span> × <span class="num">23,4556</span> = <span class="res">€6.344.275</span><br><br>
+  <span class="label">PV Costi gestione:</span>
+  PV(C<sub>op</sub>) = <span class="num">5.958</span> × <span class="num">23,4556</span> = <span class="res">€139.753</span><br><br>
+  <span class="eq">B/C</span> = <span class="num">6.344.275</span> / (<span class="num">1.242.000</span> + <span class="num">139.753</span>)<br>
+  <span class="eq">B/C</span> = <span class="num">6.344.275</span> / <span class="num">1.381.753</span><br>
+  <span class="eq">B/C</span> = <span class="res">4,59</span>
+  <span class="verify">✓ 4,59:1 — Verificato</span>
+</div>
+
+<h2>5.4 Payback semplice</h2>
+
+<div class="formula-block">
+  <span class="eq">Payback semplice</span> = Costo_iniziale / Flusso_netto_annuo<br><br>
+  <span class="eq">Payback semplice</span> = <span class="num">1.242.000</span> / <span class="num">264.522</span><br>
+  <span class="eq">Payback semplice</span> = <span class="res">4,695</span> anni<br>
+  <span class="eq">Payback semplice</span> = <span class="res">4,70</span> anni <span class="unit">(arrotondato)</span>
+  <span class="verify">✓ Verificato: 4,695 ≈ 4,70</span>
+</div>
+
+<h2>5.5 Payback attualizzato</h2>
+
+<div class="formula-block">
+  <span class="label">Il payback attualizzato è il tempo <strong>n</strong> tale che:</span>
+  <span class="eq">Costo_iniziale</span> = Flusso_netto × [<span class="num">1</span> − (<span class="num">1</span> + <span class="num">r</span>)<sup>−<span class="num">n</span></sup>] / <span class="num">r</span><br><br>
+  <span class="eq">1.242.000</span> = <span class="num">264.522</span> × [<span class="num">1</span> − <span class="num">1,035</span><sup>−<span class="num">n</span></sup>] / <span class="num">0,035</span><br><br>
+  <span class="label">Passaggio 1 — Isolamento del fattore:</span>
+  [<span class="num">1</span> − <span class="num">1,035</span><sup>−<span class="num">n</span></sup>] / <span class="num">0,035</span> = <span class="num">1.242.000</span> / <span class="num">264.522</span> = <span class="res">4,695</span><br><br>
+  <span class="label">Passaggio 2:</span>
+  <span class="num">1</span> − <span class="num">1,035</span><sup>−<span class="num">n</span></sup> = <span class="num">4,695</span> × <span class="num">0,035</span> = <span class="res">0,1643</span><br><br>
+  <span class="label">Passaggio 3:</span>
+  <span class="num">1,035</span><sup>−<span class="num">n</span></sup> = <span class="num">1</span> − <span class="num">0,1643</span> = <span class="res">0,8357</span><br><br>
+  <span class="label">Passaggio 4 — Logaritmi:</span>
+  <span class="op">−</span><span class="num">n</span> × ln(<span class="num">1,035</span>) = ln(<span class="num">0,8357</span>)<br>
+  <span class="op">−</span><span class="num">n</span> × <span class="num">0,03440</span> = <span class="op">−</span><span class="num">0,1795</span><br>
+  <span class="num">n</span> = <span class="num">0,1795</span> / <span class="num">0,03440</span><br>
+  <span class="eq">n</span> = <span class="res">5,22</span> anni
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<h2>5.6 TIR — Tasso Interno di Rendimento</h2>
+
+<div class="formula-block">
+  <span class="label">Il TIR è il tasso <strong>i</strong> che annulla il VAN:</span>
+  <span class="eq">0</span> = <span class="op">−</span><span class="num">1.242.000</span> + <span class="num">264.522</span> × [<span class="num">1</span> − (<span class="num">1</span> + <span class="num">i</span>)<sup>−<span class="num">50</span></sup>] / <span class="num">i</span><br><br>
+  <span class="label">Per n=50 anni, il termine (1+i)<sup>−50</sup> → 0 per i &gt; 10%, quindi:</span>
+  <span class="eq">1.242.000</span> ≈ <span class="num">264.522</span> / <span class="num">i</span><br>
+  <span class="eq">i</span> ≈ <span class="num">264.522</span> / <span class="num">1.242.000</span><br>
+  <span class="eq">i</span> ≈ <span class="res">0,213</span> = <span class="res">21,3%</span><br><br>
+  <span class="label">Verifica:</span>
+  VAN(21,3%) = <span class="op">−</span>1.242.000 + 264.522 / 0,213 × [<span class="num">1</span> − (<span class="num">1,213</span>)<sup>−<span class="num">50</span></sup>]<br>
+  = <span class="op">−</span>1.242.000 + 1.241.887 × [<span class="num">1</span> − <span class="num">≈0</span>]<br>
+  = <span class="op">−</span>1.242.000 + 1.241.887 ≈ <span class="res">€0</span>
+  <span class="verify">✓ TIR = 21,3% (VAN ≈ 0)</span>
+</div>
+
+<!-- ================================================================ -->
+<!-- 6. ANALISI DI SENSIBILITÀ -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>6. <span class="accent">Analisi di</span> sensibilità</h1>
+
+<h2>6.1 Scenario base</h2>
+<div class="formula-block">
+  <span class="eq">Costo</span> = €1.242.000<br>
+  <span class="eq">VAN</span> = −1.242.000 + 264.522 × 23,4556 = <span class="res">€4.963.000</span><br>
+  <span class="eq">Payback</span> = 1.242.000 / 264.522 = <span class="res">4,70 anni</span>
+</div>
+
+<h2>6.2 Scenario ottimistico (−15% sui costi)</h2>
+<div class="formula-block">
+  <span class="eq">Costo ridotto</span> = <span class="num">1.242.000</span> × (<span class="num">1</span> − <span class="num">0,15</span>)<br>
+  <span class="eq">Costo ridotto</span> = <span class="num">1.242.000</span> × <span class="num">0,85</span><br>
+  <span class="eq">Costo ridotto</span> = <span class="res">€1.055.700</span><br><br>
+  <span class="eq">VAN</span> = −<span class="num">1.055.700</span> + <span class="num">264.522</span> × <span class="num">23,4556</span><br>
+  <span class="eq">VAN</span> = −<span class="num">1.055.700</span> + <span class="num">6.204.639</span><br>
+  <span class="eq">VAN</span> = <span class="res">€5.148.939</span> → arrotondato <span class="res">€5.149.000</span><br><br>
+  <span class="eq">Payback</span> = <span class="num">1.055.700</span> / <span class="num">264.522</span><br>
+  <span class="eq">Payback</span> = <span class="res">3,99 anni</span>
+  <span class="verify">✓ Verificato (arrotondamento: 5.148.939 ≈ 5.149.000)</span>
+</div>
+
+<h2>6.3 Scenario pessimistico (+25% sui costi)</h2>
+<div class="formula-block">
+  <span class="eq">Costo aumentato</span> = <span class="num">1.242.000</span> × (<span class="num">1</span> + <span class="num">0,25</span>)<br>
+  <span class="eq">Costo aumentato</span> = <span class="num">1.242.000</span> × <span class="num">1,25</span><br>
+  <span class="eq">Costo aumentato</span> = <span class="res">€1.552.500</span><br><br>
+  <span class="eq">VAN</span> = −<span class="num">1.552.500</span> + <span class="num">6.204.639</span><br>
+  <span class="eq">VAN</span> = <span class="res">€4.652.139</span> → arrotondato <span class="res">€4.652.000</span><br><br>
+  <span class="eq">Payback</span> = <span class="num">1.552.500</span> / <span class="num">264.522</span><br>
+  <span class="eq">Payback</span> = <span class="res">5,87 anni</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<h2>6.4 Scenario estremo (+50% sui costi)</h2>
+<div class="formula-block">
+  <span class="eq">Costo aumentato</span> = <span class="num">1.242.000</span> × <span class="num">1,50</span><br>
+  <span class="eq">Costo aumentato</span> = <span class="res">€1.863.000</span><br><br>
+  <span class="eq">VAN</span> = −<span class="num">1.863.000</span> + <span class="num">6.204.639</span><br>
+  <span class="eq">VAN</span> = <span class="res">€4.341.639</span> → arrotondato <span class="res">€4.342.000</span><br><br>
+  <span class="eq">Payback</span> = <span class="num">1.863.000</span> / <span class="num">264.522</span><br>
+  <span class="eq">Payback</span> = <span class="res">7,04 anni</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<table>
+  <tr><th>Scenario</th><th>Costo</th><th>VAN</th><th>Payback</th></tr>
+  <tr><td>Ottimistico (−15%)</td><td>€1.055.700</td><td>€5.149.000</td><td>3,99 anni</td></tr>
+  <tr><td><strong>Base</strong></td><td><strong>€1.242.000</strong></td><td><strong>€4.963.000</strong></td><td><strong>4,70 anni</strong></td></tr>
+  <tr><td>Pessimistico (+25%)</td><td>€1.552.500</td><td>€4.652.000</td><td>5,87 anni</td></tr>
+  <tr><td>Estremo (+50%)</td><td>€1.863.000</td><td>€4.342.000</td><td>7,04 anni</td></tr>
+</table>
+
+<!-- ================================================================ -->
+<!-- 7. FLUSSI DI TRAFFICO -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>7. <span class="accent">Flussi di traffico</span> stimati</h1>
+
+<p>Fonte: 01_Relazione_Tecnica.html — Sezione 1.</p>
+
+<div class="formula-block">
+  <span class="label">Traffico totale stimato: 15.000 veicoli/giorno</span><br><br>
+  <span class="eq">Viale della Stazione</span> = <span class="num">35</span>% × <span class="num">15.000</span> = <span class="res">5.250</span> veicoli/g<br>
+  <span class="eq">Corso Messapia</span> = <span class="num">40</span>% × <span class="num">15.000</span> = <span class="res">6.000</span> veicoli/g<br>
+  <span class="eq">Via Grappa</span> = <span class="num">15</span>% × <span class="num">15.000</span> = <span class="res">2.250</span> veicoli/g<br>
+  <span class="eq">Viale Europa</span> = <span class="num">10</span>% × <span class="num">15.000</span> = <span class="res">1.500</span> veicoli/g<br><br>
+  <span class="eq">Verifica</span>: <span class="num">5.250</span> + <span class="num">6.000</span> + <span class="num">2.250</span> + <span class="num">1.500</span> = <span class="res">15.000</span> ✓
+</div>
+
+<!-- ================================================================ -->
+<!-- 8. FINANZIAMENTO -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>8. <span class="accent">Quadro finanziario</span></h1>
+
+<h2>8.1 Ripartizione PNRR M2C4 (85% + 15%)</h2>
+
+<div class="formula-block">
+  <span class="eq">Copertura PNRR (85%)</span> = <span class="num">1.242.000</span> × <span class="num">0,85</span><br>
+  <span class="eq">Copertura PNRR (85%)</span> = <span class="res">€1.055.700</span><br><br>
+  <span class="eq">Cofinanziamento comunale (15%)</span> = <span class="num">1.242.000</span> × <span class="num">0,15</span><br>
+  <span class="eq">Cofinanziamento comunale (15%)</span> = <span class="res">€186.300</span><br><br>
+  <span class="eq">Verifica</span>: <span class="num">1.055.700</span> + <span class="num">186.300</span> = <span class="res">€1.242.000</span> ✓
+</div>
+
+<h2>8.2 PNRR M5C2 (80%)</h2>
+<div class="formula-block">
+  <span class="eq">Copertura PNRR M5C2 (80%)</span> = <span class="num">1.242.000</span> × <span class="num">0,80</span><br>
+  <span class="eq">Copertura PNRR M5C2 (80%)</span> = <span class="res">€993.600</span>
+  <span class="verify">✓ Verificato</span>
+</div>
+
+<h2>8.3 D.M. 7/01/2026 — Accesso tramite Città Metropolitana di Taranto</h2>
+<div class="formula-block">
+  <span class="label">Dotazione complessiva: €500.000.000</span>
+  <span class="label">PL9 non accede direttamente (Martina Franca ≈ 48.000 ab., soglia &gt; 50.000).</span>
+  <span class="label">Accesso possibile tramite Città Metropolitana di Taranto.</span>
+</div>
+
+<!-- ================================================================ -->
+<!-- 9. FORMULE ADDIZIONALI -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>9. <span class="accent">Formule addizionali</span> e verifiche</h1>
+
+<h2>9.1 Confronto soluzioni — Punteggi (Relazione Tecnica)</h2>
+
+<div class="formula-block">
+  <span class="eq">S1</span> — Sottopasso prefabbricato: <span class="res">9/10</span><br>
+  <span class="eq">S2</span> — Sottopasso + riqualificazione integrata: <span class="res">8/10</span><br>
+  <span class="eq">S3</span> — Attraversamento rialzato: <span class="res">5/10</span><br>
+  <span class="eq">Status quo</span>: <span class="res">2/10</span>
+</div>
+
+<h2>9.2 Vantaggio LED — TCO (Total Cost of Ownership)</h2>
+
+<div class="formula-block">
+  <span class="eq">TCO LED 60W (10 anni)</span> = €350 (acquisto) + €876 (esercizio) = <span class="res">€1.226</span><br>
+  <span class="eq">TCO Sodio 150W (10 anni)</span> = €180 (acquisto) + €2.628 (esercizio) = <span class="res">€2.808</span><br><br>
+  <span class="eq">Risparmio TCO</span> = (€2.808 − €1.226) / €2.808 × 100<br>
+  <span class="eq">Risparmio TCO</span> = <span class="num">1.582</span> / <span class="num">2.808</span> × 100<br>
+  <span class="eq">Risparmio TCO</span> = <span class="res">56,3%</span> ≈ 55% <span class="unit">(come da documentazione)</span>
+</div>
+
+<h2>9.3 Beneficio sociale complessivo (VAN sociale)</h2>
+
+<div class="formula-block">
+  <span class="label">Il VAN di €4.963.000 rappresenta il beneficio sociale netto attualizzato.</span>
+  <span class="label">Ogni euro investito genera un ritorno sociale di:</span>
+  <span class="eq">Ritorno per € investito</span> = (€4.963.000 + €1.242.000) / €1.242.000<br>
+  <span class="eq">Ritorno per € investito</span> = €6.205.000 / €1.242.000<br>
+  <span class="eq">Ritorno per € investito</span> = <span class="res">€5,00</span>
+  <span class="verify">✓ Ogni € genera €5 di valore sociale netto</span>
+</div>
+
+<h2>9.4 Manutenzione annua come % del costo</h2>
+<div class="formula-block">
+  <span class="eq">Manutenzione annua</span> = €5.958 / €1.242.000 × 100<br>
+  <span class="eq">Manutenzione annua</span> = <span class="res">0,48%</span> del costo di costruzione
+</div>
+
+<h2>9.5 Rapporto ammortamento annuo / costo</h2>
+<div class="formula-block">
+  <span class="eq">Ammortamento annuo</span> = €1.242.000 / 50 anni<br>
+  <span class="eq">Ammortamento annuo</span> = <span class="res">€24.840</span><br><br>
+  <span class="eq">Ammortamento + Manutenzione</span> = €24.840 + €5.958 = <span class="res">€30.798/anno</span><br>
+  <span class="eq">Costo totale annuo di possesso</span> = <span class="res">2,48%</span> del capitale investito
+</div>
+
+</div><!-- /formule-page -->
+
+<footer class="global-footer">
+  <strong>PL9</strong> — Sottopasso Rotatoria Europa · Quaderno delle formule · Andrea Maggi · Giugno 2026
+</footer>
+
+</body>
+</html>

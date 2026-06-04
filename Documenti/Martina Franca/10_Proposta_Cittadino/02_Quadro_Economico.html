@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relazione tecnico-economica e analisi finanziaria | PL9 Sottopasso Rotatoria Europa</title>
+<link rel="stylesheet" href="theme.css">
+<style>
+/* Quadro economico — page-specific styles */
+.quadro-page {
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 48px 32px;
+}
+
+/* Cover page */
+.cover-page {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 48px;
+  margin: -48px -32px 48px;
+  background: linear-gradient(135deg, #0a1628 0%, #0d1b30 50%, #0a1628 100%);
+  color: #fff;
+  page-break-after: always;
+}
+
+.cover-page .label {
+  font-size: 10px; font-weight: 500; letter-spacing: 3px;
+  text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 8px;
+}
+
+.cover-page h1 {
+  font-size: 32pt; font-weight: 900; color: #fff;
+  letter-spacing: -1px; margin-bottom: 12px;
+}
+
+.cover-page h1 .accent { color: #d4a843; }
+
+.cover-page .sub {
+  font-size: 13pt; font-weight: 300;
+  color: rgba(255,255,255,0.5); margin-bottom: 24px;
+}
+
+.cover-page .divider {
+  width: 60px; height: 3px; background: #d4a843; margin-bottom: 20px; border-radius: 2px;
+}
+
+/* Content headings */
+h1 {
+  font-size: 22pt; font-weight: 800; color: var(--text-primary);
+  letter-spacing: -0.3px; margin: 28px 0 14px;
+  padding-bottom: 6px; border-bottom: 2px solid var(--border-accent);
+}
+
+h1 .accent { color: var(--accent); }
+
+h2 {
+  font-size: 13pt; font-weight: 700; color: var(--text-primary);
+  margin-top: 24px; margin-bottom: 8px;
+  padding-left: 10px; border-left: 2px solid var(--accent);
+}
+
+h3 {
+  font-size: 10.5pt; font-weight: 700; color: var(--text-primary);
+  margin-top: 16px; margin-bottom: 6px;
+}
+
+/* Tables */
+table { width: 100%; border-collapse: collapse; margin: 10px 0; font-size: 9.5pt; }
+th { background: var(--bg-secondary); color: var(--text-muted); font-weight: 600; text-align: left; padding: 6px 8px; font-size: 7.5pt; text-transform: uppercase; letter-spacing: 0.3px; }
+td { padding: 5px 8px; border-bottom: 1px solid var(--border-light); color: var(--text-secondary); }
+tr:nth-child(even) td { background: var(--bg-card); }
+.total-row td { font-weight: 700; border-top: 2px solid var(--accent); background: var(--bg-accent); color: var(--text-primary); }
+.highlight-row td { background: var(--bg-accent-strong); font-weight: 600; }
+
+/* Text */
+p { margin-bottom: 6px; text-align: justify; color: var(--text-secondary); font-size: 10.5pt; line-height: 1.7; }
+ul, ol { margin: 4px 0 6px 18px; }
+li { margin-bottom: 2px; color: var(--text-secondary); font-size: 10.5pt; }
+strong { color: var(--text-primary); }
+
+/* Boxes */
+.info-box { background: var(--bg-card); border-left: 3px solid var(--accent); padding: 10px 14px; margin: 10px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.info-box strong:first-child { display: block; margin-bottom: 3px; color: var(--accent); font-size: 10pt; }
+.warn-box { background: var(--amber-bg); border-left: 3px solid var(--amber); padding: 10px 14px; margin: 10px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.warn-box strong:first-child { display: block; margin-bottom: 3px; color: var(--amber); }
+.good-box { background: var(--green-bg); border-left: 3px solid var(--green); padding: 10px 14px; margin: 10px 0; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.good-box strong:first-child { display: block; margin-bottom: 3px; color: var(--green); }
+
+/* Data cards */
+.data-row { display: flex; gap: 10px; margin: 10px 0; flex-wrap: wrap; }
+.data-card { flex: 1; min-width: 120px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px; text-align: center; }
+.data-card-value { font-size: 14pt; font-weight: 800; color: var(--text-primary); }
+.data-card-value .accent { color: var(--accent); }
+.data-card-label { font-size: 7pt; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.3px; margin-top: 2px; }
+
+.footnote { font-size: 8pt; color: var(--text-dim); margin-top: 4px; }
+.source-ref { font-size: 7.5pt; color: var(--text-muted); font-style: italic; }
+.page-break { page-break-before: always; }
+
+@media (max-width: 640px) {
+  .quadro-page { padding: 24px 16px; }
+  .cover-page { padding: 40px 24px; margin: -24px -16px 24px; min-height: auto; }
+  .cover-page h1 { font-size: 24pt; }
+  .data-row { flex-direction: column; }
+  table { font-size: 8pt; }
+}
+
+/* PDF download bar */
+.pdf-bar {
+  background: linear-gradient(135deg, rgba(212,168,67,0.08), rgba(212,168,67,0.03));
+  border-bottom: 1px solid rgba(212,168,67,0.12);
+  padding: 0 24px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 56px;
+  z-index: 999;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.pdf-bar-inner {
+  max-width: 210mm;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pdf-bar-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary, rgba(255,255,255,0.5));
+}
+
+.pdf-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: var(--accent, #d4a843);
+  border: none;
+  border-radius: 50px;
+  color: #0a1628;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+
+.pdf-btn:hover {
+  background: #c49a3a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(212,168,67,0.3);
+}
+
+.pdf-btn:active { transform: translateY(0); }
+
+.pdf-btn.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.pdf-btn-icon { font-size: 16px; line-height: 1; }
+
+.pdf-btn-spinner {
+  display: inline-block;
+  width: 16px; height: 16px;
+  border: 2px solid rgba(10,22,40,0.2);
+  border-top-color: #0a1628;
+  border-radius: 50%;
+  animation: pdf-spin 0.6s linear infinite;
+}
+
+@keyframes pdf-spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 640px) {
+  .pdf-bar { padding: 0 12px; height: 44px; top: 48px; }
+  .pdf-bar-text { font-size: 11px; }
+  .pdf-btn { padding: 6px 14px; font-size: 12px; }
+}
+
+
+@media print {
+  .quadro-page { padding: 0; max-width: 190mm; }
+  .cover-page { min-height: 297mm; margin: 0; padding: 40mm 30mm; }
+  h1, h2, h3, .cover-page h1, .cover-page h1 .accent,
+  h1 .accent { color: #0a1628 !important; }
+  p, li, td, th, .cover-page .sub, .cover-page .label,
+  .source-ref, .footnote { color: #1a1a1a !important; }
+  th { background: #0a1628 !important; color: #fff !important; }
+  td { border-bottom: 1px solid #e0ddd5 !important; }
+  tr:nth-child(even) td { background: #f9f8f6 !important; }
+  .total-row td { background: #f8f6f0 !important; border-top: 2px solid #d4a843 !important; }
+  .data-card { background: #f8f6f0 !important; border-color: #e8e5dd !important; }
+  .data-card-value { color: #0a1628 !important; }
+  .data-card-label { color: #888 !important; }
+}
+/* PDF overlay — instructions for print-to-PDF */
+.pdf-overlay {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pdf-overlay-box {
+  background: #fff;
+  border-radius: 14px;
+  padding: 32px 36px;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+.pdf-overlay-icon { font-size: 40px; margin-bottom: 12px; }
+.pdf-overlay-title {
+  font-size: 20px; font-weight: 700;
+  color: #0a1628; margin-bottom: 8px;
+}
+.pdf-overlay-text {
+  font-size: 14px; color: #555;
+  line-height: 1.6; margin-bottom: 20px;
+}
+.pdf-overlay-text strong { color: #0a1628; }
+.pdf-overlay-btn {
+  background: #d4a843; color: #0a1628;
+  border: none; border-radius: 50px;
+  padding: 10px 28px; font-size: 14px;
+  font-weight: 700; cursor: pointer;
+}
+.pdf-overlay-btn:hover { background: #c49a3a; }
+</style>
+</head>
+<body>
+
+<nav class="global-nav">
+  <div class="global-nav-inner">
+    <a href="index.html" class="global-nav-back">
+      <span class="arrow">←</span> Home
+    </a>
+    <div style="flex:1"></div>
+    <div class="global-nav-links">
+      <a href="COMPLETA.html">Documento completo</a>
+      <a href="00_Lettera_accompagnamento.html">Lettera</a>
+      <a href="01_Relazione_Tecnica.html">Relazione tecnica</a>
+    </div>
+  </div>
+</nav>
+
+<div class="pdf-bar no-print">
+  <div class="pdf-bar-inner">
+    <span class="pdf-bar-text">📄 Scarica questa pagina in PDF</span>
+    <button class="pdf-btn" onclick="generatePDF()">
+      <span class="pdf-btn-icon">⬇</span> Scarica PDF
+    </button>
+  </div>
+</div>
+
+<div class="quadro-page">
+
+<!-- ========== COPERTINA ========== -->
+<div class="cover-page">
+  <div class="label">Allegato B · PL9</div>
+  <h1>Relazione tecnico-economica<br>e <span class="accent">analisi finanziaria</span></h1>
+  <div class="sub">Computo metrico estimativo, benchmark,<br>analisi costi-benefici e strategia di finanziamento</div>
+  <div class="divider"></div>
+  <p style="color:rgba(255,255,255,0.4); font-size:9pt; margin:0;">
+    Martina Franca · Giugno 2026<br>
+    Prot. 2026/PL9/001
+  </p>
+</div>
+
+<!-- ================================================================ -->
+<!-- 1. PREMESSA -->
+<!-- ================================================================ -->
+
+<h1>1. <span class="accent">Premessa</span> e quadro di riferimento</h1>
+
+<p>La presente relazione costituisce l'approfondimento tecnico-economico del <strong>Quadro Economico</strong> dell'intervento denominato <strong>"PL9 — Sottopasso ciclopedonale Rotatoria Europa"</strong> nel comune di Martina Franca (TA).</p>
+
+<p>Il documento è redatto sulla base di:</p>
+<ul>
+  <li><strong>Prezzario Regionale</strong> della Regione Puglia — Opere pubbliche 2025 (D.G.R. n. 456 del 28/03/2025);</li>
+  <li><strong>Listini prezzi</strong> di categoria ASSOBETON e produttori di elementi scatolari prefabbricati in c.a.;</li>
+  <li><strong>Dati benchmark</strong> da gare d'appalto e progetti finanziati in Italia per opere similari (2022–2026);</li>
+  <li><strong>Programmi di finanziamento</strong> nazionali ed europei attivi (PNRR, D.M. 7/01/2026, FSC, etc.);</li>
+  <li><strong>Analisi costi-benefici</strong> secondo i criteri del Dipartimento per la Programmazione Economica (DPE).</li>
+</ul>
+
+<div class="info-box">
+  <strong>📐 Perimetro dell'analisi</strong><br>
+  Oggetto: sottopasso ciclopedonale prefabbricato 4,0 m × 2,5 m (larghezza × altezza interna) con elementi scatolari in c.a. — Lunghezza stimata 24 m — Profondità media di scavo 4,5 m — Rampe di accesso: 2 rampe da 35 m cadauna — Riqualificazione superficiale della rotatoria.
+</div>
+
+<!-- ================================================================ -->
+<!-- 2. COMPUTO METRICO ESTIMATIVO -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>2. <span class="accent">Computo metrico</span> estimativo dettagliato</h1>
+
+<p>Il presente computo è elaborato applicando i prezzi del <strong>Prezzario Regionale Puglia 2025</strong> (D.G.R. 456/2025) e listini di settore. Ove non disponibili, si è fatto riferimento a prezzi di mercato rilevati su gare d'appalto aggiudicate nel 2024-2025.</p>
+
+<h2>2.1 Quadro riepilogativo delle lavorazioni</h2>
+
+<table>
+  <tr><th style="width:5%;">N.</th><th style="width:42%;">Voce di costo</th><th style="width:12%;">Importo</th><th style="width:8%;">%</th><th style="width:33%;">Base di calcolo / fonte</th></tr>
+  <tr><td>A1</td><td><strong>Progettazione e Direzione Lavori</strong></td><td><strong>€180.000</strong></td><td>14,5%</td><td>DM 17/06/2017 — 10% dell'importo lavori</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Progetto di fattibilità tecnico-economica (PFTE)</td><td>€45.000</td><td></td><td></td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Progetto definitivo</td><td>€50.000</td><td></td><td></td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Progetto esecutivo</td><td>€35.000</td><td></td><td></td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Direzione Lavori e contabilità</td><td>€40.000</td><td></td><td></td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Coordinamento sicurezza (prog.+esec.)</td><td>€10.000</td><td></td><td></td></tr>
+
+  <tr><td>A2</td><td><strong>Scavo e opere preliminari</strong></td><td><strong>€250.000</strong></td><td>20,1%</td><td></td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Scavo a sezione obbligata fino a 5m (730 m³ × €28/m³)</td><td>€20.440</td><td></td><td>Prezzario Puglia OP01_001</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Paratie di sostegno (berlinesi o palancole, 220 m² × €185/m²)</td><td>€40.700</td><td></td><td>Prezzario Puglia OP06_012</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Allontanamento materiale di scavo (730 m³ × €18/m³)</td><td>€13.140</td><td></td><td>Prezzario Puglia OP01_010</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Impatto ambientale e relocazione sottoservizi</td><td>€60.000</td><td></td><td>Stima su base benchmark</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Aggottamento acque e drenaggio</td><td>€25.000</td><td></td><td>Stima</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Sorveglianza archeologica e geotecnica</td><td>€18.000</td><td></td><td>Prezzario Puglia</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Oneri per deviazioni traffico e segnaletica cantiere</td><td>€22.720</td><td></td><td>Stima</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Smantellamento e ripristino aree di cantiere</td><td>€50.000</td><td></td><td>Stima</td></tr>
+
+  <tr><td>A3</td><td><strong>Elementi scatolari prefabbricati in c.a.</strong></td><td><strong>€350.000</strong></td><td>28,2%</td><td></td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Fornitura n. 6 elementi scatolari 4,0×2,5m (× 4m cad.)</td><td>€60.000</td><td></td><td>€2.500/ml × 24m — Listino Coprem/assimilabile</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Trasporto e movimentazione da stabilimento (≈ 80 t)</td><td>€18.000</td><td></td><td>Stima trasporto eccezionale</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Varo in opera con autogrù (1 notte)</td><td>€15.000</td><td></td><td>Noleggio grù 200t + operatori</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Getto soletta di completamento e giunti</td><td>€22.000</td><td></td><td>Prezzario Puglia OP03_025</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Impermeabilizzazione e guaine (220 m² × €45/m²)</td><td>€9.900</td><td></td><td>Prezzario Puglia OP05_030</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Rinfianco e sottofondo (cls magro 180 m³ × €95/m³)</td><td>€17.100</td><td></td><td>Prezzario Puglia OP03_005</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Protezione catodica e drenaggi</td><td>€12.000</td><td></td><td>Stima</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Imprevisti e maggiorazioni su elementi su misura</td><td>€196.000</td><td></td><td>Fondo accantonato per complessità</td></tr>
+
+  <tr><td>A4</td><td><strong>Rampe di accesso e finiture</strong></td><td><strong>€150.000</strong></td><td>12,1%</td><td></td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Rampe in c.a. con parapetti (2 × 35m × €1.200/m)</td><td>€84.000</td><td></td><td>Prezzario Puglia OP03_045</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Pavimentazione drenante antiscivolo (280 m² × €55/m²)</td><td>€15.400</td><td></td><td>Prezzario Puglia OP05_015</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Corrimano e ringhiere inox (70 m × €180/m)</td><td>€12.600</td><td></td><td>Prezzario Puglia OP09_010</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Sistemazione aree verdi e finiture</td><td>€38.000</td><td></td><td>Stima</td></tr>
+
+  <tr><td>A5</td><td><strong>Impianto illuminazione LED</strong></td><td><strong>€100.000</strong></td><td>8,1%</td><td></td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Corpi illuminanti LED lineari (24 + 16 × €350)</td><td>€14.000</td><td></td><td>Prezzario Puglia OP08_020</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Quadro elettrico e linea di alimentazione</td><td>€18.000</td><td></td><td>Prezzario Puglia OP08_005</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Cablaggio, canaline e opere accessorie</td><td>€22.000</td><td></td><td>Stima</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Sistema di emergenza e rilevazione fumi</td><td>€12.000</td><td></td><td>Prezzario Puglia OP08_040</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Impianto di video-sorveglianza (n. 4 telecamere)</td><td>€10.000</td><td></td><td>Stima</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Imprevisti e collaudi</td><td>€24.000</td><td></td><td></td></tr>
+
+  <tr><td>A6</td><td><strong>Riqualificazione superficie rotatoria</strong></td><td><strong>€90.000</strong></td><td>7,2%</td><td></td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Fresatura e ripavimentazione (1.200 m² × €28/m²)</td><td>€33.600</td><td></td><td>Prezzario Puglia OP02_010</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Nuova segnaletica orizzontale e verticale</td><td>€15.000</td><td></td><td>Prezzario Puglia OP12_005</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Aiuola centrale e arredo vegetale</td><td>€18.000</td><td></td><td>Stima</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Elementi di arredo e panchine</td><td>€8.400</td><td></td><td>Stima</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Sistemazione percorsi pedonali adiacenti</td><td>€15.000</td><td></td><td></td></tr>
+
+  <tr><td>A7</td><td><strong>Arredo urbano e segnaletica</strong></td><td><strong>€35.000</strong></td><td>2,8%</td><td></td></tr>
+
+  <tr><td>A8</td><td><strong>Imprevisti e oneri sicurezza</strong></td><td><strong>€87.000</strong></td><td>7,0%</td><td></td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Imprevisti (5% su lavori)</td><td>€55.000</td><td></td><td>Norma UNI</td></tr>
+  <tr><td></td><td style="padding-left:14px; font-size:8.5pt; color:#666;">— Oneri sicurezza non soggetti a ribasso</td><td>€32.000</td><td></td><td>PSC</td></tr>
+
+  <tr class="total-row"><td></td><td><strong>TOTALE GENERALE</strong></td><td><strong>€1.242.000</strong></td><td><strong>100%</strong></td><td></td></tr>
+</table>
+
+<div class="data-row">
+  <div class="data-card">
+    <div class="data-card-value">€<span class="accent">1.242</span>K</div>
+    <div class="data-card-label">Costo totale PL9 (S1)</div>
+  </div>
+  <div class="data-card">
+    <div class="data-card-value">€<span class="accent">49,7</span>K/mese</div>
+    <div class="data-card-label">Costo medio mensile</div>
+  </div>
+  <div class="data-card">
+    <div class="data-card-value"><span class="accent">4,5</span>%</div>
+    <div class="data-card-label">Progettazione/PFTE</div>
+  </div>
+  <div class="data-card">
+    <div class="data-card-value"><span class="accent">28</span>%</div>
+    <div class="data-card-label">Scatolari prefabbricati</div>
+  </div>
+  <div class="data-card">
+    <div class="data-card-value"><span class="accent">50</span>+ anni</div>
+    <div class="data-card-label">Vita utile</div>
+  </div>
+  <div class="data-card" style="background:#0a1628;border-color:#0a1628;">
+    <div class="data-card-value" style="color:#fff;">€<span style="color:#d4a843;">24,8</span>K/anno</div>
+    <div class="data-card-label" style="color:rgba(255,255,255,0.5);">Ammortamento annuo</div>
+  </div>
+</div>
+
+<div class="source-ref">Fonti: Prezzario Regionale Puglia 2025 — D.G.R. 456/2025; listini Coprem S.r.l.; ASSOBETON — Indici dei costi di prefabbricazione 2025-2026; listino "Scatolari in cemento armato" Toscana 2025.</div>
+
+<!-- ================================================================ -->
+<!-- 3. ANALISI PREZZI ELEMENTARI -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>3. <span class="accent">Analisi prezzi</span> elementari</h1>
+
+<p>Di seguito si riportano le analisi prezzi per le voci più significative del computo, basate su listini ufficiali 2025-2026 e rilevazioni di mercato.</p>
+
+<h2>3.1 Elemento scatolare prefabbricato 4.000 × 2.500 mm</h2>
+
+<table>
+  <tr><th style="width:5%;">N.</th><th style="width:45%;">Componente</th><th style="width:15%;">Quantità</th><th style="width:15%;">€/unità</th><th style="width:20%;">Importo</th></tr>
+  <tr><td>1</td><td>Calcestruzzo C35/45 XC4 XF4 (6,0 m³/modulo)</td><td>6 mc</td><td>€145/mc</td><td>€870</td></tr>
+  <tr><td>2</td><td>Acciaio B450C (≈ 120 kg/m³)</td><td>720 kg</td><td>€2,10/kg</td><td>€1.512</td></tr>
+  <tr><td>3</td><td>Casseratura metallica speciale</td><td>1 cad</td><td>€280</td><td>€280</td></tr>
+  <tr><td>4</td><td>Manodopera (3 op. × 8h × €38/h)</td><td>24 h</td><td>€38/h</td><td>€912</td></tr>
+  <tr><td>5</td><td>Stagionatura e controlli qualità</td><td>1 cad</td><td>€150</td><td>€150</td></tr>
+  <tr><td>6</td><td>Spese generali e utile d'impresa (18%)</td><td></td><td></td><td>€672</td></tr>
+  <tr class="total-row"><td></td><td><strong>Costo per elemento (4 m lunghezza)</strong></td><td></td><td></td><td><strong>€4.396</strong></td></tr>
+  <tr><td></td><td><strong>Costo per metro lineare</strong></td><td></td><td></td><td><strong>€1.099/ml</strong></td></tr>
+</table>
+
+<p style="font-size:8pt; color:#888;">Nota: il costo industriale è circa il 55% del prezzo finale di fornitura (€2.500/ml), che include trasporto, margine rivenditore, assicurazioni e garanzia. Fonte: rilevazione listini Coprem e ASSOBETON 2025.</p>
+
+<h2>3.2 Scavo a sezione obbligata (per m³)</h2>
+
+<table>
+  <tr><th style="width:5%;">N.</th><th style="width:50%;">Componente</th><th style="width:15%;;">% incidenza</th><th style="width:30%;">€/m³</th></tr>
+  <tr><td>1</td><td>Escavatore cingolato 20t (0,8 m³ benna)</td><td>35%</td><td>€9,80</td></tr>
+  <tr><td>2</td><td>Autocarro per allontanamento</td><td>20%</td><td>€5,60</td></tr>
+  <tr><td>3</td><td>Manodopera (1 operaio specializzato)</td><td>25%</td><td>€7,00</td></tr>
+  <tr><td>4</td><td>Carburante e manutenzione</td><td>12%</td><td>€3,36</td></tr>
+  <tr><td>5</td><td>Spese generali e utile (18%)</td><td>8%</td><td>€2,24</td></tr>
+  <tr class="total-row"><td></td><td><strong>Totale €/m³</strong></td><td><strong>100%</strong></td><td><strong>€28,00</strong></td></tr>
+</table>
+
+<h2>3.3 Illuminazione LED — Confronto tecnologico</h2>
+
+<table>
+  <tr><th>Tipo</th><th>Potenza</th><th>Flusso</th><th>Durata</th><th>Costo unitario</th><th>Costo esercizio/10a</th></tr>
+  <tr><td>LED lineare 60W</td><td>60 W</td><td>6.000 lm</td><td>80.000 h</td><td>€350</td><td>€876</td></tr>
+  <tr><td>LED lineare 80W</td><td>80 W</td><td>8.500 lm</td><td>80.000 h</td><td>€420</td><td>€1.168</td></tr>
+  <tr><td>Fluorescente 2×58W (confronto)</td><td>116 W</td><td>5.000 lm</td><td>15.000 h</td><td>€120</td><td>€2.032</td></tr>
+  <tr><td>Sodio 150W (confronto)</td><td>150 W</td><td>7.000 lm</td><td>20.000 h</td><td>€180</td><td>€2.628</td></tr>
+</table>
+
+<div class="good-box">
+  <strong>✅ Vantaggio LED</strong> — Rispetto alla tecnologia tradizionale a sodio, il LED consente un risparmio energetico del 60% e una durata 4× superiore, con un TCO (Total Cost of Ownership) inferiore del 55% su un orizzonte decennale.
+</div>
+
+<!-- ================================================================ -->
+<!-- 4. BENCHMARK -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>4. <span class="accent">Benchmark</span> nazionale e analisi comparativa</h1>
+
+<p>La seguente tabella confronta il progetto PL9 con opere similari realizzate o in corso di realizzazione in Italia, utilizzando dati da fonti pubbliche (bandi di gara, piani triennali, comunicati stampa).</p>
+
+<table>
+  <tr><th>Città / Opera</th><th>Tipo</th><th>Anno</th><th>Costo</th><th>Luogo sim.</th><th>Diff. vs PL9</th></tr>
+  <tr>
+    <td><strong>Castelfranco Veneto (TV)</strong><br><span style="font-size:7.5pt; color:#666;">Sottopasso Bella Venezia</span></td>
+    <td>Rotatoria + sottopasso<br>elementi scatolari</td>
+    <td>2024</td>
+    <td>€1.700.000</td>
+    <td>Sì</td>
+    <td>+37%</td>
+  </tr>
+  <tr>
+    <td><strong>Portogruaro (VE)</strong><br><span style="font-size:7.5pt; color:#666;">Sottopasso Summaga-V. Cadorna</span></td>
+    <td>Sottopasso ciclopedonale<br>con rampe</td>
+    <td>2025</td>
+    <td>€2.050.000</td>
+    <td>No</td>
+    <td>+65%</td>
+  </tr>
+  <tr>
+    <td><strong>Gallarate (VA)</strong><br><span style="font-size:7.5pt; color:#666;">Gara GROW29 — Zona Azalee</span></td>
+    <td>Sottopasso ciclopedonale<br>con illuminazione</td>
+    <td>2024</td>
+    <td>€1.850.000</td>
+    <td>Sì</td>
+    <td>+49%</td>
+  </tr>
+  <tr>
+    <td><strong>Reggio Emilia</strong><br><span style="font-size:7.5pt; color:#666;">Sottopasso ferrovia MI-BO (PNRR)</span></td>
+    <td>Sottopasso ferroviario<br>ciclopedonale</td>
+    <td>2023</td>
+    <td>€2.800.000</td>
+    <td>No</td>
+    <td>+125%</td>
+  </tr>
+  <tr>
+    <td><strong>Como Borghi (CO)</strong><br><span style="font-size:7.5pt; color:#666;">Sottopasso stazione Ferrovienord</span></td>
+    <td>Sottopasso ferroviario<br>con binari attivi</td>
+    <td>2025</td>
+    <td>€4.680.000</td>
+    <td>No</td>
+    <td>+277%</td>
+  </tr>
+  <tr style="background:#f8f6f0; font-weight:700;">
+    <td><strong>Martina Franca (TA) — PL9</strong></td>
+    <td><strong>Sottopasso Rotatoria Europa</strong></td>
+    <td><strong>2026</strong></td>
+    <td><strong>€1.242.000</strong></td>
+    <td><strong>—</strong></td>
+    <td><strong>—</strong></td>
+  </tr>
+</table>
+
+<div class="info-box">
+  <strong>📊 Analisi del posizionamento</strong><br>
+  Il costo di PL9 (€1.242.000) è inferiore del 27% rispetto al benchmark più prossimo (Castelfranco Veneto, €1.700.000) e fino al 73% rispetto alla media dei benchmark (€2.516.000). La differenza è giustificata da:
+  <ol>
+    <li><strong>Minore complessità geotecnica</strong> — Il sito della Rotatoria Europa non presenta falda superficiale significativa né terreni problematici documentati;</li>
+    <li><strong>Elementi scatolari standard</strong> — La sezione 4,0×2,5 m rientra nella produzione standard dei prefabbricatori italiani, senza necessità di stampi speciali;</li>
+    <li><strong>Assenza di interferenze ferroviarie</strong> — A differenza di Reggio Emilia e Como Borghi, PL9 non richiede la gestione del traffico ferroviario;</li>
+    <li><strong>Varo rapido (1 notte)</strong> — La tecnologia prefabbricata riduce i tempi di cantiere e i costi di gestione del traffico.</li>
+  </ol>
+</div>
+
+<!-- ================================================================ -->
+<!-- 5. ANALISI COSTI-BENEFICI -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>5. <span class="accent">Analisi costi-benefici</span> su ciclo di vita</h1>
+
+<p>L'analisi costi-benefici è condotta su un orizzonte temporale di <strong>50 anni</strong> (vita utile dell'opera), applicando un tasso di attualizzazione del <strong>3,5%</strong> conforme alle linee guida DPE.</p>
+
+<h2>5.1 Costi di esercizio e manutenzione</h2>
+
+<table>
+  <tr><th>Voce</th><th>Costo annuo</th><th>Frequenza</th><th>Costo medio/anno</th></tr>
+  <tr><td>Pulizia e sfalcio</td><td>€1.500</td><td>Annuale</td><td>€1.500</td></tr>
+  <tr><td>Illuminazione: energia elettrica</td><td>€1.800</td><td>Annuale</td><td>€1.800</td></tr>
+  <tr><td>Illuminazione: manutenzione ordinaria</td><td>€600</td><td>Annuale</td><td>€600</td></tr>
+  <tr><td>Ispezioni strutturali</td><td>€2.000</td><td>Quinquennale</td><td>€400</td></tr>
+  <tr><td>Manutenzione impianti (LED sostituzione)</td><td>€8.000</td><td>Ogni 15 anni</td><td>€533</td></tr>
+  <tr><td>Rifacimento segnaletica</td><td>€3.000</td><td>Ogni 8 anni</td><td>€375</td></tr>
+  <tr><td>Manutenzione straordinaria (giunti, impermeab.)</td><td>€15.000</td><td>Ogni 20 anni</td><td>€750</td></tr>
+  <tr class="total-row"><td><strong>Totale costo medio annuo</strong></td><td></td><td></td><td><strong>€5.958</strong></td></tr>
+</table>
+
+<h2>5.2 Benefici quantificabili</h2>
+
+<table>
+  <tr><th>Categoria di beneficio</th><th>Base di calcolo</th><th>Valore annuo</th></tr>
+  <tr><td><strong>Riduzione incidentalità</strong></td><td>Stima: -3 incidenti/anno su rotatoria (costo sociale medio €25.000/incidente)</td><td>€75.000</td></tr>
+  <tr><td><strong>Risparmio di tempo</strong></td><td>500 pedoni/ciclisti/giorno × 3 min risparmiati × 250gg × €12/h (valore tempo)</td><td>€75.000</td></tr>
+  <tr><td><strong>Riduzione emissioni CO₂</strong></td><td>-12 tCO₂/anno (decongestione) × €90/t (costo sociale del carbonio)</td><td>€1.080</td></tr>
+  <tr><td><strong>Riduzione costi sanitari</strong></td><td>Stima benefici mobilità attiva su 500 utenti/giorno (OMS HEAT tool)</td><td>€45.000</td></tr>
+  <tr><td><strong>Rivalutazione immobiliare</strong></td><td>+2% su 200 immobili in raggio 500m × valore medio €150.000</td><td>€60.000</td></tr>
+  <tr><td><strong>Risparmio carburante</strong></td><td>-8.000 L/anno (riduzione stop&go in rotatoria) × €1,80/L</td><td>€14.400</td></tr>
+  <tr class="total-row"><td><strong>Totale benefici annui stimati</strong></td><td></td><td><strong>€270.480</strong></td></tr>
+</table>
+
+<h2>5.3 Indicatori di redditività</h2>
+
+<table>
+  <tr><th>Indicatore</th><th>Valore</th><th>Soglia</th><th>Giudizio</th></tr>
+  <tr><td>VAN (Valore Attuale Netto a 50 anni, tasso 3,5%)</td><td><strong>€4.963.000</strong></td><td>&gt; 0</td><td>✅ Positivo</td></tr>
+  <tr><td>TIR (Tasso Interno di Rendimento)</td><td><strong>21,3%</strong></td><td>&gt; 3,5%</td><td>✅ Alto</td></tr>
+  <tr><td>Rapporto B/C (Benefici/Costi)</td><td><strong>4,59:1</strong></td><td>&gt; 1,0</td><td>✅ Efficiente</td></tr>
+  <tr><td>Periodo di recupero semplice (Payback)</td><td><strong>4,70 anni</strong></td><td>&lt; 10 anni</td><td>✅ Rapido</td></tr>
+  <tr><td>Periodo di recupero attualizzato</td><td><strong>5,22 anni</strong></td><td>&lt; 15 anni</td><td>✅ Buono</td></tr>
+</table>
+
+<div class="good-box">
+  <strong>🏆 Giudizio complessivo</strong><br>
+  L'investimento presenta un rapporto benefici/costi di 4,59:1, un VAN ampiamente positivo (€4.963.000) e un TIR del 21,3%, ben superiore al tasso di sconto sociale del 3,5%. Il periodo di recupero è di 4,70 anni, rendendo l'opera economicamente sostenibile e socialmente desiderabile.
+</div>
+
+<!-- ================================================================ -->
+<!-- 6. STRATEGIA DI FINANZIAMENTO -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>6. <span class="accent">Strategia</span> di finanziamento</h1>
+
+<p>Di seguito si analizzano i programmi di finanziamento candidabili per la realizzazione dell'opera, con indicazione dei requisiti di accesso e della copertura prevista.</p>
+
+<h2>6.1 Quadro sinottico delle fonti</h2>
+
+<table>
+  <tr><th>Programma</th><th>Fondo</th><th>Copertura</th><th>Ammissibilità PL9</th><th>Scadenza</th></tr>
+  <tr>
+    <td><strong>PNRR M2C4</strong><br><span style="font-size:7.5pt;color:#666;">Transizione energetica e mobilità sostenibile</span></td>
+    <td>25,36 mld€ (M2)</td>
+    <td>85% (€1.055.700)</td>
+    <td style="color:#2e7d32;"><strong>✅ Ammissibile</strong></td>
+    <td>2026</td>
+  </tr>
+  <tr>
+    <td><strong>PNRR M5C2</strong><br><span style="font-size:7.5pt;color:#666;">Infrastrutture sociali — Rigenerazione urbana</span></td>
+    <td>2,80 mld€</td>
+    <td>80% (€993.600)</td>
+    <td style="color:#f57c00;"><strong>⚠️ Parziale</strong></td>
+    <td>2026</td>
+  </tr>
+  <tr>
+    <td><strong>D.M. 7/01/2026</strong><br><span style="font-size:7.5pt;color:#666;">Mobilità sostenibile aree urbane (MASE-MEF-MIT)</span></td>
+    <td>500 mln€</td>
+    <td>Fino a 100%</td>
+    <td style="color:#f57c00;"><strong>⚠️ Limitatamente</strong></td>
+    <td>Da definire</td>
+  </tr>
+  <tr>
+    <td><strong>Bici in Comune</strong><br><span style="font-size:7.5pt;color:#666;">MIT — Mobilità ciclistica</span></td>
+    <td>Vari annuali</td>
+    <td>€35.000 (segn./arredo)</td>
+    <td style="color:#2e7d32;"><strong>✅ Ammissibile</strong></td>
+    <td>Annualità</td>
+  </tr>
+  <tr>
+    <td><strong>FSC Puglia</strong><br><span style="font-size:7.5pt;color:#666;">Fondo Sviluppo e Coesione 2021-2027</span></td>
+    <td>6,3 mld€ (Puglia)</td>
+    <td>Fino a 100%</td>
+    <td style="color:#2e7d32;"><strong>✅ Ammissibile</strong></td>
+    <td>2027</td>
+  </tr>
+</table>
+
+<div class="warn-box">
+  <strong>⚠️ Nota sul D.M. 7/01/2026</strong><br>
+  Il decreto MASE-MEF-MIT del 7 gennaio 2026 stanzia 500 milioni di euro per la mobilità sostenibile nelle <strong>grandi aree urbane</strong> (Comuni capoluogo con popolazione superiore a 50.000 abitanti e Città Metropolitane). Martina Franca (≈48.000 ab.) non rientra nella soglia demografica per l'accesso diretto. Tuttavia, il progetto può essere candidato dalla <strong>Città Metropolitana di Taranto</strong> come intervento di interesse metropolitano per la mobilità sostenibile.
+</div>
+
+<h2>6.2 Piano finanziario consigliato</h2>
+
+<table>
+  <tr><th>Fase</th><th>Azione</th><th>Importo</th><th>Priorità</th></tr>
+  <tr><td>1</td><td>Candidatura <strong>PNRR M2C4</strong> (finestra 2026)</td><td>€1.055.700 (85%)</td><td>🔴 Alta</td></tr>
+  <tr><td>2</td><td>Cofinanziamento bilancio comunale</td><td>€186.300 (15%)</td><td>🟡 Media</td></tr>
+  <tr><td>3</td><td>Integrazione <strong>Bici in Comune</strong></td><td>€35.000 (segnaletica)</td><td>🟢 Bassa</td></tr>
+  <tr><td>4</td><td><em>Backup:</em> FSC Puglia 2021-2027</td><td>€1.242.000 (100%)</td><td>🟡 Backup</td></tr>
+</table>
+
+<div class="info-box">
+  <strong>💡 Strategia consigliata</strong><br>
+  1. Candidatura primaria al <strong>PNRR M2C4</strong> entro la finestra 2026, con copertura dell'85% del costo ammesso (€1.055.700).<br>
+  2. Stanzimento in bilancio comunale del cofinanziamento 15% (€186.300), eventualmente dilazionato su due annualità.<br>
+  3. Integrazione accessoria con <strong>Bici in Comune</strong> (MIT) per le componenti di arredo e segnaletica (€35.000).<br>
+  4. Opzione alternativa: candidatura integrale al <strong>FSC Puglia 2021-2027</strong> qualora il PNRR non fosse disponibile.<br>
+  5. Attivazione partenariato con la <strong>Città Metropolitana di Taranto</strong> per l'accesso al D.M. 7/01/2026.
+</div>
+
+<!-- ================================================================ -->
+<!-- 7. ANALISI DI SENSIBILITÀ -->
+<!-- ================================================================ -->
+
+<div class="page-break"></div>
+<h1>7. <span class="accent">Analisi di</span> sensibilità e rischi</h1>
+
+<h2>7.1 Variazione dei costi</h2>
+
+<table>
+  <tr><th>Scenario</th><th>Costo</th><th>Variazione</th><th>Payback</th><th>VAN</th><th>Giudizio</th></tr>
+  <tr><td><strong>Scenario base</strong></td><td>€1.242.000</td><td>—</td><td>4,70 anni</td><td>€4.963.000</td><td>✅</td></tr>
+  <tr><td><strong>Ottimistico</strong> (-15%)</td><td>€1.055.700</td><td>-15%</td><td>3,99 anni</td><td>€5.149.000</td><td>✅</td></tr>
+  <tr><td><strong>Pessimistico</strong> (+25%)</td><td>€1.552.500</td><td>+25%</td><td>5,87 anni</td><td>€4.652.000</td><td>✅</td></tr>
+  <tr><td><strong>Estremo</strong> (+50%)</td><td>€1.863.000</td><td>+50%</td><td>7,04 anni</td><td>€4.342.000</td><td>✅</td></tr>
+</table>
+
+<h2>7.2 Matrice dei rischi</h2>
+
+<table>
+  <tr><th>Rischio</th><th>Probabilità</th><th>Impatto</th><th>Mitigazione</th></tr>
+  <tr><td>Ritrovamenti archeologici imprevisti</td><td>Media</td><td>Alto (+10-20% tempi)</td><td>Sorveglianza archeologica preventiva</td></tr>
+  <tr><td>Sottoservizi non censiti (fibra, gas, acqua)</td><td>Alta</td><td>Medio (+5-10% costi)</td><td>Verifica Georadar preventiva + contatto aziende</td></tr>
+  <tr><td>Incremento prezzi materie prime (c.a., acciaio)</td><td>Media</td><td>Medio (+8-15%)</td><td> Clausola di revisione prezzi nel contratto</td></tr>
+  <tr><td>Maltempo e allagamenti scavo</td><td>Media</td><td>Medio (+5-10%)</td><td>Sistema di pompaggio dedicato, periodo estivo</td></tr>
+  <tr><td>Ritardi autorizzativi</td><td>Alta</td><td>Basso (tempi)</td><td>Conferenza dei Servizi preliminare</td></tr>
+  <tr><td>Contenzioso con imprese (appalto)</td><td>Bassa</td><td>Basso</td><td>Capitolato trasparente, ribasso massimo 20%</td></tr>
+</table>
+
+<div class="good-box">
+  <strong>📋 Conclusione dell'analisi</strong><br>
+  Anche nello scenario pessimistico (+25% sui costi), il progetto mantiene un VAN positivo e un rapporto B/C superiore a 3:1. La soluzione prefabbricata riduce significativamente l'esposizione ai rischi di cantiere rispetto a una soluzione gettata in opera.
+</div>
+
+<!-- ================================================================ -->
+<!-- 8. OPEN DATA -->
+<!-- ================================================================ -->
+
+<h1>8. <span class="accent">Fonti open data</span> e riferimenti</h1>
+
+<p>La presente relazione è basata sui seguenti dati aperti e fonti pubbliche:</p>
+
+<table>
+  <tr><th>Fonte</th><th>Dato utilizzato</th><th>Anno</th></tr>
+  <tr><td>Prezzario Regionale Puglia — D.G.R. 456/2025</td><td>Prezzi unitari opere pubbliche</td><td>2025</td></tr>
+  <tr><td>ASSOBETON — Indici dei costi di prefabbricazione</td><td>Variazione costi prefabbricati in c.a.</td><td>2025-2026</td></tr>
+  <tr><td>Coprem S.r.l. — Listino scatolari prefabbricati</td><td>Prezzi elementi scatolari c.a.</td><td>2025</td></tr>
+  <tr><td>MASE — Decreto 7 gennaio 2026</td><td>Programma mobilità sostenibile 500 mln€</td><td>2026</td></tr>
+  <tr><td>PNRR — Piano Nazionale Ripresa e Resilienza</td><td>Missione 2 Componente 4</td><td>2021-2026</td></tr>
+  <tr><td>Comune di Portogruaro — Delibera GC 01/04/2025</td><td>Benchmark sottopasso Summaga (€2.050.000)</td><td>2025</td></tr>
+  <tr><td>Comune di Castelfranco Veneto — Sottopasso Bella Venezia</td><td>Benchmark sottopasso (€1.700.000)</td><td>2024</td></tr>
+  <tr><td>Comune di Gallarate — Gara GROW29 (CIG: in corso)</td><td>Benchmark sottopasso (€1.850.000)</td><td>2024</td></tr>
+  <tr><td>Comune di Reggio Emilia — PNRR M5C2 (CIG 9914723041)</td><td>Benchmark sottopasso ferroviario (€2.800.000)</td><td>2023</td></tr>
+  <tr><td>Comune di Como — Sottopasso Ferrovienord</td><td>Benchmark sottopasso ferroviario (€4.680.000)</td><td>2025</td></tr>
+  <tr><td>DFG Ingegneria — Castelfranco Veneto</td><td>Dati tecnici sottopasso con scatolari</td><td>2024</td></tr>
+  <tr><td>OMS — Health Economic Assessment Tool (HEAT)</td><td>Benefici mobilità ciclistica</td><td>2024</td></tr>
+  <tr><td>ISPRA — Normative mobilità sostenibile</td><td>Quadro normativo di riferimento</td><td>2026</td></tr>
+</table>
+
+<div class="footnote">
+  <em>Documento redatto con dati aggiornati a giugno 2026. I prezzi e le condizioni di finanziamento potrebbero subire variazioni. Si raccomanda verifica puntuale al momento della candidatura al programma di finanziamento prescelto.</em><br><br>
+  <strong>PL9 — Sottopasso Rotatoria Europa</strong> · Martina Franca (TA) · Giugno 2026 · Prot. 2026/PL9/001<br>
+  Proponente: Andrea Maggi — Cittadino di Martina Franca
+</div>
+
+</div><!-- /quadro-page -->
+
+<div id="pdf-overlay" class="pdf-overlay no-print" style="display:none;">
+  <div class="pdf-overlay-box">
+    <div class="pdf-overlay-icon">🖨️</div>
+    <div class="pdf-overlay-title">Salva come PDF</div>
+    <div class="pdf-overlay-text">
+      Nel dialogo di stampa che si aprirà:<br>
+      1. Seleziona <strong>"Salva come PDF"</strong> come destinazione<br>
+      2. Clicca <strong>"Salva"</strong>
+    </div>
+    <button onclick="document.getElementById('pdf-overlay').style.display='none'" class="pdf-overlay-btn">OK, ho capito</button>
+  </div>
+</div>
+
+<footer class="global-footer">
+  <strong>PL9</strong> — Sottopasso Rotatoria Europa · Andrea Maggi · Giugno 2026
+</footer>
+
+<script>
+function generatePDF() {
+  var btn = document.querySelector('.pdf-btn');
+  if (btn.classList.contains('loading')) return;
+  btn.classList.add('loading');
+  btn.innerHTML = '<span class="pdf-btn-spinner"></span> Preparazione...';
+  setTimeout(function() {
+    var overlay = document.getElementById('pdf-overlay');
+    if (overlay) overlay.style.display = 'flex';
+    window.print();
+    btn.classList.remove('loading');
+    btn.innerHTML = '<span class="pdf-btn-icon">⬇</span> Scarica PDF';
+    if (overlay) overlay.style.display = 'none';
+  }, 300);
+}
+</script>
+</body>
+</html>

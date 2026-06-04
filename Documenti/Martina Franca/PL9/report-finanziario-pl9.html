@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Report | PL9 Sottopasso Rotatoria Europa</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --bg:      oklch(99% 0.002 240);
+            --surface: oklch(100% 0 0);
+            --fg:      oklch(18% 0.012 250);
+            --muted:   oklch(54% 0.012 250);
+            --border:  oklch(92% 0.005 250);
+            --accent:  oklch(58% 0.18 255);
+
+            --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+            --font-body:    -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+            --font-mono:    'JetBrains Mono', 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: var(--font-body);
+            line-height: 1.5;
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+            background: var(--surface);
+            padding: 3rem;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+
+        header {
+            border-bottom: 2px solid var(--fg);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .project-id {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 2.25rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-top: 0.5rem;
+        }
+
+        .report-meta {
+            text-align: right;
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .summary-card {
+            padding: 1.5rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+        }
+
+        .summary-card h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .summary-card .value {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .budget-breakdown {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .budget-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed var(--border);
+        }
+
+        .budget-item .label {
+            font-size: 0.9375rem;
+        }
+
+        .budget-item .amount {
+            font-family: var(--font-mono);
+            font-weight: 500;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: 1rem;
+        }
+
+        .timeline-month {
+            font-family: var(--font-mono);
+            font-size: 0.875rem;
+            color: var(--muted);
+        }
+
+        .timeline-desc {
+            font-size: 0.9375rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .metric {
+            text-align: center;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .metric .label {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .metric .value {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        footer {
+            margin-top: 4rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.75rem;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+                border: none;
+                width: 100%;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <span class="project-id">Infrastructure Project PL9</span>
+                <h1>Sottopasso Rotatoria Europa</h1>
+            </div>
+            <div class="report-meta">
+                Financial Report FY 2026<br>
+                Status: Final Proposal
+            </div>
+        </header>
+
+        <section id="executive-summary">
+            <h2>Executive Summary</h2>
+            <p>The PL9 "Sottopasso Rotatoria Europa" is a critical urban infrastructure project designed to alleviate traffic congestion at the Europa roundabout. By constructing a dedicated underpass, the project aims to reduce transit times by 40% and improve local air quality. The total investment of &euro;2.5M represents a strategic allocation of municipal funds towards long-term urban efficiency and safety.</p>
+        </section>
+
+        <section id="project-overview">
+            <div class="grid">
+                <div class="summary-card">
+                    <h3>Total Budget</h3>
+                    <div class="value">&euro; 2,500,000.00</div>
+                </div>
+                <div class="summary-card">
+                    <h3>Timeline</h3>
+                    <div class="value">12 Months</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="financial-breakdown">
+            <h2>Budget Breakdown</h2>
+            <div class="grid">
+                <div class="budget-breakdown">
+                    <div class="budget-item">
+                        <span class="label">Civil Engineering & Construction</span>
+                        <span class="amount">&euro; 1,500,000</span>
+                    </div>
+                    <div class="budget-item">
+                        <span class="label">Utility Relocation & Infrastructure</span>
+                        <span class="amount">&euro; 375,000</span>
+                    </div>
+                    <div class="budget-item">
+                        <span class="label">Design, Supervision & Legal</span>
+                        <span class="amount">&euro; 250,000</span>
+                    </div>
+                    <div class="budget-item">
+                        <span class="label">Contingency Fund (10%)</span>
+                        <span class="amount">&euro; 250,000</span>
+                    </div>
+                    <div class="budget-item">
+                        <span class="label">Safety, Logistics & Misc</span>
+                        <span class="amount">&euro; 125,000</span>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="budgetChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="timeline">
+            <h2>Implementation Timeline</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-month">Month 01</div>
+                    <div class="timeline-desc"><strong>Planning & Mobilization:</strong> Site preparation, permitting, and contractor mobilization.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-month">Month 02–04</div>
+                    <div class="timeline-desc"><strong>Excavation:</strong> Main underpass excavation, shoring works, and utility relocation.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-month">Month 05–09</div>
+                    <div class="timeline-desc"><strong>Structural Phase:</strong> Concrete pouring, waterproofing, and structural reinforcement.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-month">Month 10</div>
+                    <div class="timeline-desc"><strong>Surface Finishing:</strong> Road asphalt, lighting installation, and signage.</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-month">Month 11–12</div>
+                    <div class="timeline-desc"><strong>Testing & Handover:</strong> Structural load testing, landscaping, and official opening.</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="key-metrics">
+            <h2>Key Performance Metrics</h2>
+            <div class="metrics-grid">
+                <div class="metric">
+                    <span class="label">Est. Daily Traffic</span>
+                    <span class="value">25,000+ Vehicles</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Cost / Meter</span>
+                    <span class="value">&euro; 12,500</span>
+                </div>
+                <div class="metric">
+                    <span class="label">Carbon Reduction</span>
+                    <span class="value">15% Annually</span>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <span>&copy; 2026 Urban Infrastructure Planning Department</span>
+            <span>Document ID: PL9-FIN-2026-001</span>
+        </footer>
+    </div>
+
+    <script>
+        const ctx = document.getElementById('budgetChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Construction', 'Utilities', 'Design', 'Contingency', 'Safety'],
+                datasets: [{
+                    data: [1500000, 375000, 250000, 250000, 125000],
+                    backgroundColor: [
+                        'oklch(58% 0.18 255)',
+                        'oklch(70% 0.10 255)',
+                        'oklch(80% 0.05 255)',
+                        'oklch(90% 0.02 255)',
+                        'oklch(50% 0.012 250)'
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            font: {
+                                family: '-apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif',
+                                size: 10
+                            },
+                            usePointStyle: true,
+                            padding: 20
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed !== null) {
+                                    label += new Intl.NumberFormat('it-IT', { style: 'currency', currency: 'EUR' }).format(context.parsed);
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
