@@ -3,9 +3,28 @@
 # ============================================
 /*
 !/Documenti
+!/docs
+!/.github
+!/.github/**
+
+# Inside Documenti/ ignore everything EXCEPT Martina Franca
+/Documenti/*
 !/Documenti/Martina Franca
 !/Documenti/Martina Franca/**
 !/Documenti/Martina Franca/**/*
+
+# Inside Martina Franca, ignore non-PL9 project subfolders (other initiatives)
+/Documenti/Martina Franca/.cursor/
+/Documenti/Martina Franca/.opencode/
+/Documenti/Martina Franca/01_Proposte/
+/Documenti/Martina Franca/02_PistaCiclabile/
+/Documenti/Martina Franca/03_PianoDiMandato/
+/Documenti/Martina Franca/04_Report/
+/Documenti/Martina Franca/05_WebApp/
+/Documenti/Martina Franca/06_SocialKit/
+/Documenti/Martina Franca/07_Immagini/
+/Documenti/Martina Franca/08_Reference/
+/Documenti/Martina Franca/opencode.jsonc
 
 # Python
 __pycache__/
