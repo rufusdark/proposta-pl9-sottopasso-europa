@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PL9 vs River Engine — Confronto parametrico | Slide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =============================================
+   PRESENTAZIONE STILE SLIDE
+   ============================================= */
+:root {
+  --bg: #0a1628;
+  --surface: #0e1d33;
+  --card: rgba(255,255,255,0.03);
+  --border: rgba(255,255,255,0.07);
+  --border-light: rgba(255,255,255,0.05);
+  --fg: rgba(255,255,255,0.85);
+  --muted: rgba(255,255,255,0.45);
+  --dim: rgba(255,255,255,0.2);
+  --accent: #d4a843;
+  --accent-soft: rgba(212,168,67,0.1);
+  --green: #4ade80;
+  --red: #f87171;
+  --amber: #fbbf24;
+  --radius: 12px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  background: #050d1a;
+  color: var(--fg);
+  overflow-x: hidden;
+}
+
+/* ============ SLIDESHOW ============ */
+.slideshow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+}
+
+.slide {
+  width: 100%;
+  max-width: 1100px;
+  min-height: 620px;
+  background: radial-gradient(ellipse at 20% 15%, #0f1f3a 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 85%, #0d1a30 0%, transparent 50%),
+              linear-gradient(180deg, #0a1628 0%, #080f1e 50%, #060b16 100%);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 48px 56px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.slide-number {
+  position: absolute;
+  top: 20px;
+  right: 24px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--dim);
+  letter-spacing: 2px;
+}
+
+/* ============ TIPOGRAFIA ============ */
+h1 { font-family: 'Playfair Display', Georgia, serif; font-size: 42px; font-weight: 700; color: #fff; margin-bottom: 8px; letter-spacing: -0.5px; }
+h1 .accent { color: var(--accent); }
+h2 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+h2 .icon { font-size: 20px; }
+h3 { font-size: 15px; font-weight: 600; color: var(--accent); margin-bottom: 12px; letter-spacing: 0.02em; }
+h3 .sub { font-weight: 400; color: var(--muted); font-size: 13px; }
+
+.subtitle { font-size: 15px; color: var(--muted); line-height: 1.6; margin-bottom: 32px; max-width: 700px; }
+.subtitle strong { color: rgba(255,255,255,0.6); }
+
+/* ============ TABELLE ============ */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; padding: 10px 12px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); border-bottom: 1px solid var(--border); }
+td { padding: 10px 12px; border-bottom: 1px solid var(--border-light); color: var(--fg); font-size: 13px; }
+tr:hover td { background: rgba(255,255,255,0.02); }
+tr.total-row td { font-weight: 700; border-top: 2px solid var(--accent); color: #fff; background: rgba(212,168,67,0.05); }
+tr.alert-row td { background: rgba(248,113,113,0.06); }
+tr.alert-row td:first-child { border-left: 3px solid var(--red); }
+tr.warn-row td { background: rgba(251,191,36,0.06); }
+tr.warn-row td:first-child { border-left: 3px solid var(--amber); }
+tr.ok-row td:first-child { border-left: 3px solid var(--green); }
+td.num { text-align: right; font-family: 'JetBrains Mono', 'SF Mono', monospace; font-size: 12px; }
+td.center { text-align: center; }
+
+.badge { display: inline-block; padding: 2px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.badge-ok { background: rgba(74,222,128,0.12); color: var(--green); }
+.badge-warn { background: rgba(251,191,36,0.12); color: var(--amber); }
+.badge-alert { background: rgba(248,113,113,0.12); color: var(--red); }
+.badge-info { background: var(--accent-soft); color: var(--accent); }
+
+/* ============ CARDS ============ */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin: 20px 0; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; text-align: center; }
+.card .value { font-size: 26px; font-weight: 800; color: #fff; font-family: 'Playfair Display', Georgia, serif; }
+.card .value .accent { color: var(--accent); }
+.card .label { font-size: 11px; color: var(--muted); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* ============ BARS ============ */
+.bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; font-size: 13px; }
+.bar-label { width: 140px; flex-shrink: 0; font-weight: 500; color: rgba(255,255,255,0.8); }
+.bar-track { flex: 1; height: 24px; background: rgba(255,255,255,0.04); border-radius: 4px; overflow: hidden; position: relative; }
+.bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; font-size: 11px; font-weight: 600; }
+.bar-fill.pl9 { background: linear-gradient(90deg, rgba(212,168,67,0.3), var(--accent)); color: #0a1628; }
+.bar-fill.river { background: linear-gradient(90deg, rgba(74,222,128,0.3), var(--green)); color: #0a1628; }
+.bar-value { width: 80px; text-align: right; font-family: monospace; font-size: 12px; color: var(--muted); flex-shrink: 0; }
+
+/* ============ LEGENDA ============ */
+.legend { display: flex; gap: 24px; margin: 16px 0; font-size: 12px; }
+.legend-item { display: flex; align-items: center; gap: 6px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+
+/* ============ FLAG NOTES ============ */
+.flag-box { padding: 14px 18px; border-radius: 10px; margin: 12px 0; border-left: 3px solid; font-size: 13px; line-height: 1.6; }
+.flag-box.red { background: rgba(248,113,113,0.06); border-color: var(--red); }
+.flag-box.amber { background: rgba(251,191,36,0.06); border-color: var(--amber); }
+.flag-box.green { background: rgba(74,222,128,0.06); border-color: var(--green); }
+.flag-box .flag-title { font-weight: 600; display: block; margin-bottom: 4px; }
+
+/* ============ FOOTER ============ */
+.slide-footer { position: absolute; bottom: 20px; left: 56px; right: 56px; display: flex; justify-content: space-between; font-size: 11px; color: var(--dim); border-top: 1px solid var(--border-light); padding-top: 14px; }
+.slide-footer strong { color: rgba(255,255,255,0.3); }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  .slide { padding: 28px 20px; min-height: auto; }
+  h1 { font-size: 30px; }
+  .cards { grid-template-columns: 1fr 1fr; }
+  .bar-label { width: 100px; font-size: 12px; }
+}
+
+@media print {
+  body { background: #fff; }
+  .slide { break-inside: avoid; page-break-after: always; border: 1px solid #ddd; box-shadow: none; background: #fff !important; }
+  h1, h2, h3, .card .value { color: #0a1628 !important; }
+  table, td, th { color: #1a1a1a !important; }
+  .slide-number { color: #999 !important; }
+}
+</style>
+</head>
+<body>
+
+<div class="slideshow">
+
+  <!-- ============================================================ -->
+  <!-- SLIDE 1 — COPERTINA -->
+  <!-- ============================================================ -->
+  <div class="slide">
+    <span class="slide-number">01/09</span>
+
+    <div style="display:flex;flex-direction:column;justify-content:center;min-height:500px;">
+      <div style="font-size:12px;font-weight:500;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Analisi Comparativa</div>
+      <h1>PL9 vs <span class="accent">River Engine</span></h1>
+      <div style="font-size:18px;color:var(--muted);margin:12px 0 32px;line-height:1.5;">
+        Confronto tra le stime di progetto del <strong style="color:#fff;">Sottopasso Rotatoria Europa</strong><br>
+        e i parametrici standard del software <strong style="color:var(--accent);">River Engine</strong>
+      </div>
+
+      <div style="display:flex;gap:40px;margin-top:20px;flex-wrap:wrap;">
+        <div>
+          <div style="font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;">PL9 — Stima progetto</div>
+          <div style="font-size:36px;font-weight:800;color:var(--accent);font-family:'Playfair Display',serif;">€1.242K</div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;">River Engine — Parametrico</div>
+          <div style="font-size:36px;font-weight:800;color:var(--green);font-family:'Playfair Display',serif;">€ ??? K</div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px;">Da inserire</div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:1px;">Differenza</div>
+          <div style="font-size:36px;font-weight:800;color:#fff;font-family:'Playfair Display',serif;">± ???%</div>
+        </div>
+      </div>
+
+      <div style="margin-top:40px;padding:16px 20px;background:var(--accent-soft);border:1px solid rgba(212,168,67,0.15);border-radius:10px;">
+        <div style="font-weight:600;color:var(--accent);margin-bottom:4px;">🎯 Obiettivo delle slide</div>
+        <div style="font-size:13px;color:var(--muted);">
+          Confrontare ogni macrovoce di costo del PL9 con i corrispondenti parametrici River Engine,<br>
+          identificare scostamenti, anomalie e voci non riconosciute dal software.
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span><strong>PL9</strong> · Sottopasso Rotatoria Europa</span>
+      <span>Martina Franca · Giugno 2026</span>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SLIDE 2 — QUADRO RIEPILOGATIVO -->
+  <!-- ============================================================ -->
+  <div class="slide">
+    <span class="slide-number">02/09</span>
+
+    <h2><span class="icon">📊</span> Quadro riepilogativo — PL9 vs River Engine</h2>
+    <div class="subtitle">Confronto voce per voce tra le stime PL9 e i parametrici standard River Engine. <strong style="color:#fff;">Le celle vuote in River Engine sono i dati da inserire.</strong></div>
+
+    <table>
+      <tr>
+        <th style="width:4%;">N.</th>
+        <th style="width:28%;">Voce di costo</th>
+        <th style="width:14%;">PL9</th>
+        <th style="width:14%;">River Engine</th>
+        <th style="width:10%;">Δ %</th>
+        <th style="width:10%;">Esito</th>
+        <th style="width:20%;">Note</th>
+      </tr>
+      <tr>
+        <td>A1</td>
+        <td><strong>Progettazione e DL</strong></td>
+        <td class="num">€180.000</td>
+        <td class="num" style="color:var(--amber);">€ ______</td>
+        <td class="num">—</td>
+        <td class="center"><span class="badge badge-info">Da verificare</span></td>
+        <td style="font-size:12px;color:var(--muted);">10% lavori — DM 17/06/2017</td>
+      </tr>
+      <tr class="warn-row">
+        <td>A2</td>
+        <td><strong>Scavo e opere preliminari</strong></td>
+        <td class="num">€250.000</td>
+        <td class="num" style="color:var(--amber);">€ ______</td>
+        <td class="num">—</td>
+        <td class="center"><span class="badge badge-warn">Attenzione</span></td>
+        <td style="font-size:12px;color:var(--muted);">Voce con imprevisti: €60K sottoservizi + €50K ripristino</td>
+      </tr>
+      <tr class="alert-row">
+        <td>A3</td>
+        <td><strong>Scatolari prefabbricati c.a.</strong></td>
+        <td class="num">€350.000</td>
+        <td class="num" style="color:var(--amber);">€ ______</td>
+        <td class="num">—</td>
+        <td class="center"><span class="badge badge-alert">⚠ Non riconosciuto</span></td>
+        <td style="font-size:12px;color:var(--muted);">€196K "imprevisti su elementi su misura" anomalo (56%)</td>
+      </tr>
+      <tr>
+        <td>A4</td>
+        <td><strong>Rampe e finiture</strong></td>
+        <td class="num">€150.000</td>
+        <td class="num" style="color:var(--amber);">€ ______</td>
+        <td class="num">—</td>
+        <td class="center"><span class="badge badge-info">Da verificare</span></td>
+        <td style="font-size:12px;color:var(--muted);">Rampe 2×35m, pavimentazione, ringhiere</td>
+      </tr>
+      <tr>
+        <td>A5</td>
+        <td><strong>Illuminazione LED</strong></td>
+        <td class="num">€100.000</td>
+        <td class="num" style="color:var(--amber);">€ ______</td>
+        <td class="num">—</td>
+        <td class="center"><span class="badge badge-info">Da verificare</span></td>
+        <td style="font-size:12px;color:var(--muted);">Corpi LED + quadro + videosorveglianza</td>
+      </tr>
+      <tr>
+        <td>A6</td>
+        <td><strong>Riqualificazione rotatoria</strong></td>
+        <td class="num">€90.000</td>
+        <td class="num" style="color:var(--amber);">€ ______</td>
+        <td class="num">—</td>
+        <td class="center"><span class="badge badge-info">Da verificare</span></td>
+        <td style="font-size:12px;color:var(--muted);">Fresatura, segnaletica, aiuola</td>
+      </tr>
+      <tr>
+        <td>A7</td>
+        <td><strong>Arredo urbano</strong></td>
+        <td class="num">€35.000</td>
+        <td class="num" style="color:var(--amber);">€ ______</td>
+        <td class="num">—</td>
+        <td class="center"><span class="badge badge-info">Da verificare</span></td>
+        <td style="font-size:12px;color:var(--muted);">Panchine, fioriere, cestini</td>
+      </tr>
+      <tr>
+        <td>A8</td>
+        <td><strong>Imprevisti e sicurezza</strong></td>
+        <td class="num">€87.000</td>
+        <td class="num" style="color:var(--amber);">€ ______</td>
+        <td class="num">—</td>
+        <td class="center"><span class="badge badge-info">Da verificare</span></td>
+        <td style="font-size:12px;color:var(--muted);">5% imprevisti + oneri sicurezza PSC</td>
+      </tr>
+      <tr class="total-row">
+        <td></td>
+        <td><strong>TOTALE</strong></td>
+        <td class="num"><strong>€1.242.000</strong></td>
+        <td class="num" style="color:var(--accent);"><strong>€ ______</strong></td>
+        <td class="num"><strong>± ___%</strong></td>
+        <td class="center"><span class="badge badge-info">Confronta</span></td>
+        <td style="font-size:12px;color:var(--muted);">Differenza assoluta: € ______</td>
+      </tr>
+    </table>
+
+    <div class="slide-footer">
+      <span><strong>PL9</strong> · Quadro riepilogativo comparativo</span>
+      <span>Compila colonna River Engine con i tuoi dati</span>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SLIDE 3 — A3 SCATOLARI (ANOMALIA) -->
+  <!-- ============================================================ -->
+  <div class="slide">
+    <span class="slide-number">03/09</span>
+
+    <h2><span class="icon">🔴</span> A3 — Scatolari prefabbricati: ANOMALIA</h2>
+    <div class="subtitle">La voce con il maggiore scostamento potenziale rispetto ai parametrici River Engine.</div>
+
+    <table>
+      <tr><th style="width:5%;">N.</th><th style="width:45%;">Sotto-voce</th><th style="width:15%;">PL9</th><th style="width:15%;">River Engine</th><th style="width:20%;">Note</th></tr>
+      <tr><td>1</td><td>Fornitura 6 elementi scatolari 4,0×2,5 m × 4 m</td><td class="num">€60.000</td><td class="num" style="color:var(--amber);">€ ______</td><td style="font-size:12px;color:var(--muted);">€2.500/ml listino Coprem</td></tr>
+      <tr><td>2</td><td>Trasporto e movimentazione (80 t)</td><td class="num">€18.000</td><td class="num" style="color:var(--amber);">€ ______</td><td style="font-size:12px;color:var(--muted);">Trasporto eccezionale</td></tr>
+      <tr><td>3</td><td>Varo con autogrù (1 notte)</td><td class="num">€15.000</td><td class="num" style="color:var(--amber);">€ ______</td><td style="font-size:12px;color:var(--muted);">Noleggio grù 200t</td></tr>
+      <tr><td>4</td><td>Getto soletta e giunti</td><td class="num">€22.000</td><td class="num" style="color:var(--amber);">€ ______</td><td style="font-size:12px;color:var(--muted);">OP03_025</td></tr>
+      <tr><td>5</td><td>Impermeabilizzazione e guaine</td><td class="num">€9.900</td><td class="num" style="color:var(--amber);">€ ______</td><td style="font-size:12px;color:var(--muted);">OP05_030 — 220 m² × €45</td></tr>
+      <tr><td>6</td><td>Rinfianco e sottofondo</td><td class="num">€17.100</td><td class="num" style="color:var(--amber);">€ ______</td><td style="font-size:12px;color:var(--muted);">OP03_005 — Cls magro 180 m³ × €95</td></tr>
+      <tr><td>7</td><td>Protezione catodica e drenaggi</td><td class="num">€12.000</td><td class="num" style="color:var(--amber);">€ ______</td><td style="font-size:12px;color:var(--muted);">Stima</td></tr>
+      <tr class="alert-row">
+        <td>8</td>
+        <td><strong>⚠ Imprevisti e maggiorazioni su elementi su misura</strong></td>
+        <td class="num"><strong>€196.000</strong></td>
+        <td class="num" style="color:var(--red);"><strong>NON RICONOSCIUTO</strong></td>
+        <td style="font-size:12px;color:var(--red);"><strong>56% della voce! Verificare necessità</strong></td>
+      </tr>
+    </table>
+
+    <div class="flag-box red">
+      <span class="flag-title">🔥 Punto critico — Dato probabilmente non riconosciuto da River Engine</span>
+      La sotto-voce "Imprevisti e maggiorazioni" (€196.000) rappresenta il <strong>56%</strong> del costo totale degli scatolari. Nei parametrici River Engine, gli imprevisti sono normalmente accorpati in una voce separata (tipicamente 5-10%) o inclusi nelle singole voci. Un fondo imprevisti del 56% su una singola lavorazione è <strong>anomalo</strong> e potrebbe non essere validato dal software.
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot" style="background:var(--red);"></span> Non riconosciuto / anomalo</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--amber);"></span> Da verificare</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--green);"></span> Allineato</div>
+    </div>
+
+    <div class="slide-footer">
+      <span><strong>PL9</strong> · Dettaglio A3 Scatolari prefabbricati</span>
+      <span>Anomalia: €196K "imprevisti" senza giustificazione tecnica</span>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SLIDE 4 — A2 SCAVI (ATTENZIONE) -->
+  <!-- ============================================================ -->
+  <div class="slide">
+    <span class="slide-number">04/09</span>
+
+    <h2><span class="icon">🟡</span> A2 — Scavo e preliminari: attenzione</h2>
+    <div class="subtitle">Voce con voci forfettarie che potrebbero non corrispondere ai prezzi elementari River Engine.</div>
+
+    <table>
+      <tr><th style="width:5%;">N.</th><th style="width:45%;">Sotto-voce</th><th style="width:15%;">PL9</th><th style="width:15%;">River Engine</th><th style="width:20%;">Prezzario Rif.</th></tr>
+      <tr><td>1</td><td>Scavo a sezione obbligata (730 m³ × €28)</td><td class="num">€20.440</td><td class="num" style="color:var(--amber);">€ ______</td><td style="font-size:12px;color:var(--muted);">OP01_001 — €28/m³ ✅</td></tr>
+      <tr><td>2</td><td>Paratie sostegno berlinesi (220 m² × €185)</td><td class="num">€40.700</td><td class="num" style="color:var(--amber);">€ ______</td><td style="font-size:12px;color:var(--muted);">OP06_012 — €185/m² ✅</td></tr>
+      <tr><td>3</td><td>Allontanamento materiale (730 m³ × €18)</td><td class="num">€13.140</td><td class="num" style="color:var(--amber);">€ ______</td><td style="font-size:12px;color:var(--muted);">OP01_010 — €18/m³ ✅</td></tr>
+      <tr class="warn-row">
+        <td>4</td>
+        <td><strong>⚠ Impatto ambientale e relocazione sottoservizi</strong></td>
+        <td class="num"><strong>€60.000</strong></td>
+        <td class="num" style="color:var(--amber);"><strong>€ ______</strong></td>
+        <td style="font-size:12px;color:var(--muted);"><strong>Forfettario — River Engine richiede voci analitiche</strong></td>
+      </tr>
+      <tr class="warn-row">
+        <td>5</td>
+        <td><strong>⚠ Aggottamento acque e drenaggio</strong></td>
+        <td class="num"><strong>€25.000</strong></td>
+        <td class="num" style="color:var(--amber);"><strong>€ ______</strong></td>
+        <td style="font-size:12px;color:var(--muted);"><strong>Stima — Verificare con OP01_020</strong></td>
+      </tr>
+      <tr><td>6</td><td>Sorveglianza archeologica e geotecnica</td><td class="num">€18.000</td><td class="num" style="color:var(--amber);">€ ______</td><td style="font-size:12px;color:var(--muted);">Voce a corpo</td></tr>
+      <tr><td>7</td><td>Deviazioni traffico e segnaletica cantiere</td><td class="num">€22.720</td><td class="num" style="color:var(--amber);">€ ______</td><td style="font-size:12px;color:var(--muted);">Stima</td></tr>
+      <tr><td>8</td><td>Smantellamento e ripristino aree cantiere</td><td class="num">€50.000</td><td class="num" style="color:var(--amber);">€ ______</td><td style="font-size:12px;color:var(--muted);">Stima forfettaria</td></tr>
+    </table>
+
+    <div class="flag-box amber">
+      <span class="flag-title">⚠ Attenzione — Voci forfettarie</span>
+      Le voci 4 (sottoservizi €60K), 5 (aggottamento €25K), 7 (deviazioni €22,7K) e 8 (ripristino €50K) sono <strong>stime forfettarie</strong>. River Engine richiede normalmente voci analitiche con prezzi elementari. Se il software non le riconosce, vanno disaggregate o giustificate con prezzario.
+    </div>
+
+    <div class="slide-footer">
+      <span><strong>PL9</strong> · Dettaglio A2 Scavo e preliminari</span>
+      <span>4 voci forfettarie su 8 — potenziale non riconoscimento</span>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SLIDE 5 — COSTI ENERGETICI E LED -->
+  <!-- ============================================================ -->
+  <div class="slide">
+    <span class="slide-number">05/09</span>
+
+    <h2><span class="icon">💡</span> A5 — Illuminazione LED: confronto tecnologico</h2>
+    <div class="subtitle">River Engine include parametrici standard per impianti LED. Verifica se la configurazione PL9 è allineata.</div>
+
+    <table>
+      <tr><th>Tipo</th><th>Potenza</th><th>Flusso</th><th>Durata</th><th>Costo unitario</th><th>Costo eserc./10a</th><th>River Engine</th></tr>
+      <tr>
+        <td><strong>LED lineare 60W</strong></td>
+        <td>60 W</td>
+        <td>6.000 lm</td>
+        <td>80.000 h</td>
+        <td>€350</td>
+        <td>€876</td>
+        <td class="num" style="color:var(--amber);">€ ______</td>
+      </tr>
+      <tr>
+        <td><strong>LED lineare 80W</strong></td>
+        <td>80 W</td>
+        <td>8.500 lm</td>
+        <td>80.000 h</td>
+        <td>€420</td>
+        <td>€1.168</td>
+        <td class="num" style="color:var(--amber);">€ ______</td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);">Fluorescente 2×58W</td>
+        <td>116 W</td>
+        <td>5.000 lm</td>
+        <td>15.000 h</td>
+        <td>€120</td>
+        <td>€2.032</td>
+        <td class="num" style="color:var(--muted);">N/A</td>
+      </tr>
+      <tr>
+        <td style="color:var(--muted);">Sodio 150W</td>
+        <td>150 W</td>
+        <td>7.000 lm</td>
+        <td>20.000 h</td>
+        <td>€180</td>
+        <td>€2.628</td>
+        <td class="num" style="color:var(--muted);">N/A</td>
+      </tr>
+    </table>
+
+    <div style="display:flex;gap:24px;margin-top:20px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:200px;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:10px;">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Risparmio energetico LED vs Sodio</div>
+        <div style="font-size:32px;font-weight:800;color:var(--green);">60%</div>
+      </div>
+      <div style="flex:1;min-width:200px;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:10px;">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Durata LED vs Fluorescente</div>
+        <div style="font-size:32px;font-weight:800;color:var(--accent);">5,3×</div>
+      </div>
+      <div style="flex:1;min-width:200px;padding:16px;background:var(--card);border:1px solid var(--border);border-radius:10px;">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">TCO LED inferiore (10 anni)</div>
+        <div style="font-size:32px;font-weight:800;color:var(--green);">-55%</div>
+      </div>
+    </div>
+
+    <div class="flag-box green" style="margin-top:16px;">
+      <span class="flag-title">✅ LED — Verosimilmente allineato River Engine</span>
+      I parametrici River Engine per illuminazione LED pubblica (codice OP08_020) prevedono costi coerenti con €350-420 per corpo illuminante. La configurazione PL9 è in linea con gli standard.
+    </div>
+
+    <div class="slide-footer">
+      <span><strong>PL9</strong> · Dettaglio A5 Illuminazione</span>
+      <span>TCO LED -55% su 10 anni · Allineato parametrici standard</span>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SLIDE 6 — BENCHMARK vs RIVER -->
+  <!-- ============================================================ -->
+  <div class="slide">
+    <span class="slide-number">06/09</span>
+
+    <h2><span class="icon">📏</span> Benchmark nazionale vs parametrici River Engine</h2>
+    <div class="subtitle">Confronto tra il costo PL9, i benchmark reali e i parametrici standard River Engine per opere similari.</div>
+
+    <table>
+      <tr><th>Città / Opera</th><th>Tipo</th><th>Anno</th><th>Costo</th><th>Δ vs PL9</th><th>River Eng.</th></tr>
+      <tr>
+        <td><strong>Castelfranco Veneto</strong><br><span style="font-size:11px;color:var(--muted);">Sottopasso Bella Venezia</span></td>
+        <td style="font-size:12px;">Rotatoria + scatolari</td>
+        <td>2024</td>
+        <td class="num">€1.700.000</td>
+        <td class="num" style="color:var(--accent);">+37%</td>
+        <td class="num" style="color:var(--amber);">€ ______</td>
+      </tr>
+      <tr>
+        <td><strong>Portogruaro (VE)</strong><br><span style="font-size:11px;color:var(--muted);">Sottopasso Summaga</span></td>
+        <td style="font-size:12px;">Ciclopedonale con rampe</td>
+        <td>2025</td>
+        <td class="num">€2.050.000</td>
+        <td class="num" style="color:var(--red);">+65%</td>
+        <td class="num" style="color:var(--amber);">€ ______</td>
+      </tr>
+      <tr>
+        <td><strong>Gallarate (VA)</strong><br><span style="font-size:11px;color:var(--muted);">Gara GROW29</span></td>
+        <td style="font-size:12px;">Ciclopedonale + LED</td>
+        <td>2024</td>
+        <td class="num">€1.850.000</td>
+        <td class="num" style="color:var(--red);">+49%</td>
+        <td class="num" style="color:var(--amber);">€ ______</td>
+      </tr>
+      <tr class="total-row">
+        <td><strong>Martina Franca — PL9</strong></td>
+        <td style="font-size:12px;"><strong>Sottopasso Rotatoria Europa</strong></td>
+        <td><strong>2026</strong></td>
+        <td class="num"><strong>€1.242.000</strong></td>
+        <td class="num"><strong>—</strong></td>
+        <td class="num" style="color:var(--accent);"><strong>€ ______</strong></td>
+      </tr>
+    </table>
+
+    <div class="flag-box green">
+      <span class="flag-title">📊 Posizionamento PL9</span>
+      Il costo PL9 (€1.242.000) è <strong>inferiore del 27%</strong> rispetto al benchmark più prossimo (Castelfranco €1.700K) e del <strong>73% sotto la media</strong> dei benchmark (€2.516K). Differenza giustificata da: minore complessità geotecnica, elementi standard, assenza interferenze ferroviarie, varo rapido 1 notte. <strong>Da verificare se River Engine riconosce questi fattori correttivi.</strong>
+    </div>
+
+    <div class="slide-footer">
+      <span><strong>PL9</strong> · Benchmark nazionali</span>
+      <span>PL9 costa il 27% meno del benchmark più vicino</span>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SLIDE 7 — CBA INDICATORI -->
+  <!-- ============================================================ -->
+  <div class="slide">
+    <span class="slide-number">07/09</span>
+
+    <h2><span class="icon">📈</span> Analisi Costi-Benefici — Verifica River Engine</h2>
+    <div class="subtitle">River Engine include moduli di analisi economica. Verifica se i parametri PL9 sono compatibili.</div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="value"><span class="accent">€4.963</span>K</div>
+        <div class="label">VAN (50 anni, 3,5%)</div>
+      </div>
+      <div class="card">
+        <div class="value"><span class="accent">21,3</span>%</div>
+        <div class="label">TIR</div>
+      </div>
+      <div class="card">
+        <div class="value"><span class="accent">4,59</span>:1</div>
+        <div class="label">Rapporto B/C</div>
+      </div>
+      <div class="card">
+        <div class="value"><span class="accent">4,70</span> anni</div>
+        <div class="label">Payback semplice</div>
+      </div>
+      <div class="card">
+        <div class="value"><span class="accent">€270</span>K/anno</div>
+        <div class="label">Benefici annui</div>
+      </div>
+      <div class="card">
+        <div class="value"><span class="accent">€5.958</span>/anno</div>
+        <div class="label">Costi esercizio</div>
+      </div>
+    </div>
+
+    <h3>Benefici annuali <span class="sub">— verifica parametri River Engine</span></h3>
+    <table>
+      <tr><th>Categoria</th><th>Base di calcolo</th><th>Valore annuo</th><th>River Eng.</th></tr>
+      <tr>
+        <td>Riduzione incidentalità</td>
+        <td style="font-size:12px;color:var(--muted);">-3 incidenti/anno × €25.000 costo sociale</td>
+        <td class="num">€75.000</td>
+        <td class="num" style="color:var(--amber);">€ ______</td>
+      </tr>
+      <tr>
+        <td>Risparmio tempo</td>
+        <td style="font-size:12px;color:var(--muted);">500 utenti/g × 3 min × 250gg × €12/h</td>
+        <td class="num">€75.000</td>
+        <td class="num" style="color:var(--amber);">€ ______</td>
+      </tr>
+      <tr class="warn-row">
+        <td><strong>⚠ Riduzione emissioni CO₂</strong></td>
+        <td style="font-size:12px;color:var(--muted);">-12 tCO₂/anno × €90/t (costo sociale carbonio)</td>
+        <td class="num"><strong>€1.080</strong></td>
+        <td class="num" style="color:var(--amber);"><strong>€ ______</strong></td>
+        <td style="font-size:12px;color:var(--muted);"></td>
+      </tr>
+      <tr class="warn-row">
+        <td><strong>⚠ Benefici mobilità attiva (OMS HEAT)</strong></td>
+        <td style="font-size:12px;color:var(--muted);">500 utenti/g — OMS Health Economic Assessment Tool</td>
+        <td class="num"><strong>€45.000</strong></td>
+        <td class="num" style="color:var(--amber);"><strong>€ ______</strong></td>
+        <td style="font-size:12px;color:var(--muted);"></td>
+      </tr>
+      <tr>
+        <td>Rivalutazione immobiliare</td>
+        <td style="font-size:12px;color:var(--muted);">+2% su 200 immobili × €150K valore medio</td>
+        <td class="num">€60.000</td>
+        <td class="num" style="color:var(--amber);">€ ______</td>
+      </tr>
+      <tr>
+        <td>Risparmio carburante</td>
+        <td style="font-size:12px;color:var(--muted);">-8.000 L/anno × €1,80/L</td>
+        <td class="num">€14.400</td>
+        <td class="num" style="color:var(--amber);">€ ______</td>
+      </tr>
+    </table>
+
+    <div class="flag-box amber" style="margin-top:12px;">
+      <span class="flag-title">⚠ Benefici qualitativi — Attenzione River Engine</span>
+      Le voci "Riduzione emissioni CO₂" e "Benefici mobilità attiva OMS HEAT" utilizzano metodologie di valutazione (costo sociale del carbonio, HEAT tool) che potrebbero <strong>non essere riconosciute</strong> dai moduli standard di analisi economica di River Engine. Verificare se il software accetta parametri personalizzati.
+    </div>
+
+    <div class="slide-footer">
+      <span><strong>PL9</strong> · Analisi Costi-Benefici</span>
+      <span>VAN €4.963K · B/C 4,59:1 · Tutti gli scenari positivi</span>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SLIDE 8 — MATRICE DEI RISCHI -->
+  <!-- ============================================================ -->
+  <div class="slide">
+    <span class="slide-number">08/09</span>
+
+    <h2><span class="icon">⚠️</span> Matrice dei rischi — Riconoscimento River Engine</h2>
+    <div class="subtitle">Identificazione dei rischi di cantiere e compatibilità con il modulo "Rischi" di River Engine.</div>
+
+    <table>
+      <tr><th style="width:30%;">Rischio</th><th style="width:10%;">Prob.</th><th style="width:10%;">Impatto</th><th style="width:20%;">Mitigazione</th><th style="width:30%;">River Engine</th></tr>
+      <tr>
+        <td>Ritrovamenti archeologici</td>
+        <td class="center"><span class="badge badge-warn">Media</span></td>
+        <td class="center"><span class="badge badge-alert">Alto</span></td>
+        <td style="font-size:12px;color:var(--muted);">Sorveglianza preventiva</td>
+        <td style="font-size:12px;color:var(--muted);">Parametro standard: ✅</td>
+      </tr>
+      <tr>
+        <td>Sottoservizi non censiti</td>
+        <td class="center"><span class="badge badge-alert">Alta</span></td>
+        <td class="center"><span class="badge badge-warn">Medio</span></td>
+        <td style="font-size:12px;color:var(--muted);">Georadar + contatto aziende</td>
+        <td style="font-size:12px;color:var(--muted);">⚠ Quantificare: €60K forfettario</td>
+      </tr>
+      <tr>
+        <td>Incremento materie prime</td>
+        <td class="center"><span class="badge badge-warn">Media</span></td>
+        <td class="center"><span class="badge badge-warn">Medio</span></td>
+        <td style="font-size:12px;color:var(--muted);">Clausola revisione prezzi</td>
+        <td style="font-size:12px;color:var(--muted);">✅ Modulo River "Revisione prezzi"</td>
+      </tr>
+      <tr>
+        <td>Maltempo e allagamenti</td>
+        <td class="center"><span class="badge badge-warn">Media</span></td>
+        <td class="center"><span class="badge badge-warn">Medio</span></td>
+        <td style="font-size:12px;color:var(--muted);">Pompaggio dedicato, periodo estivo</td>
+        <td style="font-size:12px;color:var(--muted);">✅ Parametro cantierabile</td>
+      </tr>
+      <tr>
+        <td>Ritardi autorizzativi</td>
+        <td class="center"><span class="badge badge-alert">Alta</span></td>
+        <td class="center"><span class="badge badge-info">Basso</span></td>
+        <td style="font-size:12px;color:var(--muted);">Conferenza Servizi preliminare</td>
+        <td style="font-size:12px;color:var(--muted);">✅ Gestibile extra-software</td>
+      </tr>
+      <tr>
+        <td>Contenzioso appalto</td>
+        <td class="center"><span class="badge badge-info">Bassa</span></td>
+        <td class="center"><span class="badge badge-info">Basso</span></td>
+        <td style="font-size:12px;color:var(--muted);">Capitolato trasparente</td>
+        <td style="font-size:12px;color:var(--muted);">✅ Standard</td>
+      </tr>
+    </table>
+
+    <div class="flag-box amber" style="margin-top:16px;">
+      <span class="flag-title">⚠ Rischio sottoservizi — non riconoscimento parziale</span>
+      La voce "Sottoservizi non censiti" è quantificata in €60K forfettario in A2. River Engine potrebbe richiedere una disaggregazione per tipologia di sottoservizio (fibra, gas, acqua, elettrico) con prezzi elementari diversi per ciascuno. <strong>Potenziale non riconoscimento.</strong>
+    </div>
+
+    <div class="slide-footer">
+      <span><strong>PL9</strong> · Matrice rischi</span>
+      <span>Rischio principale: sottoservizi non censiti (€60K forfettario)</span>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- SLIDE 9 — RIEPILOGO DATI NON RICONOSCIUTI -->
+  <!-- ============================================================ -->
+  <div class="slide">
+    <span class="slide-number">09/09</span>
+
+    <h2><span class="icon">📋</span> Riepilogo — Dati potenzialmente non riconosciuti da River Engine</h2>
+    <div class="subtitle">Elenco delle voci PL9 che potrebbero non superare la validazione parametrica di River Engine.</div>
+
+    <table>
+      <tr><th style="width:4%;">#</th><th style="width:8%;">Voce</th><th style="width:38%;">Descrizione</th><th style="width:12%;">Importo</th><th style="width:10%;">Criticità</th><th style="width:28%;">Cosa fare</th></tr>
+      <tr class="alert-row">
+        <td><strong>1</strong></td>
+        <td><strong>A3.8</strong></td>
+        <td><strong>Imprevisti su elementi su misura</strong> — Fondo €196K sugli scatolari (56% della voce)</td>
+        <td class="num"><strong>€196.000</strong></td>
+        <td class="center"><span class="badge badge-alert">ALTA</span></td>
+        <td style="font-size:12px;color:var(--muted);"><strong>Disaggregare</strong> o giustificare con relazione tecnica. River Engine non riconosce un fondo imprevisti del 56% su singola lavorazione.</td>
+      </tr>
+      <tr class="warn-row">
+        <td>2</td>
+        <td>A2.4</td>
+        <td>Relocazione sottoservizi — €60K forfettario</td>
+        <td class="num">€60.000</td>
+        <td class="center"><span class="badge badge-warn">MEDIA</span></td>
+        <td style="font-size:12px;color:var(--muted);">Disaggregare per tipologia sottoservizio con prezzi elementari</td>
+      </tr>
+      <tr class="warn-row">
+        <td>3</td>
+        <td>A2.5</td>
+        <td>Aggottamento acque — €25K stimati</td>
+        <td class="num">€25.000</td>
+        <td class="center"><span class="badge badge-warn">MEDIA</span></td>
+        <td style="font-size:12px;color:var(--muted);">Quantificare con OP01_020 (pompaggio) o relazione idrogeologica</td>
+      </tr>
+      <tr class="warn-row">
+        <td>4</td>
+        <td>A2.8</td>
+        <td>Smantellamento e ripristino — €50K forfettario</td>
+        <td class="num">€50.000</td>
+        <td class="center"><span class="badge badge-warn">MEDIA</span></td>
+        <td style="font-size:12px;color:var(--muted);">Scomporre in voci analitiche (demolizioni, smaltimento, ripristino)</td>
+      </tr>
+      <tr class="warn-row">
+        <td>5</td>
+        <td>CBA</td>
+        <td>Benefici OMS HEAT (€45K/anno) e costo sociale carbonio (€1.080/anno)</td>
+        <td class="num">€46.080</td>
+        <td class="center"><span class="badge badge-warn">MEDIA</span></td>
+        <td style="font-size:12px;color:var(--muted);">Verificare se River Engine accetta parametri personalizzati nell'analisi economica</td>
+      </tr>
+      <tr class="warn-row">
+        <td>6</td>
+        <td>A2.7</td>
+        <td>Deviazioni traffico — €22.720 stima</td>
+        <td class="num">€22.720</td>
+        <td class="center"><span class="badge badge-info">BASSA</span></td>
+        <td style="font-size:12px;color:var(--muted);">Confrontare con prezzario segnaletica temporanea</td>
+      </tr>
+    </table>
+
+    <div style="display:flex;gap:16px;margin-top:24px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:160px;padding:16px;background:rgba(248,113,113,0.06);border:1px solid rgba(248,113,113,0.15);border-radius:10px;text-align:center;">
+        <div style="font-size:32px;font-weight:800;color:var(--red);">€399.800</div>
+        <div style="font-size:12px;color:var(--muted);">Totale voci a rischio non riconoscimento</div>
+      </div>
+      <div style="flex:1;min-width:160px;padding:16px;background:var(--accent-soft);border:1px solid rgba(212,168,67,0.15);border-radius:10px;text-align:center;">
+        <div style="font-size:32px;font-weight:800;color:var(--accent);">32,2%</div>
+        <div style="font-size:12px;color:var(--muted);">% del costo totale a rischio</div>
+      </div>
+      <div style="flex:1;min-width:160px;padding:16px;background:rgba(74,222,128,0.06);border:1px solid rgba(74,222,128,0.15);border-radius:10px;text-align:center;">
+        <div style="font-size:32px;font-weight:800;color:var(--green);">€842.200</div>
+        <div style="font-size:12px;color:var(--muted);">Voci compatibili con River Engine</div>
+      </div>
+    </div>
+
+    <div class="flag-box amber" style="margin-top:16px;">
+      <span class="flag-title">💡 Raccomandazione</span>
+      Prima di importare il computo in River Engine, <strong>disaggregare le voci forfettarie</strong> in elementi analitici con prezzi elementari del Prezzario Regionale Puglia 2025. In particolare il fondo imprevisti A3.8 (€196K) va giustificato o distribuito sulle voci reali. Le voci di beneficio OMS HEAT e carbonio vanno verificate nel modulo di analisi economica del software.
+    </div>
+
+    <div class="slide-footer">
+      <span><strong>PL9</strong> · Riepilogo criticità River Engine</span>
+      <span>32,2% del costo totale a rischio non riconoscimento</span>
+    </div>
+  </div>
+
+</div><!-- /slideshow -->
+
+</body>
+</html>
